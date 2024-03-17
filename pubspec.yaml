@@ -1,0 +1,91 @@
+name: cubik_club
+description: "Project for club Cubik"
+
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+#---------------- PACKAGES -----------------#
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Utility packages #
+  pin_code_fields: ^8.0.1
+  http: ^1.1.0
+  shared_preferences: ^2.2.2
+  # intl: ^0.19.0
+  # logger: ^2.0.1
+  # url_launcher: ^6.1.12
+  flutter_native_splash: ^2.3.9
+  smooth_page_indicator: ^1.1.0
+  provider: ^6.1.1
+
+  # Icons #
+
+
+  # State Management #
+
+
+  # Product Specific# 
+
+#---------------- ./ PACKAGES END -----------------#
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+
+  uses-material-design: true
+
+#---------------- LOCAL ASSETS -----------------#
+
+  assets:
+    - assets/logos/brand/
+    - assets/icons/
+    - assets/images/onboarding_images/
+    - assets/images/auth_images/
+    # - assets/images/2x/
+    # - assets/images/3x/
+
+#---------------- LOCAL FONTS -----------------#
+
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/Roboto-ThinItalic.ttf
+          weight: 100
+          style: italic
+        - asset: assets/fonts/Roboto-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Roboto-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Roboto-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Roboto-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/Roboto-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Roboto-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Roboto-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Roboto-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Roboto-Black.ttf
+          weight: 900
+        - asset: assets/fonts/Roboto-BlackItalic.ttf
+          weight: 900
+          style: italic
