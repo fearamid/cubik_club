@@ -1,6 +1,6 @@
 # cubik_club
 
-A new Flutter project.
+The app for board games club
 
 ## Getting Started
 

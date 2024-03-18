@@ -7,7 +7,7 @@ import 'package:cubik_club/domain/services/auth_service.dart';
 import 'package:cubik_club/features/authentication/screens/login/widgets/login_with.dart';
 import 'package:cubik_club/utils/constants/image_strings.dart';
 import 'package:cubik_club/utils/constants/texts.dart';
-// import 'package:cubik_club/utils/formatters/ru_phone_input_formatter.dart';
+import 'package:cubik_club/utils/formatters/ru_phone_input_formatter.dart';
 
 enum _ViewModelAuthButonState { canSubmit, authProcess, disable }
 
@@ -58,6 +58,7 @@ class _ViewModel extends ChangeNotifier {
 
   void _showSnackBar(BuildContext context, {String message = ''}) {
     final snackBar = SnackBar(
+        duration: const Duration(seconds: 2),
         content: Text(message.isNotEmpty ? message : state.authErrorText));
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -114,7 +115,6 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Remove this and AuthPageTemplate overengeeniring
     final viewModel = context.read<_ViewModel>();
     final authButtonState =
         context.select((_ViewModel value) => value.state.authButtonState);
@@ -129,12 +129,22 @@ class LoginScreen extends StatelessWidget {
         child: AuthPageTemplate(
           image: CCImages.loginImage,
           title: CCTexts.loginHeaderTitle,
-          subTitle: CCTexts.loginHeaderSubTitle,
-          onFirstPressed: () => viewModel.onAccounCreateButtonPressed(context),
-          onSecondPressed: onAuthButtonPressed,
+          subtitle: CCTexts.loginHeaderSubTitle,
           isActionsHorizontal: false,
-          firstActionTitle: 'Создать аккаунт',
-          secondActionTitle: 'Войти',
+          mainAction: ElevatedButton(
+            onPressed: onAuthButtonPressed,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minWidth: double.infinity),
+              child: const Text("Войти", textAlign: TextAlign.center),
+            ),
+          ),
+          optionalAction: OutlinedButton(
+            onPressed: () => viewModel.onAccounCreateButtonPressed(context),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minWidth: double.infinity),
+              child: const Text("Создать аккаунт", textAlign: TextAlign.center),
+            ),
+          ),
           marginBodyBottom: 40,
           body: [
             TextField(

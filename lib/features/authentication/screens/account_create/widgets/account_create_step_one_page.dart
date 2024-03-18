@@ -21,11 +21,22 @@ class AccountCreateStepOnePage extends StatelessWidget {
       child: AuthPageTemplate(
         image: CCImages.accountCreateStep1,
         title: CCTexts.accountCreateStep1Title,
-        subTitle: CCTexts.accountCreateStep1SubTitle,
-        isActionsHorizontal: true,
-        onFirstPressed: () => viewModel.onOptionalButtonPressed(context),
-        onSecondPressed: () =>
-            viewModel.onMainButtonPressed(currentStep: AccountCreateSteps.one),
+        subtitle: CCTexts.accountCreateStep1SubTitle,
+        mainAction: ElevatedButton(
+          onPressed: () => viewModel.onMainButtonPressed(
+              currentStep: AccountCreateSteps.one),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minWidth: double.infinity),
+            child: const Text("Далее", textAlign: TextAlign.center),
+          ),
+        ),
+        optionalAction: OutlinedButton(
+          onPressed: () => viewModel.onOptionalButtonPressed(context),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minWidth: double.infinity),
+            child: const Text("Назад", textAlign: TextAlign.center),
+          ),
+        ),
         body: [
           TextField(
             controller: viewModel.nameController,

@@ -21,10 +21,22 @@ class AccountCreateStepThreePage extends StatelessWidget {
       child: AuthPageTemplate(
         image: CCImages.accountCreateStep3,
         title: CCTexts.accountCreateStep3Title,
-        subTitle: CCTexts.accountCreateStep3SubTitle,
-        onFirstPressed: () => viewModel.onOptionalButtonPressed(context),
-        onSecondPressed: () => viewModel.onMainButtonPressed(
-            currentStep: AccountCreateSteps.three),
+        subtitle: CCTexts.accountCreateStep3SubTitle,
+        mainAction: ElevatedButton(
+          onPressed: () => viewModel.onMainButtonPressed(
+              currentStep: AccountCreateSteps.three),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minWidth: double.infinity),
+            child: const Text("Далее", textAlign: TextAlign.center),
+          ),
+        ),
+        optionalAction: OutlinedButton(
+          onPressed: () => viewModel.onOptionalButtonPressed(context),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minWidth: double.infinity),
+            child: const Text("Назад", textAlign: TextAlign.center),
+          ),
+        ),
         body: [
           TextField(
             controller: viewModel.phoneNumberController,

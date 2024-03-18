@@ -42,7 +42,9 @@ class PasswordInputFormatter extends TextInputFormatter {
 
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
+      // TODO: fix cursor jump (если вводишь середине текста, то перескакивает в конец)
+      TextEditingValue oldValue,
+      TextEditingValue newValue) {
     final regExp = RegExp(r'[^a-zA-Z\d_.!()]', unicode: true);
     final clearText = newValue.text.replaceAll(regExp, '');
     final value =

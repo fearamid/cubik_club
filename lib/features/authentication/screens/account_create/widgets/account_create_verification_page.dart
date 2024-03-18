@@ -18,12 +18,23 @@ class AccountCreateVerificationPage extends StatelessWidget {
       child: AuthPageTemplate(
         image: CCImages.accountCreateVerification,
         title: CCTexts.accountCreateVerificationTitle,
-        subTitle:
+        subtitle:
             '${CCTexts.accountCreateVerificationSubTitle}\n${viewModel.state.phoneNumber}',
-        secondActionTitle: 'Подтвердить',
-        onFirstPressed: () => viewModel.onOptionalButtonPressed(context),
-        onSecondPressed: () => viewModel.onMainButtonPressed(
-            currentStep: AccountCreateSteps.verification),
+        mainAction: ElevatedButton(
+          onPressed: () => viewModel.onMainButtonPressed(
+              currentStep: AccountCreateSteps.verification),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minWidth: double.infinity),
+            child: const Text("Далее", textAlign: TextAlign.center),
+          ),
+        ),
+        optionalAction: OutlinedButton(
+          onPressed: () => viewModel.onOptionalButtonPressed(context),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minWidth: double.infinity),
+            child: const Text("Назад", textAlign: TextAlign.center),
+          ),
+        ),
         body: [
           PinCodeTextField(
             appContext: context,
