@@ -14,7 +14,7 @@ class OnboardingDotNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDarkMode = CCHelperFunctions.isDarkMode(context);
-    final viewModel = context.read<ViewModel>();
+    final viewModel = context.read<OnboardingScreenViewModel>();
 
     return Positioned(
       bottom: CCDeviceUtils.getBottomNavigationBarHeight() + 25,

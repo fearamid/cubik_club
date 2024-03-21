@@ -14,7 +14,8 @@ class OnboardingNextButton extends StatelessWidget {
       bottom: CCDeviceUtils.getBottomNavigationBarHeight(),
       right: 20,
       child: ElevatedButton(
-        onPressed: () => context.read<ViewModel>().nextPage(context),
+        onPressed: () =>
+            context.read<OnboardingScreenViewModel>().nextPage(context),
         style: ElevatedButton.styleFrom(shape: const CircleBorder()),
         child: const Icon(
           Icons.navigate_next,

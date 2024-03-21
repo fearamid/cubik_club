@@ -24,11 +24,11 @@ class CCTextFieldTheme {
     border: const OutlineInputBorder().copyWith(
         borderRadius: BorderRadius.circular(20),
         borderSide: const BorderSide(
-            width: 2, color: CCAppColors.lightHighlightBackground)),
+            width: 1, color: CCAppColors.lightHighlightBackground)),
     enabledBorder: const OutlineInputBorder().copyWith(
         borderRadius: BorderRadius.circular(20),
         borderSide: const BorderSide(
-            width: 2, color: CCAppColors.lightHighlightBackground)),
+            width: 1, color: CCAppColors.lightHighlightBackground)),
     focusedBorder: const OutlineInputBorder().copyWith(
         borderRadius: BorderRadius.circular(20),
         borderSide: const BorderSide(width: 2, color: CCAppColors.accentBlue)),
@@ -62,11 +62,11 @@ class CCTextFieldTheme {
     border: const OutlineInputBorder().copyWith(
         borderRadius: BorderRadius.circular(20),
         borderSide: const BorderSide(
-            width: 2, color: CCAppColors.darkHighlightBackground)),
+            width: 1, color: CCAppColors.darkHighlightBackground)),
     enabledBorder: const OutlineInputBorder().copyWith(
         borderRadius: BorderRadius.circular(20),
         borderSide: const BorderSide(
-            width: 2, color: CCAppColors.darkHighlightBackground)),
+            width: 1, color: CCAppColors.darkHighlightBackground)),
     focusedBorder: const OutlineInputBorder().copyWith(
         borderRadius: BorderRadius.circular(20),
         borderSide: const BorderSide(width: 2, color: CCAppColors.accentBlue)),

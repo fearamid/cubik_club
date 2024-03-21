@@ -28,8 +28,8 @@ class _ViewModelState {
   }
 
   _ViewModelState({
-    this.login = '',
-    this.password = '',
+    this.login = 'admin',
+    this.password = '1234',
     this.authErrorText = '',
     this.isAuthProccess = false,
   });
@@ -74,7 +74,7 @@ class _ViewModel extends ChangeNotifier {
     try {
       await _authService.login(login, password);
       _updateState(isAuthProccess: false);
-      Navigator.of(context).pushNamedAndRemoveUntil('home', (route) => false);
+      Navigator.of(context).pushNamedAndRemoveUntil('/main', (route) => false);
       // TODO: переход в приложение
     } on AuthApiProviderIncorrectLoginData {
       _updateState(
@@ -94,12 +94,24 @@ class _ViewModel extends ChangeNotifier {
 
   Future<void> onAccounCreateButtonPressed(BuildContext context) async {
     // TODO: right action or link?
-    await Navigator.of(context).pushNamed('account_create');
+    await Navigator.of(context).pushNamed('/account_create');
   }
 
   Future<void> onForgotPasswordButtonPressed(BuildContext context) async {
     // TODO: right action or link?
     // await Navigator.of(context).pushNamed('/forgot_password');
+  }
+
+  Future<void> onVkAuthButtonPressed() async {
+    // TODO: vk auth
+  }
+
+  Future<void> onGoogleAuthButtonPressed() async {
+    // TODO: google auth
+  }
+
+  Future<void> onTelegramAuthButtonPressed() async {
+    // TODO: telegram auth
   }
 }
 
@@ -117,13 +129,6 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.read<_ViewModel>();
-    final authButtonState =
-        context.select((_ViewModel value) => value.state.authButtonState);
-
-    final onAuthButtonPressed =
-        authButtonState == _ViewModelAuthButonState.canSubmit
-            ? () => viewModel.onAuthButtonPressed(context)
-            : null;
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -132,20 +137,8 @@ class LoginScreen extends StatelessWidget {
           title: CCTexts.loginHeaderTitle,
           subtitle: CCTexts.loginHeaderSubTitle,
           isActionsHorizontal: false,
-          mainAction: ElevatedButton(
-            onPressed: onAuthButtonPressed,
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(minWidth: double.infinity),
-              child: const Text("Войти", textAlign: TextAlign.center),
-            ),
-          ),
-          optionalAction: OutlinedButton(
-            onPressed: () => viewModel.onAccounCreateButtonPressed(context),
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(minWidth: double.infinity),
-              child: const Text("Создать аккаунт", textAlign: TextAlign.center),
-            ),
-          ),
+          mainAction: const _MainActionButton(),
+          optionalAction: const _OptionalActionButton(),
           marginBodyBottom: 40,
           body: [
             TextField(
@@ -173,21 +166,12 @@ class LoginScreen extends StatelessWidget {
             ),
           ],
           extraActions: [
+            // TODO: сделать это всё в одном виджете (используется только тут, зачем универсальность extraActions?)
             const SizedBox(height: 15),
             LoginWith(
               children: [
-                LoginWithButton(
-                  icon: Icons.circle_notifications_rounded,
-                  onPressed: () {
-                    //TODO: Google auth
-                  },
-                ),
-                LoginWithButton(
-                  icon: Icons.circle_notifications_rounded,
-                  onPressed: () {
-                    //TODO: VK auth
-                  },
-                ),
+                _VkLoginButton(),
+                _GoogleLoginButton(),
               ],
             ),
           ],
@@ -195,4 +179,64 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+class _MainActionButton extends StatelessWidget {
+  const _MainActionButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = context.read<_ViewModel>();
+
+    final authButtonState =
+        context.select((_ViewModel value) => value.state.authButtonState);
+    final onAuthButtonPressed =
+        authButtonState == _ViewModelAuthButonState.canSubmit
+            ? () => viewModel.onAuthButtonPressed(context)
+            : null;
+
+    return ElevatedButton(
+      onPressed: onAuthButtonPressed,
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minWidth: double.infinity),
+        child: const Text("Войти", textAlign: TextAlign.center),
+      ),
+    );
+  }
+}
+
+class _OptionalActionButton extends StatelessWidget {
+  const _OptionalActionButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = context.read<_ViewModel>();
+    return OutlinedButton(
+      onPressed: () => viewModel.onAccounCreateButtonPressed(context),
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minWidth: double.infinity),
+        child: const Text("Создать аккаунт", textAlign: TextAlign.center),
+      ),
+    );
+  }
+}
+
+class _VkLoginButton extends LoginWithButton {
+  _VkLoginButton()
+      : super(
+          icon: Icons.circle_notifications_rounded,
+          onPressed: () {
+            //TODO: Vk auth
+          },
+        );
+}
+
+class _GoogleLoginButton extends LoginWithButton {
+  _GoogleLoginButton()
+      : super(
+          icon: Icons.circle_notifications_rounded,
+          onPressed: () {
+            //TODO: Google auth
+          },
+        );
 }

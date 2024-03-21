@@ -36,8 +36,8 @@ class _AuthPageHeader extends StatelessWidget {
 }
 
 class _AuthPageActions extends StatelessWidget {
-  final ButtonStyleButton mainAction;
-  final ButtonStyleButton optionalAction;
+  final Widget mainAction;
+  final Widget optionalAction;
   final List<Widget>? extraActions;
   final bool isHorizontal;
 
@@ -85,8 +85,8 @@ class _AuthPageActions extends StatelessWidget {
 
 class AuthPageTemplate extends StatelessWidget {
   final List<Widget> body;
-  final ButtonStyleButton mainAction;
-  final ButtonStyleButton optionalAction;
+  final Widget mainAction;
+  final Widget optionalAction;
   final double marginBodyTop;
   final double marginBodyBottom;
   final String image;

@@ -7,7 +7,7 @@ import "package:cubik_club/utils/constants/texts.dart";
 import "package:flutter/material.dart";
 import 'package:provider/provider.dart';
 
-class ViewModel extends ChangeNotifier {
+class OnboardingScreenViewModel extends ChangeNotifier {
   final pageController = PageController();
   int currentPageIndex = 0;
 
@@ -56,7 +56,7 @@ class OnboardingScreen extends StatelessWidget {
 
   static Widget create() {
     return ChangeNotifierProvider(
-      create: (context) => ViewModel(),
+      create: (context) => OnboardingScreenViewModel(),
       lazy: false,
       child: const OnboardingScreen(),
     );
@@ -64,14 +64,15 @@ class OnboardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.read<OnboardingScreenViewModel>();
+
     return Scaffold(
       body: Stack(
         children: [
           // Onboarding pages
           PageView(
-            controller: context.read<ViewModel>().pageController,
-            onPageChanged: (index) =>
-                context.read<ViewModel>().updatePageIndicator(index),
+            controller: viewModel.pageController,
+            onPageChanged: (index) => viewModel.updatePageIndicator(index),
             children: const [
               OnboardingPage(
                 image: CCImages.onBoardingImage1,

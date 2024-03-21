@@ -1,4 +1,5 @@
 import "package:cubik_club/utils/constants/colors.dart";
+import "package:figma_squircle/figma_squircle.dart";
 import "package:flutter/material.dart";
 
 class CCElevatedButtonTheme {
@@ -11,7 +12,9 @@ class CCElevatedButtonTheme {
     backgroundColor: CCAppColors.primary,
     disabledBackgroundColor: CCAppColors.lightHighlightBackground,
     disabledForegroundColor: CCAppColors.secondary,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+    shape: SmoothRectangleBorder(
+      borderRadius: SmoothBorderRadius(cornerRadius: 20, cornerSmoothing: 0.6),
+    ),
     textStyle: const TextStyle(
         fontSize: 18, color: Colors.white, fontWeight: FontWeight.w500),
     padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 20),
@@ -26,7 +29,9 @@ class CCElevatedButtonTheme {
     backgroundColor: CCAppColors.primary,
     disabledBackgroundColor: CCAppColors.darkHighlightBackground,
     disabledForegroundColor: CCAppColors.secondary,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+    shape: SmoothRectangleBorder(
+      borderRadius: SmoothBorderRadius(cornerRadius: 20, cornerSmoothing: 0.6),
+    ),
     textStyle: const TextStyle(
         fontSize: 18, color: Colors.white, fontWeight: FontWeight.w500),
     padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 20),

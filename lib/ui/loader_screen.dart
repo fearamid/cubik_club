@@ -20,11 +20,11 @@ class _ViewModel {
   }
 
   void _goToLoginScreen() {
-    Navigator.of(context).pushNamedAndRemoveUntil('login', (route) => false);
+    Navigator.of(context).pushNamedAndRemoveUntil('/login', (_) => false);
   }
 
   void _goToAppScreen() {
-    Navigator.of(context).pushNamedAndRemoveUntil('home', (route) => false);
+    Navigator.of(context).pushNamedAndRemoveUntil('/main', (_) => false);
   }
 }
 
@@ -39,20 +39,6 @@ class LoaderScreen extends StatelessWidget {
       ),
     );
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return MaterialApp(
-  //     themeMode: ThemeMode.light,
-  //     theme: CCAppTheme.lightTheme,
-  //     darkTheme: CCAppTheme.darkTheme,
-  //     routes: {
-  //       '/': (_) => LoginScreen.create(),
-  //       // '/': (_) => OnboardingScreen.create(),
-  //       '/account_create': (_) => AccountCreateScreen.create(),
-  //     },
-  //   );
-  // }
 
   static Widget create() {
     return Provider(

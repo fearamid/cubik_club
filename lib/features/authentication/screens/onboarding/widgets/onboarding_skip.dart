@@ -14,7 +14,7 @@ class OnboardingSkip extends StatelessWidget {
       top: CCDeviceUtils.getAppBarHeight(),
       right: 10,
       child: TextButton(
-        onPressed: context.read<ViewModel>().skipPage,
+        onPressed: context.read<OnboardingScreenViewModel>().skipPage,
         child: Text('в конец', style: Theme.of(context).textTheme.bodyMedium),
       ),
     );
