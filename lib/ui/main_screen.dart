@@ -1,8 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cubik_club/common/widgets/elements/coins_indicator.dart';
+import 'package:cubik_club/common/widgets/elements/post.dart';
+import 'package:cubik_club/common/widgets/elements/search_input.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
-import 'package:cubik_club/utils/constants/image_strings.dart';
-import 'package:figma_squircle/figma_squircle.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -26,98 +27,57 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const _TopBar(),
-          const _HeroSlider(),
-          const SizedBox(height: 20),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                const SizedBox(width: 20),
-                Container(
-                  height: 150,
-                  width: 100,
-                  decoration: const BoxDecoration(
-                    color: CCAppColors.lightSectionBackground,
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    border: Border.fromBorderSide(
-                      BorderSide(
-                          color: CCAppColors.lightHighlightBackground,
-                          width: 2),
-                    ),
-                  ),
+    return CustomScrollView(
+      slivers: [
+        SliverList(
+          delegate: SliverChildListDelegate(
+            [
+              const _TopBar(),
+              const _HeroSlider(),
+              const SizedBox(height: 20),
+              SizedBox(
+                height: 150,
+                child: ListView.separated(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  itemCount: 5,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      width: 100,
+                      decoration: const BoxDecoration(
+                        color: CCAppColors.lightSectionBackground,
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        border: Border.fromBorderSide(
+                          BorderSide(
+                              color: CCAppColors.lightHighlightBackground,
+                              width: 2),
+                        ),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(width: 10),
                 ),
-                const SizedBox(width: 10),
-                Container(
-                  height: 150,
-                  width: 100,
-                  decoration: const BoxDecoration(
-                    color: CCAppColors.lightSectionBackground,
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    border: Border.fromBorderSide(
-                      BorderSide(
-                          color: CCAppColors.lightHighlightBackground,
-                          width: 2),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Container(
-                  height: 150,
-                  width: 100,
-                  decoration: const BoxDecoration(
-                    color: CCAppColors.lightSectionBackground,
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    border: Border.fromBorderSide(
-                      BorderSide(
-                          color: CCAppColors.lightHighlightBackground,
-                          width: 2),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Container(
-                  height: 150,
-                  width: 100,
-                  decoration: const BoxDecoration(
-                    color: CCAppColors.lightSectionBackground,
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    border: Border.fromBorderSide(
-                      BorderSide(
-                          color: CCAppColors.lightHighlightBackground,
-                          width: 2),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Container(
-                  height: 150,
-                  width: 100,
-                  decoration: const BoxDecoration(
-                    color: CCAppColors.lightSectionBackground,
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    border: Border.fromBorderSide(
-                      BorderSide(
-                          color: CCAppColors.lightHighlightBackground,
-                          width: 2),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 20),
-              ],
-            ),
+              ),
+              const SizedBox(height: 45),
+              _PostCategoryTabBar(
+                onFiltersPressed: () {},
+                onTabPressed: () {},
+              ),
+              const SizedBox(height: 20),
+            ],
           ),
-          const SizedBox(height: 45),
-          _PostCategoryTabBar(
-            onFiltersPressed: () {},
-            onTabPressed: () {},
-          ),
-          const SizedBox(height: 20),
-        ],
-      ),
+        ),
+        SliverList.separated(
+          itemCount: 10,
+          itemBuilder: (BuildContext context, int index) {
+            return const Post();
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const SizedBox(height: 20);
+          },
+        ),
+      ],
     );
   }
 }
@@ -198,25 +158,12 @@ class _TopBar extends StatelessWidget {
       ),
       child: Row(
         children: [
-          _SearchInput(),
+          SearchInput(),
           SizedBox(width: 25),
           CoinsIndicator(value: '112'),
           SizedBox(width: 5),
           _QRCodeScanner(),
         ],
-      ),
-    );
-  }
-}
-
-class _SearchInput extends StatelessWidget {
-  const _SearchInput({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Expanded(
-      child: TextField(
-        decoration: InputDecoration(hintText: 'Поиск'),
       ),
     );
   }
@@ -308,40 +255,6 @@ class _PostCategoryTabBarState extends State<_PostCategoryTabBar>
             ],
           ),
         ),
-        ListView.separated(
-          itemCount: 200,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (BuildContext context, int index) {
-            return Container(
-              height: 360,
-              decoration: const BoxDecoration(
-                color: CCAppColors.lightSectionBackground,
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Center(
-                  child: Column(
-                    children: [
-                      Text('Встреча номер $index'),
-                      const Text('01.02.2024'),
-                      const Text(
-                          'Текст текст текст Текст текст текстТекст текст текстТекст текст текстТекст текст текстТекст текст текстТекст текст текстТекст текст текстТекст текст текстТекст текст текст'),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const SizedBox(height: 20);
-          },
-        ),
-        // TabBarView(
-        //   controller: _tabController,
-        //   children: [],
-        // ),
       ],
     );
   }

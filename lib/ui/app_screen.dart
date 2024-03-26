@@ -1,10 +1,11 @@
+import 'package:cubik_club/ui/board_games_collection_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:cubik_club/domain/services/auth_service.dart';
 import 'package:cubik_club/ui/main_screen.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:cubik_club/utils/constants/icons.dart';
-import 'package:figma_squircle/figma_squircle.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class _ViewModelState {
   final int selectedPageIndex;
@@ -15,18 +16,22 @@ class _ViewModelState {
 }
 
 class _ViewModel extends ChangeNotifier {
-  final _authService = AuthService();
+  _ViewModel();
 
-  final List<Widget> widgetOptions = const [
-    Center(child: Text('Помощник')),
-    Center(child: Text('Календарь событий')),
-    MainScreen(),
-    Center(child: Text('Коллекция настольных игр')),
-    Center(child: Text('Профиль')),
-  ];
+  final _authService = AuthService();
+  final _pageController = PageController(initialPage: 2);
+  PageController get controller => _pageController;
 
   var _state = _ViewModelState();
   _ViewModelState get state => _state;
+
+  final List<Widget> bottomNavigationScreens = [
+    const Center(child: Text('Помощник')),
+    const Center(child: Text('Календарь событий')),
+    MainScreen.create(),
+    BoardGamesCollectionScreen.create(),
+    const Center(child: Text('Профиль')),
+  ];
 
   void updateState({
     int? selectedPageIndex,
@@ -40,6 +45,8 @@ class _ViewModel extends ChangeNotifier {
   onBottomNavigationBarTap(int index) {
     if (_state.selectedPageIndex == index) return;
     updateState(selectedPageIndex: index);
+
+    controller.jumpToPage(_state.selectedPageIndex);
   }
 
   Future<void> onLogoutButtonPressed(BuildContext context) async {
@@ -65,66 +72,81 @@ class AppScreen extends StatelessWidget {
         context.watch<_ViewModel>().state.selectedPageIndex;
     return Scaffold(
       extendBody: true,
-      bottomNavigationBar: Container(
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(30), topLeft: Radius.circular(30)),
-            // boxShadow: [
-            //   BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
-            // ],
-          ),
-          child: ClipRRect(
-              borderRadius: const SmoothBorderRadius.only(
-                topLeft: SmoothRadius(cornerRadius: 35, cornerSmoothing: 0.7),
-                topRight: SmoothRadius(cornerRadius: 35, cornerSmoothing: 0.7),
-              ),
-              child: BottomNavigationBar(
-                type: BottomNavigationBarType.fixed,
-                backgroundColor: CCAppColors.lightBackground,
-                elevation: 1,
-                currentIndex: selectedPageIndex,
-                showSelectedLabels: false,
-                showUnselectedLabels: false,
-                onTap: viewModel.onBottomNavigationBarTap,
-                fixedColor: CCAppColors.primary,
-                items: [
-                  BottomNavigationBarItem(
-                    icon: Image.asset(CCAppIcons.helper, height: 40),
-                    activeIcon:
-                        Image.asset(CCAppIcons.helperActive, height: 40),
-                    label: 'Помощник',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Image.asset(CCAppIcons.calendar, height: 40),
-                    activeIcon:
-                        Image.asset(CCAppIcons.calendarActive, height: 40),
-                    label: 'События',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Image.asset(CCAppIcons.main, height: 40),
-                    activeIcon: Image.asset(CCAppIcons.mainActive, height: 40),
-                    label: 'Главная',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Image.asset(CCAppIcons.gamesCollection, height: 40),
-                    activeIcon: Image.asset(CCAppIcons.gamesCollectionActive,
-                        height: 40),
-                    label: 'Коллекция',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Image.asset(CCAppIcons.profile, height: 40),
-                    activeIcon:
-                        Image.asset(CCAppIcons.profileActive, height: 40),
-                    label: 'Профиль',
-                  ),
-                ],
-              ))),
-      body: viewModel.widgetOptions[selectedPageIndex],
+      bottomNavigationBar: _AppBottomNavigation(pageIndex: selectedPageIndex),
+      body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
+        controller: viewModel.controller,
+        children: viewModel.bottomNavigationScreens,
+      ),
+
       // const SizedBox(height: 20),
       // ElevatedButton(
       //   onPressed: () => viewModel.onLogoutButtonPressed(context),
       //   child: const Text('Выход'),
       // )
+    );
+  }
+}
+
+class _AppBottomNavigation extends StatelessWidget {
+  final int pageIndex;
+  const _AppBottomNavigation({
+    Key? key,
+    required this.pageIndex,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = context.read<_ViewModel>();
+    return Container(
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+      ),
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(35),
+          topRight: Radius.circular(35),
+        ),
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: CCAppColors.lightBackground,
+          elevation: 1,
+          currentIndex: pageIndex,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          onTap: viewModel.onBottomNavigationBarTap,
+          fixedColor: CCAppColors.primary,
+          items: [
+            BottomNavigationBarItem(
+              icon: Image.asset(CCAppIcons.helper, height: 40),
+              activeIcon: Image.asset(CCAppIcons.helperActive, height: 40),
+              label: 'Помощник',
+            ),
+            BottomNavigationBarItem(
+              icon: Image.asset(CCAppIcons.calendar, height: 40),
+              activeIcon: Image.asset(CCAppIcons.calendarActive, height: 40),
+              label: 'События',
+            ),
+            BottomNavigationBarItem(
+              icon: Image.asset(CCAppIcons.main, height: 40),
+              activeIcon: Image.asset(CCAppIcons.mainActive, height: 40),
+              label: 'Главная',
+            ),
+            BottomNavigationBarItem(
+              icon: Image.asset(CCAppIcons.gamesCollection, height: 40),
+              activeIcon:
+                  Image.asset(CCAppIcons.gamesCollectionActive, height: 40),
+              label: 'Коллекция',
+            ),
+            BottomNavigationBarItem(
+              icon: Image.asset(CCAppIcons.profile, height: 40),
+              activeIcon: Image.asset(CCAppIcons.profileActive, height: 40),
+              label: 'Профиль',
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

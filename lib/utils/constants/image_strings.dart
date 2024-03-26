@@ -25,4 +25,6 @@ abstract class CCImages {
       'assets/images/auth_images/account_create_step_3.png';
   static const String accountCreateVerification =
       'assets/images/auth_images/account_create_verification.png';
+  static const String game = 'assets/images/auth_images/game.png';
+  static const String gameOpt = 'assets/images/auth_images/gameOpt.jpg';
 }
