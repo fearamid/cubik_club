@@ -1,27 +1,32 @@
+import 'package:cubik_club/common/widgets/elements/section.dart';
+import 'package:cubik_club/domain/entities/event.dart';
+import 'package:cubik_club/ui/screens/post/post_screen.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-class Post extends StatelessWidget {
-  const Post({super.key});
+class EventThumbnail extends StatelessWidget {
+  final Event event;
+  const EventThumbnail({super.key, required this.event});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('Переход на пост');
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) {
+              return PostScreen(event: event);
+            },
+          ),
+        );
       },
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: const BoxDecoration(
-          color: CCAppColors.lightSectionBackground,
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-        ),
+      child: Section(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Томатная атака',
-              style: TextStyle(
+            Text(
+              event.name,
+              style: const TextStyle(
                 color: CCAppColors.lightTextPrimary,
                 fontSize: 25,
                 fontWeight: FontWeight.w700,
@@ -29,9 +34,11 @@ class Post extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 3),
-            const Text(
-              'Играем, развлекаемся и получаем удовольствие! Ждем всех желающих.',
-              style: TextStyle(
+            Text(
+              event.description,
+              maxLines: 5,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
                 color: CCAppColors.lightTextPrimary,
                 fontSize: 16,
                 fontWeight: FontWeight.w400,

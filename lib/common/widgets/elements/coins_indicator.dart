@@ -2,7 +2,7 @@ import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class CoinsIndicator extends StatelessWidget {
-  final String value;
+  final int value;
   final double fontSize;
   final double spacing;
   final double iconSize;
@@ -23,7 +23,7 @@ class CoinsIndicator extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            value,
+            '$value',
             style: TextStyle(
               fontSize: fontSize,
               fontWeight: FontWeight.w500,

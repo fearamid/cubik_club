@@ -2,6 +2,7 @@ import 'package:cubik_club/app.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void initUI() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,6 +15,7 @@ void initUI() {
       systemNavigationBarColor: Colors.transparent,
     ),
   );
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 }
 
 void main() {
@@ -23,6 +25,7 @@ void main() {
   // Todo: Await Native Splash
   // Todo: Initialize Firebase
   // Todo: Initialize Authentification
+  initializeDateFormatting('ru');
   const app = App();
   runApp(app);
 }

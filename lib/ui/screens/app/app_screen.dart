@@ -1,9 +1,12 @@
-import 'package:cubik_club/ui/board_games_collection_screen.dart';
+import 'package:cubik_club/ui/screens/calendar/calendar_screen.dart';
+import 'package:cubik_club/ui/screens/games_collection/games_collection_screen.dart';
+import 'package:cubik_club/ui/screens/post/post_screen.dart';
+import 'package:cubik_club/ui/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:cubik_club/domain/services/auth_service.dart';
-import 'package:cubik_club/ui/main_screen.dart';
+import 'package:cubik_club/ui/screens/main/main_screen.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:cubik_club/utils/constants/icons.dart';
 
@@ -26,11 +29,11 @@ class _ViewModel extends ChangeNotifier {
   _ViewModelState get state => _state;
 
   final List<Widget> bottomNavigationScreens = [
-    const Center(child: Text('Помощник')),
-    const Center(child: Text('Календарь событий')),
+    const Center(child: Text('Помощник приложения')),
+    CalendarScreen.create(),
     MainScreen.create(),
-    BoardGamesCollectionScreen.create(),
-    const Center(child: Text('Профиль')),
+    GamesCollectionScreen.create(),
+    ProfileScreen.create(),
   ];
 
   void updateState({

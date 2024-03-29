@@ -7,7 +7,7 @@ abstract class CCAppColors {
   static const Color secondary = Color(0xFF677381);
   static const Color accentBlue = Color(0xFF81A0D3);
   static const Color accentGreen = Color(0xFF5BBBA9);
-  static const Color accentPurple = Color(0xFFED7370);
+  static const Color accentRed = Color(0xFFED7370);
   static const Color accentYellow = Color(0xFFFAC372);
   // ---------- Text Colors ----------
 

@@ -1,8 +1,8 @@
 import 'package:cubik_club/features/authentication/screens/account_create/account_create_screen.dart';
 import 'package:cubik_club/features/authentication/screens/login/login_screen.dart';
 import 'package:cubik_club/features/authentication/screens/onboarding/onboarding_screen.dart';
-import 'package:cubik_club/ui/app_screen.dart';
-import 'package:cubik_club/ui/loader_screen.dart';
+import 'package:cubik_club/ui/screens/app/app_screen.dart';
+import 'package:cubik_club/ui/screens/loader/loader_screen.dart';
 import 'package:cubik_club/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 

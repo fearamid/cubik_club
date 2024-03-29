@@ -1,7 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cubik_club/common/widgets/elements/coins_indicator.dart';
-import 'package:cubik_club/common/widgets/elements/post.dart';
+import 'package:cubik_club/common/widgets/elements/post_thumbnail.dart';
 import 'package:cubik_club/common/widgets/elements/search_input.dart';
+import 'package:cubik_club/domain/entities/event.dart';
+import 'package:cubik_club/ui/screens/scanner/scanner_screen.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 
 import 'package:flutter/material.dart';
@@ -35,30 +37,7 @@ class MainScreen extends StatelessWidget {
               const _TopBar(),
               const _HeroSlider(),
               const SizedBox(height: 20),
-              SizedBox(
-                height: 150,
-                child: ListView.separated(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  itemCount: 5,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      width: 100,
-                      decoration: const BoxDecoration(
-                        color: CCAppColors.lightSectionBackground,
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        border: Border.fromBorderSide(
-                          BorderSide(
-                              color: CCAppColors.lightHighlightBackground,
-                              width: 2),
-                        ),
-                      ),
-                    );
-                  },
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(width: 10),
-                ),
-              ),
+              const _GuidesCarousel(),
               const SizedBox(height: 45),
               _PostCategoryTabBar(
                 onFiltersPressed: () {},
@@ -71,13 +50,51 @@ class MainScreen extends StatelessWidget {
         SliverList.separated(
           itemCount: 10,
           itemBuilder: (BuildContext context, int index) {
-            return const Post();
+            return EventThumbnail(
+              event: Event(
+                name: 'Мероприятие $index',
+                description:
+                    'Будем играть в такую очень интересную игру с увлекательными механиками. Возьмите с собой хорошее настроение, несколько часов свободного времени и наше приложение. Будем играть в такую очень интересную игру с увлекательными механиками. Возьмите с собой хорошее настроение, несколько часов свободного времени и наше приложение.',
+              ),
+            );
           },
           separatorBuilder: (BuildContext context, int index) {
             return const SizedBox(height: 20);
           },
         ),
+        const SliverToBoxAdapter(
+            child: SizedBox(height: kBottomNavigationBarHeight + 60)),
       ],
+    );
+  }
+}
+
+class _GuidesCarousel extends StatelessWidget {
+  const _GuidesCarousel({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 150,
+      child: ListView.separated(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        itemCount: 5,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return Container(
+            width: 100,
+            decoration: const BoxDecoration(
+              color: CCAppColors.lightSectionBackground,
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+              border: Border.fromBorderSide(
+                BorderSide(
+                    color: CCAppColors.lightHighlightBackground, width: 2),
+              ),
+            ),
+          );
+        },
+        separatorBuilder: (context, index) => const SizedBox(width: 10),
+      ),
     );
   }
 }
@@ -160,7 +177,7 @@ class _TopBar extends StatelessWidget {
         children: [
           SearchInput(),
           SizedBox(width: 25),
-          CoinsIndicator(value: '112'),
+          CoinsIndicator(value: 112),
           SizedBox(width: 5),
           _QRCodeScanner(),
         ],
@@ -180,7 +197,11 @@ class _QRCodeScanner extends StatelessWidget {
         color: CCAppColors.secondary,
         size: 40,
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          return const ScannerScreen();
+        }));
+      },
     );
   }
 }
