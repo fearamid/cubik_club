@@ -6,16 +6,21 @@ import 'package:intl/date_symbol_data_local.dart';
 
 void initUI() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.manual,
+    overlays: [
+      SystemUiOverlay.top,
+    ],
+  );
+
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
       statusBarBrightness: Brightness.light, // For iOS (dark icons)
-      statusBarColor: Colors.transparent,
-      systemNavigationBarColor: Colors.transparent,
+      statusBarColor: Colors.white,
+      systemNavigationBarColor: Colors.white,
     ),
   );
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 }
 
 void main() {

@@ -1,9 +1,12 @@
 import 'package:cubik_club/common/widgets/elements/search_input.dart';
 import 'package:cubik_club/common/widgets/elements/section.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
-import 'package:cubik_club/utils/constants/icons.dart';
+
 import 'package:cubik_club/utils/constants/image_strings.dart';
+import 'package:cubik_club/utils/device/device_utility.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 
 enum CollectionDisplayMode { list, grid }
@@ -52,6 +55,9 @@ class GamesCollectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final collectionItemHeight =
+        (CCDeviceUtils.getScreenWidth(context) - 10) / 2 + 10 + 100;
+
     return CustomScrollView(
       slivers: [
         // TODO: convert topBar to SliverAppBar on all screens
@@ -68,11 +74,12 @@ class GamesCollectionScreen extends StatelessWidget {
 
         SliverGrid.builder(
           itemCount: 20,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
-            mainAxisExtent: 280,
+            childAspectRatio: 1,
+            mainAxisExtent: collectionItemHeight,
           ),
           itemBuilder: (context, index) {
             return const _GameCard();
@@ -95,6 +102,8 @@ class _GameCard extends StatelessWidget {
         print('Tap on game card');
       },
       child: const Section(
+        paddingHorizontal: 10,
+        paddingVertical: 10,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -104,24 +113,50 @@ class _GameCard extends StatelessWidget {
                 image: AssetImage(CCImages.gameOpt),
               ),
             ),
-            Spacer(),
+            SizedBox(height: 10),
             Text(
               'Роскошь Дуэль',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
                 height: 1,
+                overflow: TextOverflow.ellipsis,
               ),
+              maxLines: 1,
             ),
-            SizedBox(height: 3),
+            SizedBox(height: 5),
             Text(
-              'стратегия, 40 мин, 5-10 человек',
+              'стратегия',
               style: TextStyle(
                 fontSize: 16,
-                height: 1.3,
-                fontWeight: FontWeight.normal,
                 color: CCAppColors.secondary,
+                fontWeight: FontWeight.normal,
+                height: 1,
+                overflow: TextOverflow.ellipsis,
               ),
+              maxLines: 1,
+            ),
+            Text(
+              '5 - 10 человек',
+              style: TextStyle(
+                fontSize: 16,
+                color: CCAppColors.secondary,
+                fontWeight: FontWeight.normal,
+                height: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              maxLines: 1,
+            ),
+            Text(
+              '40 минут',
+              style: TextStyle(
+                fontSize: 16,
+                color: CCAppColors.secondary,
+                fontWeight: FontWeight.normal,
+                height: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              maxLines: 1,
             ),
           ],
         ),
@@ -147,25 +182,23 @@ class _TopBar extends StatelessWidget {
           const SearchInput(),
           const SizedBox(width: 20),
           IconButton(
-            icon: Image.asset(
-              CCAppIcons.random,
-              width: 45,
-              height: 30,
+            icon: const Icon(
+              Iconsax.colorfilter_copy,
+              size: 35,
+              color: CCAppColors.secondary,
             ),
             padding: const EdgeInsets.all(10),
             onPressed: () {},
-            color: CCAppColors.secondary,
           ),
           const SizedBox(width: 7),
           IconButton(
-            icon: Image.asset(
-              CCAppIcons.filters,
-              width: 35,
-              height: 35,
+            icon: const Icon(
+              Iconsax.candle_2_copy,
+              size: 37,
+              color: CCAppColors.secondary,
             ),
             padding: const EdgeInsets.all(10),
             onPressed: () {},
-            color: CCAppColors.secondary,
           ),
         ],
       ),
@@ -230,20 +263,11 @@ class CollectionDisplayModeButton extends StatefulWidget {
 
 class _CollectionDisplayModeButtonState
     extends State<CollectionDisplayModeButton> {
-  final listIcon = Image.asset(
-    CCAppIcons.listView,
-    height: 33,
-    width: 33,
-  );
-
-  final gridIcon = Image.asset(
-    CCAppIcons.gridView,
-    height: 33,
-    width: 33,
-  );
+  static const IconData listIcon = Iconsax.row_horizontal_copy;
+  static const IconData gridIcon = Iconsax.row_vertical_copy;
 
   late CollectionDisplayMode mode;
-  late Image icon;
+  late IconData icon;
 
   @override
   void initState() {
@@ -270,7 +294,11 @@ class _CollectionDisplayModeButtonState
     final viewModel = context.read<_ViewModel>();
 
     return IconButton(
-      icon: icon,
+      icon: Icon(
+        icon,
+        size: 35,
+        color: CCAppColors.secondary,
+      ),
       onPressed: () {
         toggleMode();
         viewModel.onCollectionViewModeButtonPressed(mode);

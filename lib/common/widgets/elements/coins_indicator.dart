@@ -1,5 +1,6 @@
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class CoinsIndicator extends StatelessWidget {
   final int value;
@@ -31,7 +32,11 @@ class CoinsIndicator extends StatelessWidget {
             ),
           ),
           SizedBox(width: spacing),
-          Icon(Icons.circle, size: iconSize, color: CCAppColors.accentYellow),
+          Icon(
+            Iconsax.mask_2,
+            size: iconSize,
+            color: CCAppColors.accentYellow,
+          ),
         ],
       ),
     );

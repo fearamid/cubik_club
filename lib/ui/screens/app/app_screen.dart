@@ -3,12 +3,12 @@ import 'package:cubik_club/ui/screens/games_collection/games_collection_screen.d
 import 'package:cubik_club/ui/screens/post/post_screen.dart';
 import 'package:cubik_club/ui/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'package:cubik_club/domain/services/auth_service.dart';
 import 'package:cubik_club/ui/screens/main/main_screen.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
-import 'package:cubik_club/utils/constants/icons.dart';
 
 class _ViewModelState {
   final int selectedPageIndex;
@@ -120,31 +120,50 @@ class _AppBottomNavigation extends StatelessWidget {
           showUnselectedLabels: false,
           onTap: viewModel.onBottomNavigationBarTap,
           fixedColor: CCAppColors.primary,
-          items: [
+          items: const [
             BottomNavigationBarItem(
-              icon: Image.asset(CCAppIcons.helper, height: 40),
-              activeIcon: Image.asset(CCAppIcons.helperActive, height: 40),
+              icon: Icon(
+                Iconsax.grid_4_copy,
+                size: 40,
+                color: CCAppColors.lightHighlightBackground,
+              ),
+              activeIcon: Icon(Iconsax.grid_4, size: 40),
               label: 'Помощник',
             ),
             BottomNavigationBarItem(
-              icon: Image.asset(CCAppIcons.calendar, height: 40),
-              activeIcon: Image.asset(CCAppIcons.calendarActive, height: 40),
+              icon: Icon(
+                Iconsax.clock_copy,
+                size: 40,
+                color: CCAppColors.lightHighlightBackground,
+              ),
+              activeIcon: Icon(Iconsax.clock, size: 40),
               label: 'События',
             ),
             BottomNavigationBarItem(
-              icon: Image.asset(CCAppIcons.main, height: 40),
-              activeIcon: Image.asset(CCAppIcons.mainActive, height: 40),
+              icon: Icon(
+                Iconsax.home_2_copy,
+                size: 40,
+                color: CCAppColors.lightHighlightBackground,
+              ),
+              activeIcon: Icon(Iconsax.home_2, size: 40),
               label: 'Главная',
             ),
             BottomNavigationBarItem(
-              icon: Image.asset(CCAppIcons.gamesCollection, height: 40),
-              activeIcon:
-                  Image.asset(CCAppIcons.gamesCollectionActive, height: 40),
+              icon: Icon(
+                Iconsax.copy_copy,
+                size: 40,
+                color: CCAppColors.lightHighlightBackground,
+              ),
+              activeIcon: Icon(Iconsax.copy, size: 40),
               label: 'Коллекция',
             ),
             BottomNavigationBarItem(
-              icon: Image.asset(CCAppIcons.profile, height: 40),
-              activeIcon: Image.asset(CCAppIcons.profileActive, height: 40),
+              icon: Icon(
+                Iconsax.frame_1_copy,
+                size: 40,
+                color: CCAppColors.lightHighlightBackground,
+              ),
+              activeIcon: Icon(Iconsax.frame, size: 40),
               label: 'Профиль',
             ),
           ],

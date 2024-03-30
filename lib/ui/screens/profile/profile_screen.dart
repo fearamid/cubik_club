@@ -1,9 +1,9 @@
 import 'package:cubik_club/common/widgets/elements/coins_indicator.dart';
 import 'package:cubik_club/common/widgets/elements/section.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
-import 'package:cubik_club/utils/constants/icons.dart';
 import 'package:cubik_club/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 
 class _ViewModelState {}
@@ -201,40 +201,40 @@ class _ActionsBar extends StatelessWidget {
             IconButton(
               padding: const EdgeInsets.all(10),
               onPressed: () {},
-              icon: Image.asset(
-                CCAppIcons.settings,
-                width: 40,
-                height: 40,
+              icon: const Icon(
+                Iconsax.setting_copy,
+                size: 40,
+                color: CCAppColors.secondary,
               ),
             ),
             const SizedBox(height: 15),
             IconButton(
               padding: const EdgeInsets.all(10),
               onPressed: () {},
-              icon: Image.asset(
-                CCAppIcons.qrCode,
-                width: 40,
-                height: 40,
+              icon: const Icon(
+                Iconsax.maximize_21_copy,
+                size: 40,
+                color: CCAppColors.secondary,
               ),
             ),
             const SizedBox(height: 15),
             IconButton(
               padding: const EdgeInsets.all(10),
               onPressed: () {},
-              icon: Image.asset(
-                CCAppIcons.edit,
-                width: 40,
-                height: 40,
+              icon: const Icon(
+                Iconsax.brush_3_copy,
+                size: 40,
+                color: CCAppColors.secondary,
               ),
             ),
             const SizedBox(height: 15),
             IconButton(
               padding: const EdgeInsets.all(10),
               onPressed: () {},
-              icon: Image.asset(
-                CCAppIcons.folder,
-                width: 40,
-                height: 40,
+              icon: const Icon(
+                Iconsax.folder_copy,
+                size: 40,
+                color: CCAppColors.secondary,
               ),
             ),
           ],

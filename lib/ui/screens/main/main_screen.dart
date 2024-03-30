@@ -7,6 +7,7 @@ import 'package:cubik_club/ui/screens/scanner/scanner_screen.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -125,7 +126,6 @@ class _HeroSliderState extends State<_HeroSlider> {
             height: 360,
             viewportFraction: 1,
             onPageChanged: (int index, _) {
-              print(index);
               setState(() {
                 currentItemIndex = index;
                 pageController = PageController(initialPage: currentItemIndex);
@@ -178,7 +178,7 @@ class _TopBar extends StatelessWidget {
           SearchInput(),
           SizedBox(width: 25),
           CoinsIndicator(value: 112),
-          SizedBox(width: 5),
+          SizedBox(width: 7),
           _QRCodeScanner(),
         ],
       ),
@@ -193,14 +193,14 @@ class _QRCodeScanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       icon: const Icon(
-        Icons.qr_code_scanner_rounded,
+        Iconsax.scanner_copy,
         color: CCAppColors.secondary,
         size: 40,
       ),
       onPressed: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return const ScannerScreen();
-        }));
+        // Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+        //   return const ScannerScreen();
+        // }));
       },
     );
   }
@@ -269,10 +269,14 @@ class _PostCategoryTabBarState extends State<_PostCategoryTabBar>
                 ),
               ),
               IconButton(
-                  // padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  onPressed: widget.onFiltersPressed,
-                  icon:
-                      const Icon(Icons.settings, color: CCAppColors.secondary))
+                // padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                onPressed: widget.onFiltersPressed,
+                icon: const Icon(
+                  Iconsax.candle_2_copy,
+                  size: 35,
+                  color: CCAppColors.secondary,
+                ),
+              )
             ],
           ),
         ),
