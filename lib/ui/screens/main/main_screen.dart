@@ -17,9 +17,9 @@ class _ViewModel extends ChangeNotifier {
   _ViewModelState get state => _state;
 
   void onQrScannerButtonPressed(BuildContext context) {
-    // Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-    //   return const ScannerScreen();
-    // }));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return ScannerScreen();
+    }));
   }
 
   void onSliderPageChanged(int index) {}

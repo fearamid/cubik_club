@@ -2,6 +2,7 @@ import 'package:cubik_club/ui/screens/calendar/calendar_screen.dart';
 import 'package:cubik_club/ui/screens/games_collection/games_collection_screen.dart';
 import 'package:cubik_club/ui/screens/post/post_screen.dart';
 import 'package:cubik_club/ui/screens/profile/profile_screen.dart';
+import 'package:cubik_club/ui/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';

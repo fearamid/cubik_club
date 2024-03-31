@@ -1,6 +1,7 @@
 import 'package:cubik_club/common/widgets/components/coins_indicator.dart';
 import 'package:cubik_club/common/widgets/components/custom_icon_button.dart';
 import 'package:cubik_club/common/widgets/components/section.dart';
+import 'package:cubik_club/ui/screens/settings/settings_screen.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:cubik_club/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,16 @@ class _ViewModel extends ChangeNotifier {
     _state = _ViewModelState();
     notifyListeners();
   }
+
+  void onSettingsButtonPressed(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => SettingsScreen.create()),
+    );
+  }
+
+  void onQrCodeButtonPressed(BuildContext context) {}
+  void onCustomizeButtonPressed(BuildContext context) {}
+  void onArchiveButtonPressed(BuildContext context) {}
 }
 
 class ProfileScreen extends StatelessWidget {
@@ -185,6 +196,8 @@ class _ActionsBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = context.read<_ViewModel>();
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(23),
@@ -201,7 +214,7 @@ class _ActionsBar extends StatelessWidget {
           children: [
             CustomIconButton(
               icon: Iconsax.setting_copy,
-              onPressed: () {},
+              onPressed: () => model.onSettingsButtonPressed(context),
             ),
             const SizedBox(height: 15),
             CustomIconButton(
