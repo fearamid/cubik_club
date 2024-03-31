@@ -8,8 +8,9 @@ class SearchInput extends StatelessWidget {
     return const Expanded(
       child: TextField(
         decoration: InputDecoration(
-            hintText: 'Поиск',
-            hintStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.normal)),
+          hintText: 'Поиск',
+          hintStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+        ),
       ),
     );
   }

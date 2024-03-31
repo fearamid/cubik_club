@@ -1,4 +1,4 @@
-import 'package:cubik_club/common/widgets/elements/section.dart';
+import 'package:cubik_club/common/widgets/components/section.dart';
 import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/ui/screens/post/post_screen.dart';
 import 'package:cubik_club/utils/constants/colors.dart';

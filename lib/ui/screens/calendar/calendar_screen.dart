@@ -1,4 +1,4 @@
-import 'package:cubik_club/common/widgets/elements/section.dart';
+import 'package:cubik_club/common/widgets/components/section.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:cubik_club/utils/extensions/string_casing_extension.dart';
 import 'package:flutter/material.dart';

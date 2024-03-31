@@ -1,5 +1,5 @@
-import 'package:cubik_club/common/widgets/elements/search_input.dart';
-import 'package:cubik_club/common/widgets/elements/section.dart';
+import 'package:cubik_club/common/widgets/components/search_input.dart';
+import 'package:cubik_club/common/widgets/components/section.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 
 import 'package:cubik_club/utils/constants/image_strings.dart';
@@ -194,7 +194,7 @@ class _TopBar extends StatelessWidget {
           IconButton(
             icon: const Icon(
               Iconsax.candle_2_copy,
-              size: 37,
+              size: 35,
               color: CCAppColors.secondary,
             ),
             padding: const EdgeInsets.all(10),

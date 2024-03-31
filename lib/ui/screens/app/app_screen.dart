@@ -124,46 +124,46 @@ class _AppBottomNavigation extends StatelessWidget {
             BottomNavigationBarItem(
               icon: Icon(
                 Iconsax.grid_4_copy,
-                size: 40,
+                size: 35,
                 color: CCAppColors.lightHighlightBackground,
               ),
-              activeIcon: Icon(Iconsax.grid_4, size: 40),
+              activeIcon: Icon(Iconsax.grid_4, size: 35),
               label: 'Помощник',
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Iconsax.clock_copy,
-                size: 40,
+                size: 35,
                 color: CCAppColors.lightHighlightBackground,
               ),
-              activeIcon: Icon(Iconsax.clock, size: 40),
+              activeIcon: Icon(Iconsax.clock, size: 35),
               label: 'События',
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Iconsax.home_2_copy,
-                size: 40,
+                size: 35,
                 color: CCAppColors.lightHighlightBackground,
               ),
-              activeIcon: Icon(Iconsax.home_2, size: 40),
+              activeIcon: Icon(Iconsax.home_2, size: 35),
               label: 'Главная',
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Iconsax.copy_copy,
-                size: 40,
+                size: 35,
                 color: CCAppColors.lightHighlightBackground,
               ),
-              activeIcon: Icon(Iconsax.copy, size: 40),
+              activeIcon: Icon(Iconsax.copy, size: 35),
               label: 'Коллекция',
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Iconsax.frame_1_copy,
-                size: 40,
+                size: 35,
                 color: CCAppColors.lightHighlightBackground,
               ),
-              activeIcon: Icon(Iconsax.frame, size: 40),
+              activeIcon: Icon(Iconsax.frame, size: 35),
               label: 'Профиль',
             ),
           ],

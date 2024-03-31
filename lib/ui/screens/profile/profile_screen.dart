@@ -1,5 +1,6 @@
-import 'package:cubik_club/common/widgets/elements/coins_indicator.dart';
-import 'package:cubik_club/common/widgets/elements/section.dart';
+import 'package:cubik_club/common/widgets/components/coins_indicator.dart';
+import 'package:cubik_club/common/widgets/components/custom_icon_button.dart';
+import 'package:cubik_club/common/widgets/components/section.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:cubik_club/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
@@ -198,44 +199,24 @@ class _ActionsBar extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            IconButton(
-              padding: const EdgeInsets.all(10),
+            CustomIconButton(
+              icon: Iconsax.setting_copy,
               onPressed: () {},
-              icon: const Icon(
-                Iconsax.setting_copy,
-                size: 40,
-                color: CCAppColors.secondary,
-              ),
             ),
             const SizedBox(height: 15),
-            IconButton(
-              padding: const EdgeInsets.all(10),
+            CustomIconButton(
+              icon: Iconsax.maximize_21_copy,
               onPressed: () {},
-              icon: const Icon(
-                Iconsax.maximize_21_copy,
-                size: 40,
-                color: CCAppColors.secondary,
-              ),
             ),
             const SizedBox(height: 15),
-            IconButton(
-              padding: const EdgeInsets.all(10),
+            CustomIconButton(
+              icon: Iconsax.brush_3_copy,
               onPressed: () {},
-              icon: const Icon(
-                Iconsax.brush_3_copy,
-                size: 40,
-                color: CCAppColors.secondary,
-              ),
             ),
             const SizedBox(height: 15),
-            IconButton(
-              padding: const EdgeInsets.all(10),
+            CustomIconButton(
+              icon: Iconsax.folder_copy,
               onPressed: () {},
-              icon: const Icon(
-                Iconsax.folder_copy,
-                size: 40,
-                color: CCAppColors.secondary,
-              ),
             ),
           ],
         ),
