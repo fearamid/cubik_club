@@ -1,11 +1,11 @@
-import 'package:cubik_club/common/widgets/components/search_input.dart';
+import 'package:cubik_club/common/widgets/components/custom_icon_button.dart';
 import 'package:cubik_club/common/widgets/components/section.dart';
+import 'package:cubik_club/common/widgets/search_top_bar.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 
 import 'package:cubik_club/utils/constants/image_strings.dart';
 import 'package:cubik_club/utils/device/device_utility.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -36,10 +36,10 @@ class _ViewModel extends ChangeNotifier {
 
   void onSearchFiltersButtonPressed() {}
 
+  void onDropDownFiltersChanged(int? index) {}
+
   void onCollectionViewModeButtonPressed(CollectionDisplayMode mode) {
-    updateState(
-      displayMode: mode,
-    );
+    updateState(displayMode: mode);
   }
 }
 
@@ -55,17 +55,32 @@ class GamesCollectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: delete magic numbers
     final collectionItemHeight =
         (CCDeviceUtils.getScreenWidth(context) - 10) / 2 + 10 + 100;
 
+    final model = context.read<_ViewModel>();
+
     return CustomScrollView(
       slivers: [
-        // TODO: convert topBar to SliverAppBar on all screens
+        // TODO: convert topBar to SliverAppBar on all screens (it need?)
 
         SliverList(
           delegate: SliverChildListDelegate(
             [
-              const _TopBar(),
+              SearchTopBar(
+                actions: [
+                  CustomIconButton(
+                    icon: Iconsax.colorfilter_copy,
+                    onPressed: model.onRandomGameButtonPressed,
+                  ),
+                  const SizedBox(width: 7),
+                  CustomIconButton(
+                    icon: Iconsax.candle_2_copy,
+                    onPressed: model.onSearchFiltersButtonPressed,
+                  ),
+                ],
+              ),
               const _SearchResultsViewBar(),
               const SizedBox(height: 20),
             ],
@@ -165,52 +180,13 @@ class _GameCard extends StatelessWidget {
   }
 }
 
-class _TopBar extends StatelessWidget {
-  const _TopBar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        bottom: 15,
-        left: 20,
-        right: 20,
-        top: kToolbarHeight,
-      ),
-      child: Row(
-        children: [
-          const SearchInput(),
-          const SizedBox(width: 20),
-          IconButton(
-            icon: const Icon(
-              Iconsax.colorfilter_copy,
-              size: 35,
-              color: CCAppColors.secondary,
-            ),
-            padding: const EdgeInsets.all(10),
-            onPressed: () {},
-          ),
-          const SizedBox(width: 7),
-          IconButton(
-            icon: const Icon(
-              Iconsax.candle_2_copy,
-              size: 35,
-              color: CCAppColors.secondary,
-            ),
-            padding: const EdgeInsets.all(10),
-            onPressed: () {},
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class _DropDownFilters extends StatelessWidget {
   const _DropDownFilters({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final model = context.read<_ViewModel>();
+
     return DropdownButtonHideUnderline(
       child: DropdownButton(
         value: 0,
@@ -229,7 +205,7 @@ class _DropDownFilters extends StatelessWidget {
             ),
           ),
         ],
-        onChanged: (index) {},
+        onChanged: (index) => model.onDropDownFiltersChanged(index),
       ),
     );
   }

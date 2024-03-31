@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cubik_club/common/widgets/auth_page_template.dart';
-import 'package:cubik_club/common/widgets/password_text_field.dart';
+import 'package:cubik_club/common/widgets/components/password_text_field.dart';
 import 'package:cubik_club/domain/data_providers/auth_api_provider.dart';
 import 'package:cubik_club/domain/services/auth_service.dart';
 import 'package:cubik_club/features/authentication/screens/login/widgets/login_with.dart';
@@ -27,6 +27,7 @@ class _ViewModelState {
     }
   }
 
+  //TODO: clear values
   _ViewModelState({
     this.login = 'admin',
     this.password = '1234',

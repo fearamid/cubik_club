@@ -142,6 +142,8 @@ class _CalendarState extends State<_Calendar> {
     );
 
     return Section(
+      paddingHorizontal: 15,
+      paddingVertical: 20,
       child: TableCalendar(
         onDaySelected: onDaySelected,
         locale: 'ru',

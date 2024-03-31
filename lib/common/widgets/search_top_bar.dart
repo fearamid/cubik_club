@@ -2,11 +2,11 @@ import 'package:cubik_club/common/widgets/components/search_input.dart';
 import 'package:flutter/material.dart';
 
 class SearchTopBar extends StatelessWidget {
-  final double gap;
+  final double spacing;
   final List<Widget>? actions;
   const SearchTopBar({
     super.key,
-    this.gap = 25,
+    this.spacing = 25,
     this.actions,
   });
 
@@ -16,7 +16,7 @@ class SearchTopBar extends StatelessWidget {
     ];
 
     if (actions != null) {
-      list.add(SizedBox(width: gap));
+      list.add(SizedBox(width: spacing));
       list.addAll(actions!.map((widget) => widget));
     }
 

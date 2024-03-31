@@ -1,5 +1,5 @@
 import 'package:cubik_club/common/widgets/auth_page_template.dart';
-import 'package:cubik_club/common/widgets/password_text_field.dart';
+import 'package:cubik_club/common/widgets/components/password_text_field.dart';
 import 'package:cubik_club/features/authentication/view_models/account_create_view_model.dart';
 
 import 'package:cubik_club/utils/constants/image_strings.dart';
@@ -8,7 +8,6 @@ import 'package:cubik_club/utils/formatters/password_input_formatter.dart';
 import 'package:cubik_club/utils/formatters/ru_phone_input_formatter.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class AccountCreateStepThreePage extends StatelessWidget {
