@@ -1,7 +1,6 @@
-import 'package:cubik_club/features/authentication/screens/account_create/account_create_screen.dart';
-import 'package:cubik_club/features/authentication/screens/login/login_screen.dart';
-import 'package:cubik_club/features/authentication/screens/onboarding/onboarding_screen.dart';
-import 'package:cubik_club/ui/screens/app/app_screen.dart';
+import 'package:cubik_club/ui/screen_factory/screen_factory.dart';
+import 'package:cubik_club/ui/screens/login/login_screen.dart';
+import 'package:cubik_club/ui/screens/onboarding/onboarding_screen.dart';
 import 'package:cubik_club/ui/screens/loader/loader_screen.dart';
 import 'package:cubik_club/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +19,8 @@ class App extends StatelessWidget {
       routes: {
         '/login': (_) => LoginScreen.create(),
         '/onboarding': (_) => OnboardingScreen.create(),
-        '/account_create': (_) => AccountCreateScreen.create(),
-        '/main': (_) => AppScreen.create(),
+        '/account_create': (_) => ScreenFactory().makeAccountCreateScreen(),
+        '/app': (_) => ScreenFactory().makeAppScreen(),
         '/loader': (_) => LoaderScreen.create(),
       },
       initialRoute: '/loader',

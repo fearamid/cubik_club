@@ -1,4 +1,4 @@
-import 'package:cubik_club/common/widgets/components/section.dart';
+import 'package:cubik_club/ui/common/widgets/components/section.dart';
 import 'package:cubik_club/domain/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

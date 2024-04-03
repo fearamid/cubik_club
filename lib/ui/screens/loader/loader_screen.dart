@@ -24,7 +24,7 @@ class _ViewModel {
   }
 
   void _goToAppScreen() {
-    Navigator.of(context).pushNamedAndRemoveUntil('/main', (_) => false);
+    Navigator.of(context).pushNamedAndRemoveUntil('/app', (_) => false);
   }
 }
 
