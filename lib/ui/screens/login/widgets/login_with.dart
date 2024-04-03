@@ -3,13 +3,12 @@ import 'package:cubik_club/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 
 class LoginWithButton extends StatelessWidget {
-  final Key? key;
   final VoidCallback? onPressed;
   final IconData icon;
   final double iconSize;
   final double padding;
   const LoginWithButton({
-    this.key,
+    super.key,
     required this.icon,
     required this.onPressed,
     this.iconSize = 45,
@@ -35,16 +34,12 @@ class _LoginWithSeparator extends StatelessWidget {
   final Color lineColor;
   final Color darkLineColor;
   final double lineThick;
+
   const _LoginWithSeparator({
-    // ignore: unused_element
     super.key,
-    // ignore: unused_element
     this.textColor = CCAppColors.secondary,
-    // ignore: unused_element
     this.lineColor = CCAppColors.lightHighlightBackground,
-    // ignore: unused_element
     this.darkLineColor = CCAppColors.darkHighlightBackground,
-    // ignore: unused_element
     this.lineThick = 2,
   });
 

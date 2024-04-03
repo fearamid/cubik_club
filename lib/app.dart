@@ -1,7 +1,4 @@
-import 'package:cubik_club/ui/screen_factory/screen_factory.dart';
-import 'package:cubik_club/ui/screens/login/login_screen.dart';
-import 'package:cubik_club/ui/screens/onboarding/onboarding_screen.dart';
-import 'package:cubik_club/ui/screens/loader/loader_screen.dart';
+import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:cubik_club/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -10,43 +7,16 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MainNavigation navigation = MainNavigation();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
       theme: CCAppTheme.lightTheme,
       darkTheme: CCAppTheme.darkTheme,
-      // home: LoaderScreen.create(),
-      routes: {
-        '/login': (_) => LoginScreen.create(),
-        '/onboarding': (_) => OnboardingScreen.create(),
-        '/account_create': (_) => ScreenFactory().makeAccountCreateScreen(),
-        '/app': (_) => ScreenFactory().makeAppScreen(),
-        '/loader': (_) => LoaderScreen.create(),
-      },
-      initialRoute: '/loader',
-      onGenerateRoute: (RouteSettings settings) {
-        return MaterialPageRoute(builder: (context) {
-          return Scaffold(
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Произошла ошибка навигации.'),
-                  const SizedBox(height: 30),
-                  OutlinedButton(
-                      onPressed: () {
-                        final canPop = Navigator.of(context).canPop();
-                        if (canPop) {
-                          Navigator.of(context).pop();
-                        }
-                      },
-                      child: const Text('Назад'))
-                ],
-              ),
-            ),
-          );
-        });
-      },
+      routes: navigation.routes,
+      initialRoute: Screens.loader,
+      onGenerateRoute: (RouteSettings settings) =>
+          navigation.onGenerateRoute(settings),
     );
   }
 }

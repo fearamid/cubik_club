@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-void initUI() {
+void initSystemUI() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.manual,
@@ -21,16 +21,17 @@ void initUI() {
       systemNavigationBarColor: Colors.white,
     ),
   );
+
+  initializeDateFormatting('ru');
 }
 
 void main() {
-  initUI();
+  initSystemUI();
   // Todo: Add Widgets Binding
   // Todo: Init Local Storage
   // Todo: Await Native Splash
   // Todo: Initialize Firebase
   // Todo: Initialize Authentification
-  initializeDateFormatting('ru');
   const app = App();
   runApp(app);
 }

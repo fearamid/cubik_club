@@ -5,10 +5,10 @@ import 'package:cubik_club/ui/screens/app_tabs/tabs/main/main_screen.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 
-class _ViewModelState {
+class _AppTabsViewModelState {
   final int selectedPageIndex;
 
-  _ViewModelState({
+  _AppTabsViewModelState({
     this.selectedPageIndex = 2,
   });
 }
@@ -20,7 +20,7 @@ class AppTabsViewModel extends ChangeNotifier {
   final _pageController = PageController(initialPage: 2);
   PageController get controller => _pageController;
 
-  var _state = _ViewModelState();
+  var _state = _AppTabsViewModelState();
   get state => _state;
 
   final List<Widget> bottomNavigationScreens = [
@@ -34,7 +34,7 @@ class AppTabsViewModel extends ChangeNotifier {
   void updateState({
     int? selectedPageIndex,
   }) {
-    _state = _ViewModelState(
+    _state = _AppTabsViewModelState(
       selectedPageIndex: selectedPageIndex ?? _state.selectedPageIndex,
     );
     notifyListeners();
