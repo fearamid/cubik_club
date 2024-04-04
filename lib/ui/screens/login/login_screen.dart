@@ -77,7 +77,7 @@ class _MainActionButton extends StatelessWidget {
     final authButtonState = context
         .select((LoginScreenViewModel value) => value.state.authButtonState);
     final onAuthButtonPressed =
-        authButtonState == LoginScreenViewModelAuthButonState.canSubmit
+        authButtonState == LoginScreenAuthButonState.canSubmit
             ? () => viewModel.onAuthButtonPressed(context)
             : null;
 

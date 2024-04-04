@@ -1,26 +1,10 @@
 import 'package:cubik_club/ui/common/widgets/components/section.dart';
-import 'package:cubik_club/domain/services/auth_service.dart';
+import 'package:cubik_club/ui/screens/settings/settings_screen_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class _ViewModel extends ChangeNotifier {
-  final _authService = AuthService();
-
-  void onLogoutButtonPressed(BuildContext context) {
-    _authService.logout();
-    Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
-  }
-}
-
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
-
-  static Widget create() {
-    return ChangeNotifierProvider(
-      create: (_) => _ViewModel(),
-      child: const SettingsScreen(),
-    );
-  }
 
   // TODO: remake
   final List<String> settingsTiles = const [
@@ -31,7 +15,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<_ViewModel>();
+    final model = context.read<SettingsScreenViewModel>();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

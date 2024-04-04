@@ -3,21 +3,11 @@ import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:cubik_club/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-class _ViewModel extends ChangeNotifier {}
 
 class PostScreen extends StatelessWidget {
   final Event event;
 
   const PostScreen({super.key, required this.event});
-
-  static Widget create(Event event) {
-    return ChangeNotifierProvider(
-      create: (_) => _ViewModel(),
-      child: PostScreen(event: event),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +15,7 @@ class PostScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // SizedBox(height: kToolbarHeight),
+            const SizedBox(height: kToolbarHeight),
             const _PostCover(),
             const SizedBox(height: 20),
             _PostDescription(

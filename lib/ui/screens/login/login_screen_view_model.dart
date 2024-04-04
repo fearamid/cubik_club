@@ -2,26 +2,26 @@ import 'package:cubik_club/domain/data_providers/auth_api_provider.dart';
 import 'package:cubik_club/domain/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
-enum LoginScreenViewModelAuthButonState { canSubmit, authProcess, disable }
+enum LoginScreenAuthButonState { canSubmit, authProcess, disable }
 
-class _ViewModelState {
+class _LoginScreenViewModelState {
   final String login;
   final String password;
   final String authErrorText;
   final bool isAuthProccess;
 
-  LoginScreenViewModelAuthButonState get authButtonState {
+  LoginScreenAuthButonState get authButtonState {
     if (isAuthProccess) {
-      return LoginScreenViewModelAuthButonState.authProcess;
+      return LoginScreenAuthButonState.authProcess;
     } else if (login.isNotEmpty && password.isNotEmpty) {
-      return LoginScreenViewModelAuthButonState.canSubmit;
+      return LoginScreenAuthButonState.canSubmit;
     } else {
-      return LoginScreenViewModelAuthButonState.disable;
+      return LoginScreenAuthButonState.disable;
     }
   }
 
   //TODO: clear values
-  _ViewModelState({
+  const _LoginScreenViewModelState({
     this.login = 'admin',
     this.password = '1234',
     this.authErrorText = '',
@@ -32,7 +32,7 @@ class _ViewModelState {
 class LoginScreenViewModel extends ChangeNotifier {
   final _authService = AuthService();
 
-  var _state = _ViewModelState();
+  var _state = const _LoginScreenViewModelState();
   get state => _state;
 
   void updateState({
@@ -41,7 +41,7 @@ class LoginScreenViewModel extends ChangeNotifier {
     String? authErrorText,
     bool? isAuthProccess,
   }) {
-    _state = _ViewModelState(
+    _state = _LoginScreenViewModelState(
       login: login ?? _state.login,
       password: password ?? _state.password,
       isAuthProccess: isAuthProccess ?? _state.isAuthProccess,

@@ -1,6 +1,7 @@
 import 'package:cubik_club/ui/common/widgets/components/custom_icon_button.dart';
 import 'package:cubik_club/ui/common/widgets/components/section.dart';
 import 'package:cubik_club/ui/common/widgets/search_top_bar.dart';
+import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/games_collection_screen_view_model.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 
 import 'package:cubik_club/utils/constants/image_strings.dart';
@@ -9,49 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 
-enum CollectionDisplayMode { list, grid }
-
-class _ViewModelState {
-  final CollectionDisplayMode displayMode;
-
-  _ViewModelState({
-    this.displayMode = CollectionDisplayMode.list,
-  });
-}
-
-class _ViewModel extends ChangeNotifier {
-  var _state = _ViewModelState();
-  _ViewModelState get state => _state;
-
-  void updateState({
-    CollectionDisplayMode? displayMode,
-  }) {
-    _state = _ViewModelState(
-      displayMode: displayMode ?? _state.displayMode,
-    );
-    notifyListeners();
-  }
-
-  void onRandomGameButtonPressed() {}
-
-  void onSearchFiltersButtonPressed() {}
-
-  void onDropDownFiltersChanged(int? index) {}
-
-  void onCollectionViewModeButtonPressed(CollectionDisplayMode mode) {
-    updateState(displayMode: mode);
-  }
-}
-
 class GamesCollectionScreen extends StatelessWidget {
   const GamesCollectionScreen({super.key});
-
-  static Widget create() {
-    return ChangeNotifierProvider(
-      create: (_) => _ViewModel(),
-      child: const GamesCollectionScreen(),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +19,7 @@ class GamesCollectionScreen extends StatelessWidget {
     final collectionItemHeight =
         (CCDeviceUtils.getScreenWidth(context) - 10) / 2 + 10 + 100;
 
-    final model = context.read<_ViewModel>();
+    final model = context.read<GamesCollectionScreenViewModel>();
 
     return CustomScrollView(
       slivers: [
@@ -185,7 +145,7 @@ class _DropDownFilters extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<_ViewModel>();
+    final model = context.read<GamesCollectionScreenViewModel>();
 
     return DropdownButtonHideUnderline(
       child: DropdownButton(
@@ -248,7 +208,8 @@ class _CollectionDisplayModeButtonState
   @override
   void initState() {
     super.initState();
-    final viewMode = context.read<_ViewModel>().state.displayMode;
+    final viewMode =
+        context.read<GamesCollectionScreenViewModel>().state.displayMode;
 
     mode = viewMode;
     icon = viewMode == CollectionDisplayMode.list ? gridIcon : listIcon;
@@ -267,7 +228,7 @@ class _CollectionDisplayModeButtonState
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<_ViewModel>();
+    final viewModel = context.read<GamesCollectionScreenViewModel>();
 
     return IconButton(
       icon: Icon(

@@ -4,40 +4,18 @@ import 'package:cubik_club/ui/common/widgets/components/post_thumbnail.dart';
 import 'package:cubik_club/ui/common/widgets/components/custom_slider.dart';
 import 'package:cubik_club/ui/common/widgets/search_top_bar.dart';
 import 'package:cubik_club/domain/entities/event.dart';
-import 'package:cubik_club/ui/screens/scanner/scanner_screen.dart';
+import 'package:cubik_club/ui/screens/app_tabs/tabs/main/main_screen_view_model.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 
-class _ViewModelState {}
-
-class _ViewModel extends ChangeNotifier {
-  var _state = _ViewModelState();
-  _ViewModelState get state => _state;
-
-  void onQrScannerButtonPressed(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return ScannerScreen();
-    }));
-  }
-
-  void onSliderPageChanged(int index) {}
-}
-
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
-  static Widget create() {
-    return ChangeNotifierProvider(
-      create: (_) => _ViewModel(),
-      child: const MainScreen(),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    final model = context.read<_ViewModel>();
+    final model = context.read<MainScreenViewModel>();
     return CustomScrollView(
       slivers: [
         SliverList(
@@ -133,7 +111,7 @@ class _QRCodeScanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<_ViewModel>();
+    final model = context.read<MainScreenViewModel>();
     return CustomIconButton(
       icon: Iconsax.scanner_copy,
       onPressed: () => model.onQrScannerButtonPressed(context),

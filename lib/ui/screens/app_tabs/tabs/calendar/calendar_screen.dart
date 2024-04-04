@@ -2,31 +2,11 @@ import 'package:cubik_club/ui/common/widgets/components/section.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:cubik_club/utils/extensions/string_casing_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class _ViewModelState {}
-
-class _ViewModel extends ChangeNotifier {
-  var _state = _ViewModelState();
-  _ViewModelState get state => _state;
-
-  void updateState() {
-    _state = _ViewModelState();
-    notifyListeners();
-  }
-}
-
 class CalendarScreen extends StatelessWidget {
   const CalendarScreen({super.key});
-
-  static Widget create() {
-    return ChangeNotifierProvider(
-      create: (_) => _ViewModel(),
-      child: const CalendarScreen(),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {

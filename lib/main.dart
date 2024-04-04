@@ -6,10 +6,12 @@ import 'package:intl/date_symbol_data_local.dart';
 
 void initSystemUI() {
   WidgetsFlutterBinding.ensureInitialized();
+// TODO: fix hide toolbar from qr scanner
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.manual,
     overlays: [
       SystemUiOverlay.top,
+      SystemUiOverlay.bottom,
     ],
   );
 

@@ -1,44 +1,15 @@
 import 'package:cubik_club/ui/common/widgets/components/coins_indicator.dart';
 import 'package:cubik_club/ui/common/widgets/components/custom_icon_button.dart';
 import 'package:cubik_club/ui/common/widgets/components/section.dart';
-import 'package:cubik_club/ui/screens/settings/settings_screen.dart';
+import 'package:cubik_club/ui/screens/app_tabs/tabs/profile/profile_screen_view_model.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:cubik_club/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 
-class _ViewModelState {}
-
-class _ViewModel extends ChangeNotifier {
-  var _state = _ViewModelState();
-  _ViewModelState get state => _state;
-
-  void updateState() {
-    _state = _ViewModelState();
-    notifyListeners();
-  }
-
-  void onSettingsButtonPressed(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => SettingsScreen.create()),
-    );
-  }
-
-  void onQrCodeButtonPressed(BuildContext context) {}
-  void onCustomizeButtonPressed(BuildContext context) {}
-  void onArchiveButtonPressed(BuildContext context) {}
-}
-
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
-
-  static Widget create() {
-    return ChangeNotifierProvider(
-      create: (_) => _ViewModel(),
-      child: const ProfileScreen(),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +167,7 @@ class _ActionsBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<_ViewModel>();
+    final model = context.read<ProfileScreenViewModel>();
 
     return Container(
       decoration: BoxDecoration(

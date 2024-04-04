@@ -1,7 +1,16 @@
+import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/ui/screens/account_create/account_create_screen.dart';
 import 'package:cubik_club/ui/screens/account_create/account_create_view_model.dart';
 import 'package:cubik_club/ui/screens/app_tabs/app_tabs.dart';
 import 'package:cubik_club/ui/screens/app_tabs/app_tabs_view_model.dart';
+import 'package:cubik_club/ui/screens/app_tabs/tabs/calendar/calendar_screen.dart';
+import 'package:cubik_club/ui/screens/app_tabs/tabs/calendar/calendar_screen_view_model.dart';
+import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/games_collection_screen.dart';
+import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/games_collection_screen_view_model.dart';
+import 'package:cubik_club/ui/screens/app_tabs/tabs/main/main_screen.dart';
+import 'package:cubik_club/ui/screens/app_tabs/tabs/main/main_screen_view_model.dart';
+import 'package:cubik_club/ui/screens/app_tabs/tabs/profile/profile_screen.dart';
+import 'package:cubik_club/ui/screens/app_tabs/tabs/profile/profile_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/loader/loader_screen.dart';
 import 'package:cubik_club/ui/screens/loader/loader_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/login/login_screen.dart';
@@ -9,6 +18,12 @@ import 'package:cubik_club/ui/screens/login/login_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/navigation_error/navigation_error_screen.dart';
 import 'package:cubik_club/ui/screens/onboarding/onboarding_screen.dart';
 import 'package:cubik_club/ui/screens/onboarding/onboarding_screen_view_model.dart';
+import 'package:cubik_club/ui/screens/post/post_screen.dart';
+import 'package:cubik_club/ui/screens/post/post_screen_view_model.dart';
+import 'package:cubik_club/ui/screens/scanner/scanner_screen.dart';
+import 'package:cubik_club/ui/screens/scanner/scanner_screen_view_model.dart';
+import 'package:cubik_club/ui/screens/settings/settings_screen.dart';
+import 'package:cubik_club/ui/screens/settings/settings_screen_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -52,5 +67,54 @@ class ScreenFactory {
 
   Widget makeNavigationError() {
     return const NavigationErrorScreen();
+  }
+
+  Widget makePost(Event event) {
+    return ChangeNotifierProvider(
+      create: (_) => PostScreenViewModel(),
+      child: PostScreen(event: event),
+    );
+  }
+
+  Widget makeScanner() {
+    return ChangeNotifierProvider(
+      create: (_) => ScannerScreenViewModel(),
+      child: const ScannerScreen(),
+    );
+  }
+
+  Widget makeCalendar() {
+    return ChangeNotifierProvider(
+      create: (_) => CalendarScreenViewModel(),
+      child: const CalendarScreen(),
+    );
+  }
+
+  Widget makeGamesCollection() {
+    return ChangeNotifierProvider(
+      create: (_) => GamesCollectionScreenViewModel(),
+      child: const GamesCollectionScreen(),
+    );
+  }
+
+  Widget makeMain() {
+    return ChangeNotifierProvider(
+      create: (_) => MainScreenViewModel(),
+      child: const MainScreen(),
+    );
+  }
+
+  Widget makeProfile() {
+    return ChangeNotifierProvider(
+      create: (_) => ProfileScreenViewModel(),
+      child: const ProfileScreen(),
+    );
+  }
+
+  Widget makeSettings() {
+    return ChangeNotifierProvider(
+      create: (_) => SettingsScreenViewModel(),
+      child: const SettingsScreen(),
+    );
   }
 }

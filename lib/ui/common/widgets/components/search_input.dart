@@ -7,6 +7,7 @@ class SearchInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Expanded(
       child: TextField(
+        textInputAction: TextInputAction.search,
         decoration: InputDecoration(
           hintText: 'Поиск',
           hintStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
