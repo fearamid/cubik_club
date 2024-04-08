@@ -1,5 +1,6 @@
 import 'package:cubik_club/domain/data_providers/auth_api_provider.dart';
 import 'package:cubik_club/domain/services/auth_service.dart';
+import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:flutter/material.dart';
 
 enum LoginScreenAuthButonState { canSubmit, authProcess, disable }
@@ -68,7 +69,8 @@ class LoginScreenViewModel extends ChangeNotifier {
     try {
       await _authService.login(login, password);
       updateState(isAuthProccess: false);
-      Navigator.of(context).pushNamedAndRemoveUntil('/main', (route) => false);
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(Screens.appTabs, (route) => false);
       // TODO: переход в приложение
     } on AuthApiProviderIncorrectLoginData {
       updateState(

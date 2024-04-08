@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 class Section extends StatelessWidget {
   final Widget child;
+  final double? height;
+  final double? width;
   final double borderRadius;
   final Color color;
   final double paddingVertical;
@@ -18,11 +20,15 @@ class Section extends StatelessWidget {
     this.paddingVertical = 20,
     this.paddingHorizontal = 20,
     this.alignment = Alignment.topLeft,
+    this.height,
+    this.width,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: height,
+      width: width,
       alignment: alignment,
       padding: EdgeInsets.symmetric(
         horizontal: paddingHorizontal,

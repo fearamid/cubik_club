@@ -1,4 +1,5 @@
 import 'package:cubik_club/domain/entities/event.dart';
+import 'package:cubik_club/domain/entities/qr_code_data.dart';
 import 'package:cubik_club/ui/screens/account_create/account_create_screen.dart';
 import 'package:cubik_club/ui/screens/account_create/account_create_view_model.dart';
 import 'package:cubik_club/ui/screens/app_tabs/app_tabs.dart';
@@ -20,8 +21,10 @@ import 'package:cubik_club/ui/screens/onboarding/onboarding_screen.dart';
 import 'package:cubik_club/ui/screens/onboarding/onboarding_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/post/post_screen.dart';
 import 'package:cubik_club/ui/screens/post/post_screen_view_model.dart';
-import 'package:cubik_club/ui/screens/scanner/scanner_screen.dart';
-import 'package:cubik_club/ui/screens/scanner/scanner_screen_view_model.dart';
+import 'package:cubik_club/ui/screens/qr_code/qr_code_screen.dart';
+import 'package:cubik_club/ui/screens/qr_code/qr_code_screen_view_model.dart';
+import 'package:cubik_club/ui/screens/scanner/qr_scanner_screen.dart';
+import 'package:cubik_club/ui/screens/scanner/qr_scanner_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/settings/settings_screen.dart';
 import 'package:cubik_club/ui/screens/settings/settings_screen_view_model.dart';
 import 'package:flutter/material.dart';
@@ -65,21 +68,33 @@ class ScreenFactory {
     );
   }
 
-  Widget makeNavigationError() {
-    return const NavigationErrorScreen();
+  Widget makeNavigationError([String? errorText]) {
+    return NavigationErrorScreen(errorText: errorText);
   }
 
-  Widget makePost(Event event) {
+  Widget makePost(BuildContext context) {
+    final arguments = ModalRoute.of(context)?.settings.arguments;
+
+    if (arguments == null || arguments is! Event) {
+      return makeNavigationError(
+          'Не удалось получить информацию о мероприятии.');
+    }
+
+    final Event event = arguments as Event;
+
     return ChangeNotifierProvider(
       create: (_) => PostScreenViewModel(),
-      child: PostScreen(event: event),
+      child: PostScreen(
+        event: event,
+        buildContext: context,
+      ),
     );
   }
 
   Widget makeScanner() {
     return ChangeNotifierProvider(
-      create: (_) => ScannerScreenViewModel(),
-      child: const ScannerScreen(),
+      create: (_) => QrScannerScreenViewModel(),
+      child: const QrScannerScreen(),
     );
   }
 
@@ -115,6 +130,21 @@ class ScreenFactory {
     return ChangeNotifierProvider(
       create: (_) => SettingsScreenViewModel(),
       child: const SettingsScreen(),
+    );
+  }
+
+  Widget makeQrCode(BuildContext context) {
+    final arguments = ModalRoute.of(context)?.settings.arguments;
+
+    if (arguments == null || arguments is! IQrCodeAble) {
+      return makeNavigationError('Не удалось получить информацию о qr-коде.');
+    }
+
+    final IQrCodeAble qrCodeEntity = arguments;
+
+    return ChangeNotifierProvider(
+      create: (_) => QrCodeScreenViewModel(),
+      child: QrCodeScreen(qrCodeEntity),
     );
   }
 }

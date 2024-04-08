@@ -3,11 +3,17 @@ import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:cubik_club/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class PostScreen extends StatelessWidget {
+  final BuildContext buildContext;
   final Event event;
 
-  const PostScreen({super.key, required this.event});
+  const PostScreen({
+    super.key,
+    required this.event,
+    required this.buildContext,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +146,7 @@ class _PostCover extends StatelessWidget {
           child: Container(
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(20)),
-              color: Colors.grey,
+              color: CCAppColors.accentGreen,
             ),
             child: Image.asset(CCImages.onBoardingImage2),
           ),
@@ -149,9 +155,7 @@ class _PostCover extends StatelessWidget {
           top: 20,
           left: 20,
           child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).pop();
-            },
+            onTap: () => Navigator.of(context).pop(),
             child: Container(
               width: 50,
               height: 50,
@@ -160,8 +164,9 @@ class _PostCover extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: const Icon(
-                Icons.chevron_left_rounded,
-                size: 40,
+                Iconsax.arrow_left_2_copy,
+                size: 30,
+                color: CCAppColors.secondary,
               ),
             ),
           ),

@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:flutter/material.dart';
 

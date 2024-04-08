@@ -1,6 +1,7 @@
-import 'package:cubik_club/domain/entities/board_game.dart';
+import 'package:cubik_club/domain/entities/qr_code_data.dart';
 
-class Event {
+class Event implements IQrCodeAble {
+  final DateTime? dateTime;
   final String name;
   final String description;
   // final DateTime dateTime;
@@ -9,7 +10,14 @@ class Event {
   const Event({
     required this.name,
     required this.description,
+    this.dateTime,
     // required this.dateTime,
     // required this.gamesList,
   });
+
+  @override
+  String generateQr() => name;
+
+  @override
+  String generateQrTitle() => "Мероприятие";
 }

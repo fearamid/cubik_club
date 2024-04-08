@@ -1,10 +1,8 @@
-import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
-class ScannerScreenViewModel extends ChangeNotifier {
+class QrScannerScreenViewModel extends ChangeNotifier {
   final _cameraController = MobileScannerController(
     facing: CameraFacing.back,
     torchEnabled: false,

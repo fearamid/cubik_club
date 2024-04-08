@@ -1,6 +1,8 @@
+import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/ui/common/widgets/components/coins_indicator.dart';
 import 'package:cubik_club/ui/common/widgets/components/custom_icon_button.dart';
 import 'package:cubik_club/ui/common/widgets/components/section.dart';
+import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/profile/profile_screen_view_model.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:cubik_club/utils/constants/image_strings.dart';
@@ -21,79 +23,15 @@ class ProfileScreen extends StatelessWidget {
               const _ProfileHeader(),
               const _UserResources(),
               const _UserAchievements(),
+              const _BookingInformation(),
+              const SizedBox(height: 20),
+              const _ClubInformation(),
             ],
           ),
         ),
         const SliverToBoxAdapter(
             child: SizedBox(height: kBottomNavigationBarHeight + 60)),
       ],
-    );
-  }
-}
-
-class _UserAchievements extends StatelessWidget {
-  const _UserAchievements({super.key});
-
-  Color pickColorFromIndex(int index) {
-    final clasterNumber = (index + 1) % 4;
-    switch (clasterNumber) {
-      case 1:
-        return CCAppColors.accentRed;
-      case 2:
-        return CCAppColors.accentBlue;
-      case 3:
-        return CCAppColors.accentGreen;
-      case 0:
-        return CCAppColors.accentYellow;
-    }
-    return Colors.white;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GridView.builder(
-      padding: const EdgeInsets.all(20),
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: 4,
-      shrinkWrap: true,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisSpacing: 10,
-        crossAxisSpacing: 10,
-        childAspectRatio: 1,
-      ),
-      itemBuilder: (context, index) {
-        return Section(
-          alignment: Alignment.center,
-          color: pickColorFromIndex(index),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('$index'),
-              const Text('Подробнее'),
-            ],
-          ),
-        );
-      },
-    );
-  }
-}
-
-class _UserResources extends StatelessWidget {
-  const _UserResources({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Section(
-      paddingVertical: 15,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          CoinsIndicator(value: 125),
-          CoinsIndicator(value: 125),
-          CoinsIndicator(value: 125),
-        ],
-      ),
     );
   }
 }
@@ -190,7 +128,13 @@ class _ActionsBar extends StatelessWidget {
             const SizedBox(height: 15),
             CustomIconButton(
               icon: Iconsax.maximize_21_copy,
-              onPressed: () {},
+              onPressed: () {
+                // TODO: change to User
+                Navigator.of(context).pushNamed(
+                  Screens.qrCode,
+                  arguments: const Event(name: 'аыва', description: 'fsdf'),
+                );
+              },
             ),
             const SizedBox(height: 15),
             CustomIconButton(
@@ -204,6 +148,143 @@ class _ActionsBar extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _UserResources extends StatelessWidget {
+  const _UserResources({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Section(
+      paddingVertical: 15,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          CoinsIndicator(value: 125),
+          CoinsIndicator(value: 125),
+          CoinsIndicator(value: 125),
+        ],
+      ),
+    );
+  }
+}
+
+class _UserAchievements extends StatelessWidget {
+  const _UserAchievements({super.key});
+
+  Color pickColorFromIndex(int index) {
+    final clasterNumber = (index + 1) % 4;
+    switch (clasterNumber) {
+      case 1:
+        return CCAppColors.accentRed;
+      case 2:
+        return CCAppColors.accentBlue;
+      case 3:
+        return CCAppColors.accentGreen;
+      case 0:
+        return CCAppColors.accentYellow;
+    }
+    return Colors.white;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      padding: const EdgeInsets.all(20),
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: 4,
+      shrinkWrap: true,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
+        childAspectRatio: 1,
+      ),
+      itemBuilder: (context, index) {
+        return Section(
+          alignment: Alignment.center,
+          color: pickColorFromIndex(index),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '$index',
+                style: const TextStyle(fontSize: 18),
+              ),
+              const Text(
+                'Подробнее',
+                style: TextStyle(fontSize: 18),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _BookingInformation extends StatelessWidget {
+  const _BookingInformation({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Section(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Бронирование",
+            style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          Text(
+            'Вы ничего не бронировали.',
+            style: TextStyle(fontSize: 18),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class _ClubInformation extends StatelessWidget {
+  const _ClubInformation({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Section(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Информация клуба',
+            style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          Text(
+            'Посещения',
+            style: TextStyle(fontSize: 18, color: CCAppColors.secondary),
+          ),
+          Text(
+            'Участия',
+            style: TextStyle(fontSize: 18, color: CCAppColors.secondary),
+          ),
+          Text(
+            'Победы',
+            style: TextStyle(fontSize: 18, color: CCAppColors.secondary),
+          ),
+          Text(
+            'Звания лучшего',
+            style: TextStyle(fontSize: 18, color: CCAppColors.secondary),
+          ),
+        ],
       ),
     );
   }

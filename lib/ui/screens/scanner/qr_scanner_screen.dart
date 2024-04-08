@@ -1,22 +1,29 @@
-import 'package:cubik_club/ui/screens/scanner/scanner_screen_view_model.dart';
+import 'package:cubik_club/ui/screens/scanner/qr_scanner_screen_view_model.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
 
-class ScannerScreen extends StatelessWidget {
-  const ScannerScreen({super.key});
+class QrScannerScreen extends StatelessWidget {
+  const QrScannerScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<ScannerScreenViewModel>();
+    final viewModel = context.read<QrScannerScreenViewModel>();
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 70,
+        leading: IconButton(
+          icon: const Icon(Iconsax.arrow_left_2_copy),
+          iconSize: 35,
+          color: CCAppColors.secondary,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
         title: const Text(
           'QR сканер',
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 22,
             color: CCAppColors.lightTextPrimary,
             fontWeight: FontWeight.w700,
           ),
@@ -43,7 +50,7 @@ class _TorchButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<ScannerScreenViewModel>();
+    final viewModel = context.read<QrScannerScreenViewModel>();
 
     return IconButton(
       color: CCAppColors.secondary,
@@ -68,7 +75,7 @@ class _CameraFacingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<ScannerScreenViewModel>();
+    final viewModel = context.read<QrScannerScreenViewModel>();
 
     return IconButton(
       color: CCAppColors.secondary,

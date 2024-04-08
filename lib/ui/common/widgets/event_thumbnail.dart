@@ -1,24 +1,26 @@
-import 'package:cubik_club/ui/common/widgets/components/section.dart';
 import 'package:cubik_club/domain/entities/event.dart';
-import 'package:cubik_club/ui/screens/post/post_screen.dart';
+import 'package:cubik_club/ui/common/widgets/components/section.dart';
+import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class EventThumbnail extends StatelessWidget {
+  final GestureTapCallback? onTap;
   final Event event;
-  const EventThumbnail({super.key, required this.event});
+  const EventThumbnail({
+    super.key,
+    required this.event,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) {
-              return PostScreen(event: event);
-            },
-          ),
-        );
+        Navigator.of(context).pushNamed(Screens.post, arguments: event);
+        if (onTap != null) {
+          onTap!();
+        }
       },
       child: Section(
         child: Column(
@@ -40,7 +42,7 @@ class EventThumbnail extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 color: CCAppColors.lightTextPrimary,
-                fontSize: 16,
+                fontSize: 18,
                 fontWeight: FontWeight.w400,
                 height: 1.18,
               ),
@@ -53,7 +55,7 @@ class EventThumbnail extends StatelessWidget {
                   'стратегия',
                   style: TextStyle(
                     color: CCAppColors.secondary,
-                    fontSize: 16,
+                    fontSize: 18,
                     fontWeight: FontWeight.w400,
                     height: 1.18,
                   ),
@@ -72,7 +74,7 @@ class EventThumbnail extends StatelessWidget {
                   '12+',
                   style: TextStyle(
                     color: CCAppColors.secondary,
-                    fontSize: 16,
+                    fontSize: 18,
                     fontWeight: FontWeight.w400,
                     height: 1.18,
                   ),
@@ -91,7 +93,7 @@ class EventThumbnail extends StatelessWidget {
                   'для всех',
                   style: TextStyle(
                     color: CCAppColors.secondary,
-                    fontSize: 16,
+                    fontSize: 18,
                     fontWeight: FontWeight.w400,
                     height: 1.18,
                   ),

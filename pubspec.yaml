@@ -18,6 +18,8 @@ dependencies:
   carousel_slider: ^4.2.1
   table_calendar: ^3.1.1
   mobile_scanner: ^4.0.1
+  expandable_page_view: ^1.0.17
+  qr_flutter: ^4.1.0
   
   http: ^1.1.0
   shared_preferences: ^2.2.2

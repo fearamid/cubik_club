@@ -1,6 +1,5 @@
 import 'package:cubik_club/domain/services/auth_service.dart';
 import 'package:cubik_club/ui/screen_factory/screen_factory.dart';
-import 'package:cubik_club/ui/screens/app_tabs/tabs/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class _AppTabsViewModelState {
@@ -22,7 +21,7 @@ class AppTabsViewModel extends ChangeNotifier {
   get state => _state;
 
   final List<Widget> bottomNavigationScreens = [
-    const Center(child: Text('Помощник приложения')),
+    const Center(child: Text('помощник')),
     ScreenFactory().makeCalendar(),
     ScreenFactory().makeMain(),
     ScreenFactory().makeGamesCollection(),
