@@ -27,6 +27,8 @@ import 'package:cubik_club/ui/screens/scanner/qr_scanner_screen.dart';
 import 'package:cubik_club/ui/screens/scanner/qr_scanner_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/settings/settings_screen.dart';
 import 'package:cubik_club/ui/screens/settings/settings_screen_view_model.dart';
+import 'package:cubik_club/ui/screens/settings/widgets/account_group/account_group.dart';
+import 'package:cubik_club/ui/screens/settings/widgets/account_group/account_group_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -127,8 +129,13 @@ class ScreenFactory {
   }
 
   Widget makeSettings() {
-    return ChangeNotifierProvider(
-      create: (_) => SettingsScreenViewModel(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<SettingsScreenViewModel>(
+            create: (_) => SettingsScreenViewModel()),
+        ChangeNotifierProvider<AccounGroupViewModel>(
+            create: (_) => AccounGroupViewModel()),
+      ],
       child: const SettingsScreen(),
     );
   }

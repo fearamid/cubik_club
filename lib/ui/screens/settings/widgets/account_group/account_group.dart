@@ -1,0 +1,49 @@
+import 'package:cubik_club/ui/screens/settings/widgets/account_group/account_group_view_model.dart';
+import 'package:cubik_club/ui/screens/settings/widgets/settings_group.dart';
+import 'package:cubik_club/ui/screens/settings/widgets/settings_tile.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+class AccountGroup {
+  const AccountGroup();
+
+  List<Widget> createTiles(BuildContext context) {
+    final List<Widget> accountTiles = [
+      _DarkModeToggle.build(context),
+      SettingsTile.value(
+        label: 'Email',
+        description: 'Настройка Email',
+      ),
+      SettingsTile.value(
+        label: 'Пароль',
+        description: 'Настройка пароля',
+      ),
+    ];
+
+    return accountTiles;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SettingsGroup(
+      label: 'Аккаунт',
+      tiles: createTiles(context),
+    );
+  }
+}
+
+abstract class _DarkModeToggle {
+  const _DarkModeToggle();
+
+  static Widget build(BuildContext context) {
+    final model = context.read<AccounGroupViewModel>();
+    final darkMode = context.watch<AccounGroupViewModel>().state.darkMode;
+
+    return SettingsTile.toggle(
+      label: 'Темная тема',
+      description: 'Включить темный режим',
+      value: darkMode,
+      onChanged: model.onDarkModeToggle,
+    );
+  }
+}

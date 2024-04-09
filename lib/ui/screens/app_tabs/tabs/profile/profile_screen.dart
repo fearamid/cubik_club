@@ -1,4 +1,5 @@
 import 'package:cubik_club/domain/entities/event.dart';
+import 'package:cubik_club/domain/entities/user.dart';
 import 'package:cubik_club/ui/common/widgets/components/coins_indicator.dart';
 import 'package:cubik_club/ui/common/widgets/components/custom_icon_button.dart';
 import 'package:cubik_club/ui/common/widgets/components/section.dart';
@@ -132,15 +133,19 @@ class _ActionsBar extends StatelessWidget {
                 // TODO: change to User
                 Navigator.of(context).pushNamed(
                   Screens.qrCode,
-                  arguments: const Event(name: 'аыва', description: 'fsdf'),
+                  arguments: const User(
+                    name: 'Дмитрий',
+                    surname: 'Калашников',
+                    id: 'user_283471023',
+                  ),
                 );
               },
             ),
             const SizedBox(height: 15),
-            CustomIconButton(
-              icon: Iconsax.brush_3_copy,
-              onPressed: () {},
-            ),
+            // CustomIconButton(
+            //   icon: Iconsax.brush_3_copy,
+            //   onPressed: () {},
+            // ),
             const SizedBox(height: 15),
             CustomIconButton(
               icon: Iconsax.folder_copy,
