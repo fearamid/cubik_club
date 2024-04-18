@@ -1,4 +1,3 @@
-import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/domain/entities/user.dart';
 import 'package:cubik_club/ui/common/widgets/components/coins_indicator.dart';
 import 'package:cubik_club/ui/common/widgets/components/custom_icon_button.dart';
@@ -129,17 +128,7 @@ class _ActionsBar extends StatelessWidget {
             const SizedBox(height: 15),
             CustomIconButton(
               icon: Iconsax.maximize_21_copy,
-              onPressed: () {
-                // TODO: change to User
-                Navigator.of(context).pushNamed(
-                  Screens.qrCode,
-                  arguments: const User(
-                    name: 'Дмитрий',
-                    surname: 'Калашников',
-                    id: 'user_283471023',
-                  ),
-                );
-              },
+              onPressed: () => model.onQrCodeButtonPressed(context),
             ),
             const SizedBox(height: 15),
             // CustomIconButton(

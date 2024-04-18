@@ -1,3 +1,5 @@
+import 'package:cubik_club/ui/common/widgets/components/custom_icon_button.dart';
+import 'package:cubik_club/ui/common/widgets/components/link_tile.dart';
 import 'package:cubik_club/ui/common/widgets/components/section.dart';
 import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
@@ -18,34 +20,192 @@ class PostScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: kToolbarHeight),
-            const _PostCover(),
-            const SizedBox(height: 20),
-            _PostDescription(
-              name: event.name,
-              description: event.description,
-            ),
-            const SizedBox(height: 20),
-            const _GamesList(),
-            const SizedBox(height: kBottomNavigationBarHeight + 60),
-          ],
-        ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      // floatingActionButton: Container(
+      //   decoration: const BoxDecoration(
+      //     color: CCAppColors.lightBackground,
+      //     shape: BoxShape.circle,
+      //   ),
+      //   child: CustomIconButton(
+      //     icon: Iconsax.arrow_left_2_copy,
+      //     onPressed: () {},
+      //   ),
+      // ),
+      body: CustomScrollView(
+        slivers: [
+          // SliverAppBar(
+          //   pinned: true,
+          //   floating: true,
+          //   expandedHeight: 370,
+          //   toolbarHeight: 0,
+          //   collapsedHeight: 0,
+          //   automaticallyImplyLeading: false,
+          //   backgroundColor: CCAppColors.lightBackground,
+          //   flexibleSpace: FlexibleSpaceBar(
+          //     background: ClipRRect(
+          //       borderRadius: const BorderRadius.only(
+          //         bottomRight: Radius.circular(20),
+          //         bottomLeft: Radius.circular(20),
+          //       ),
+          //       child: Image.asset(
+          //         CCImages.cowboy,
+          //         fit: BoxFit.cover,
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          SliverList(
+            delegate: SliverChildListDelegate([
+              // const SizedBox(height: kToolbarHeight),
+              const _PostCover(),
+              const SizedBox(height: 20),
+              _PostDescription(
+                name: event.name,
+                description: event.description,
+              ),
+              const SizedBox(height: 20),
+              const _GamesList(["Монополия", "Другая игра"]),
+              const SizedBox(height: kBottomNavigationBarHeight + 60),
+            ]),
+          )
+        ],
       ),
     );
   }
 }
 
 class _GamesList extends StatelessWidget {
-  const _GamesList({super.key});
+  final List<String> games;
+
+  const _GamesList(
+    this.games, {
+    super.key,
+  });
+
+  List<Widget> _createChildren() {
+    final count = games.length;
+    List<Widget> children = [];
+
+    children.addAll(_createTitle(count));
+    children.addAll(_createBody(count).map((widget) => widget));
+
+    return children;
+  }
+
+  List<Widget> _createTitle(int count) {
+    String title = '';
+
+    if (count == 0) {
+      title = 'Игра отсутствует';
+    } else if (count == 1) {
+      title = games[0];
+    } else {
+      title = 'Играем в эти настолки';
+    }
+
+    return [
+      Text(
+        title,
+        style: const TextStyle(
+          fontSize: 25,
+          fontWeight: FontWeight.bold,
+          color: CCAppColors.lightTextPrimary,
+        ),
+      ),
+      const SizedBox(height: 7),
+    ];
+  }
+
+  List<Widget> _createBody(int count) {
+    if (count == 0) {
+      return [
+        const Text(
+          'У этого мероприятия отсутсвует назначенная игра.',
+          style: TextStyle(
+            fontSize: 18,
+          ),
+        )
+      ];
+    } else if (count == 1) {
+      return _createSingleGameBody();
+    }
+    return [_createMultipleGamesBody(count)];
+  }
+
+  Widget _createMultipleGamesBody(int count) {
+    return ListView.separated(
+      physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.zero,
+      shrinkWrap: true,
+      itemCount: count,
+      itemBuilder: (context, index) {
+        return LinkTile.withTags(
+            onPressed: () {},
+            title: games[index],
+            tags: ["Стратегия", "18+", "Сложная"]);
+      },
+      separatorBuilder: (_, __) {
+        return const SizedBox(height: 10);
+      },
+    );
+  }
+
+  List<Widget> _createSingleGameBody() {
+    return [
+      ListView.separated(
+        physics: const NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.zero,
+        shrinkWrap: true,
+        itemCount: 4,
+        itemBuilder: (context, index) {
+          return Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'Параметр $index',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: CCAppColors.secondary,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  'Значение $index',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: CCAppColors.lightTextPrimary,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+        separatorBuilder: (_, __) {
+          return const SizedBox(height: 7);
+        },
+      ),
+      const SizedBox(height: 15),
+      OutlinedButton(
+        style: ButtonStyle(
+          padding: MaterialStateProperty.all(
+            const EdgeInsets.symmetric(vertical: 15, horizontal: 40),
+          ),
+        ),
+        onPressed: () {},
+        child: const Text('Подробнее'),
+      )
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
-    return const Section(
+    return Section(
       child: Column(
-        children: [],
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: _createChildren(),
       ),
     );
   }
@@ -143,29 +303,29 @@ class _PostCover extends StatelessWidget {
       children: [
         AspectRatio(
           aspectRatio: 1,
-          child: Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              color: CCAppColors.accentGreen,
+          child: ClipRRect(
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
             ),
-            child: Image.asset(CCImages.onBoardingImage2),
+            child: Image.asset(CCImages.tomato),
           ),
         ),
         Positioned(
-          top: 20,
+          bottom: 20,
           left: 20,
           child: GestureDetector(
             onTap: () => Navigator.of(context).pop(),
             child: Container(
-              width: 50,
-              height: 50,
+              width: 55,
+              height: 55,
               decoration: BoxDecoration(
                 color: CCAppColors.lightBackground,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: const Icon(
                 Iconsax.arrow_left_2_copy,
-                size: 30,
+                size: 35,
                 color: CCAppColors.secondary,
               ),
             ),

@@ -5,6 +5,8 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
 
+// TODO: copy to clipboard button
+
 class QrScannerScreen extends StatelessWidget {
   const QrScannerScreen({super.key});
 
@@ -13,7 +15,7 @@ class QrScannerScreen extends StatelessWidget {
     final viewModel = context.read<QrScannerScreenViewModel>();
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 70,
+        // toolbarHeight: 70,
         leading: IconButton(
           icon: const Icon(Iconsax.arrow_left_2_copy),
           iconSize: 35,

@@ -5,7 +5,7 @@ class CustomIconButton extends StatelessWidget {
   final IconData icon;
   final Color color;
   final double size;
-  final double padding;
+  final EdgeInsets padding;
   final VoidCallback? onPressed;
 
   const CustomIconButton({
@@ -13,14 +13,14 @@ class CustomIconButton extends StatelessWidget {
     required this.icon,
     this.color = CCAppColors.secondary,
     this.size = 35,
-    this.padding = 10,
+    this.padding = const EdgeInsets.all(10),
     this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      padding: EdgeInsets.all(padding),
+      padding: padding,
       onPressed: onPressed,
       icon: Icon(
         icon,

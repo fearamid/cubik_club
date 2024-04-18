@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
-class AccounGroupViewModelState {
+class AccountGroupViewModelState {
   final bool darkMode;
 
-  const AccounGroupViewModelState({
+  const AccountGroupViewModelState({
     this.darkMode = true,
   });
 }
 
-class AccounGroupViewModel extends ChangeNotifier {
-  var _state = const AccounGroupViewModelState();
+class AccountGroupViewModel extends ChangeNotifier {
+  var _state = const AccountGroupViewModelState();
   get state => _state;
 
   void updateState({
     bool? darkMode,
   }) {
-    _state = AccounGroupViewModelState(
+    _state = AccountGroupViewModelState(
       darkMode: darkMode ?? _state.darkMode,
     );
     notifyListeners();

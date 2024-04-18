@@ -23,7 +23,6 @@ class AccountGroup {
     return accountTiles;
   }
 
-  @override
   Widget build(BuildContext context) {
     return SettingsGroup(
       label: 'Аккаунт',
@@ -36,8 +35,8 @@ abstract class _DarkModeToggle {
   const _DarkModeToggle();
 
   static Widget build(BuildContext context) {
-    final model = context.read<AccounGroupViewModel>();
-    final darkMode = context.watch<AccounGroupViewModel>().state.darkMode;
+    final model = context.read<AccountGroupViewModel>();
+    final darkMode = context.watch<AccountGroupViewModel>().state.darkMode;
 
     return SettingsTile.toggle(
       label: 'Темная тема',

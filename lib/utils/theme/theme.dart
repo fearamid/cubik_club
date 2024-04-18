@@ -1,3 +1,5 @@
+import 'package:cubik_club/utils/theme/custom_themes/dialog_theme.dart';
+import 'package:cubik_club/utils/theme/custom_themes/snack_bar_theme.dart';
 import 'package:cubik_club/utils/theme/custom_themes/text_button_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -32,6 +34,8 @@ class CCAppTheme {
     inputDecorationTheme: CCTextFieldTheme.lightTheme,
     chipTheme: CCChipTheme.lightTheme,
     textButtonTheme: CCTextButtonTheme.lightTheme,
+    dialogTheme: CCDialogTheme.lightTheme,
+    snackBarTheme: CCSnackBarTheme.lightTheme,
     // TODO: SnackBarTheme (dark, light)
   );
 
@@ -53,5 +57,7 @@ class CCAppTheme {
     inputDecorationTheme: CCTextFieldTheme.darkTheme,
     chipTheme: CCChipTheme.darkTheme,
     textButtonTheme: CCTextButtonTheme.darkTheme,
+    snackBarTheme: CCSnackBarTheme.darkTheme,
+    dialogTheme: CCDialogTheme.darkTheme,
   );
 }

@@ -1,6 +1,7 @@
 import 'package:cubik_club/domain/data_providers/auth_api_provider.dart';
-import 'package:cubik_club/domain/services/auth_service.dart';
+import 'package:cubik_club/domain/services/auth/auth_service.dart';
 import 'package:cubik_club/ui/navigation/main_navigation.dart';
+import 'package:cubik_club/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 
 enum LoginScreenAuthButonState { canSubmit, authProcess, disable }
@@ -51,12 +52,12 @@ class LoginScreenViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _showSnackBar(BuildContext context, {String message = ''}) {
-    final snackBar = SnackBar(
-        duration: const Duration(seconds: 2),
-        content: Text(message.isNotEmpty ? message : state.authErrorText));
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  void _showSnackBar(BuildContext context, {String? message}) {
+    CCHelperFunctions.showSnackBar(
+      context: context,
+      message: message,
+      replaceMessage: state.authErrorText,
+    );
   }
 
   Future<void> onAuthButtonPressed(BuildContext context) async {
@@ -65,7 +66,7 @@ class LoginScreenViewModel extends ChangeNotifier {
 
     if (login.isEmpty || password.isEmpty) return;
     updateState(authErrorText: '', isAuthProccess: true);
-//TODO: добавить другие ошибки, если есть (проверка на интернет и т.д.)
+    //TODO: добавить другие ошибки, если есть (проверка на интернет и т.д.)
     try {
       await _authService.login(login, password);
       updateState(isAuthProccess: false);
@@ -90,7 +91,7 @@ class LoginScreenViewModel extends ChangeNotifier {
 
   Future<void> onAccounCreateButtonPressed(BuildContext context) async {
     // TODO: right action or link?
-    await Navigator.of(context).pushNamed('/account_create');
+    await Navigator.of(context).pushNamed(Screens.accountCreate);
   }
 
   Future<void> onForgotPasswordButtonPressed(BuildContext context) async {

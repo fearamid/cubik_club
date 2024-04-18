@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 class SearchTopBar extends StatelessWidget {
   final double spacing;
   final List<Widget>? actions;
+  final double top;
   const SearchTopBar({
     super.key,
     this.spacing = 25,
     this.actions,
+    this.top = kToolbarHeight,
   });
 
   List<Widget> _createChildren() {
@@ -26,11 +28,11 @@ class SearchTopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
+      padding: EdgeInsets.only(
         bottom: 15,
         left: 20,
         right: 20,
-        top: kToolbarHeight,
+        top: top,
       ),
       child: Row(
         children: _createChildren(),

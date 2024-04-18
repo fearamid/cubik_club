@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
 
 abstract class CCHelperFunctions {
-  static void showSnackBar(
-      {required BuildContext context, required String message}) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
+  static void showSnackBar({
+    required BuildContext context,
+    String? message,
+    String replaceMessage = '',
+  }) {
+    String text = replaceMessage;
+    if (message != null && message.isNotEmpty) {
+      text = message;
+    }
+
+    final snackBar = SnackBar(
+      duration: const Duration(seconds: 2),
+      content: Text(text),
     );
+
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  static void showAllert(
-      {required BuildContext context,
-      required String title,
-      required String message}) {
+  static void showAllert({
+    required BuildContext context,
+    required String title,
+    required String message,
+  }) {
     showDialog(
       context: context,
       builder: (context) {
@@ -21,7 +34,10 @@ abstract class CCHelperFunctions {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('ok'),
+              child: const Text(
+                'Назад',
+                style: TextStyle(fontSize: 18),
+              ),
             )
           ],
         );
@@ -29,20 +45,20 @@ abstract class CCHelperFunctions {
     );
   }
 
-  static void navigateToScreen(BuildContext context, Widget screen) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => screen),
-    );
-  }
+  // static void navigateToScreen(BuildContext context, Widget screen) {
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(builder: (_) => screen),
+  //   );
+  // }
 
-  static String truncateText(String text, int maxLenght) {
-    if (text.length <= maxLenght) {
-      return text;
-    } else {
-      return '${text.substring(0, maxLenght)}...';
-    }
-  }
+  // static String truncateText(String text, int maxLenght) {
+  //   if (text.length <= maxLenght) {
+  //     return text;
+  //   } else {
+  //     return '${text.substring(0, maxLenght)}...';
+  //   }
+  // }
 
   static bool isDarkMode(BuildContext context) {
     return Theme.of(context).brightness == Brightness.dark;

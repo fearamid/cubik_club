@@ -35,13 +35,17 @@ class _CustomSliderState extends State<CustomSlider> {
 
   @override
   Widget build(BuildContext context) {
+    bool autoPlay = widget.autoPlay;
+    if (widget.count <= 1) {
+      autoPlay = false;
+    }
     return Column(
       children: [
         CarouselSlider.builder(
           carouselController: CarouselController(),
           itemCount: widget.count,
           options: CarouselOptions(
-            autoPlay: widget.autoPlay,
+            autoPlay: autoPlay,
             height: widget.height,
             viewportFraction: 1,
             onPageChanged: (int index, _) {

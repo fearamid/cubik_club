@@ -37,9 +37,12 @@ class MainNavigation {
         Screens.qrCode: (context) => _screenFactory.makeQrCode(context),
       };
 
-  Route<dynamic>? onGenerateRoute(RouteSettings settings) {
-    return MaterialPageRoute(
-      builder: (context) => _screenFactory.makeNavigationError(),
-    );
+  Route<Object> onGenerateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      default:
+        return MaterialPageRoute(
+          builder: (_) => _screenFactory.makeNavigationError(),
+        );
+    }
   }
 }

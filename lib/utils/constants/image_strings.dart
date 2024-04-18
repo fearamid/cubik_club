@@ -1,4 +1,8 @@
 abstract class CCImages {
+  // Заглушки
+  static const String cowboy = 'assets/images/cowboy.png';
+  static const String tomato = 'assets/images/tomato.png';
+
   // -- App logos
   static const String lightAppLogo = 'assets/logos/brand/cubik_logo.png';
 

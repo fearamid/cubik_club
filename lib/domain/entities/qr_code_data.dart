@@ -1,4 +1,4 @@
-abstract class IQrCodeAble {
+abstract interface class IQrCodeAble {
   String generateQr();
   String generateQrTitle();
 }

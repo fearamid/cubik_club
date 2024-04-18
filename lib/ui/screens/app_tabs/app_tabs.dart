@@ -35,73 +35,67 @@ class _AppBottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.read<AppTabsViewModel>();
-    return Container(
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-            topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+    return ClipRRect(
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(35),
+        topRight: Radius.circular(35),
       ),
-      child: ClipRRect(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(35),
-          topRight: Radius.circular(35),
-        ),
-        child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: CCAppColors.lightBackground,
-          elevation: 1,
-          currentIndex: pageIndex,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          onTap: viewModel.onBottomNavigationBarTap,
-          fixedColor: CCAppColors.primary,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Iconsax.grid_4_copy,
-                size: 35,
-                color: CCAppColors.lightHighlightBackground,
-              ),
-              activeIcon: Icon(Iconsax.grid_4, size: 35),
-              label: 'Помощник',
+      child: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: CCAppColors.lightBackground,
+        elevation: 1,
+        currentIndex: pageIndex,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        onTap: viewModel.onBottomNavigationBarTap,
+        fixedColor: CCAppColors.primary,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Iconsax.grid_4_copy,
+              size: 35,
+              color: CCAppColors.lightHighlightBackground,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Iconsax.clock_copy,
-                size: 35,
-                color: CCAppColors.lightHighlightBackground,
-              ),
-              activeIcon: Icon(Iconsax.clock, size: 35),
-              label: 'События',
+            activeIcon: Icon(Iconsax.grid_4, size: 35),
+            label: 'Помощник',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Iconsax.clock_copy,
+              size: 35,
+              color: CCAppColors.lightHighlightBackground,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Iconsax.home_2_copy,
-                size: 35,
-                color: CCAppColors.lightHighlightBackground,
-              ),
-              activeIcon: Icon(Iconsax.home_2, size: 35),
-              label: 'Главная',
+            activeIcon: Icon(Iconsax.clock, size: 35),
+            label: 'События',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Iconsax.home_2_copy,
+              size: 35,
+              color: CCAppColors.lightHighlightBackground,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Iconsax.copy_copy,
-                size: 35,
-                color: CCAppColors.lightHighlightBackground,
-              ),
-              activeIcon: Icon(Iconsax.copy, size: 35),
-              label: 'Коллекция',
+            activeIcon: Icon(Iconsax.home_2, size: 35),
+            label: 'Главная',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Iconsax.copy_copy,
+              size: 35,
+              color: CCAppColors.lightHighlightBackground,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Iconsax.frame_1_copy,
-                size: 35,
-                color: CCAppColors.lightHighlightBackground,
-              ),
-              activeIcon: Icon(Iconsax.frame, size: 35),
-              label: 'Профиль',
+            activeIcon: Icon(Iconsax.copy, size: 35),
+            label: 'Коллекция',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Iconsax.frame_1_copy,
+              size: 35,
+              color: CCAppColors.lightHighlightBackground,
             ),
-          ],
-        ),
+            activeIcon: Icon(Iconsax.frame, size: 35),
+            label: 'Профиль',
+          ),
+        ],
       ),
     );
   }

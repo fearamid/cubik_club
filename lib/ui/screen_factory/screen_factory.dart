@@ -27,7 +27,6 @@ import 'package:cubik_club/ui/screens/scanner/qr_scanner_screen.dart';
 import 'package:cubik_club/ui/screens/scanner/qr_scanner_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/settings/settings_screen.dart';
 import 'package:cubik_club/ui/screens/settings/settings_screen_view_model.dart';
-import 'package:cubik_club/ui/screens/settings/widgets/account_group/account_group.dart';
 import 'package:cubik_club/ui/screens/settings/widgets/account_group/account_group_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -75,14 +74,12 @@ class ScreenFactory {
   }
 
   Widget makePost(BuildContext context) {
-    final arguments = ModalRoute.of(context)?.settings.arguments;
+    final event = ModalRoute.of(context)?.settings.arguments;
 
-    if (arguments == null || arguments is! Event) {
+    if (event == null || event is! Event) {
       return makeNavigationError(
           'Не удалось получить информацию о мероприятии.');
     }
-
-    final Event event = arguments as Event;
 
     return ChangeNotifierProvider(
       create: (_) => PostScreenViewModel(),
@@ -133,8 +130,8 @@ class ScreenFactory {
       providers: [
         ChangeNotifierProvider<SettingsScreenViewModel>(
             create: (_) => SettingsScreenViewModel()),
-        ChangeNotifierProvider<AccounGroupViewModel>(
-            create: (_) => AccounGroupViewModel()),
+        ChangeNotifierProvider<AccountGroupViewModel>(
+            create: (_) => AccountGroupViewModel()),
       ],
       child: const SettingsScreen(),
     );

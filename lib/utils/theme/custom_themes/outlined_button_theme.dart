@@ -9,7 +9,7 @@ class CCOutlinedButtonTheme {
     elevation: 0,
     foregroundColor: CCAppColors.secondary,
     side: const BorderSide(
-      width: 2,
+      width: 1,
       color: CCAppColors.lightHighlightBackground,
     ),
     textStyle: const TextStyle(
@@ -28,7 +28,7 @@ class CCOutlinedButtonTheme {
     elevation: 0,
     foregroundColor: CCAppColors.secondary,
     side: const BorderSide(
-      width: 2,
+      width: 1,
       color: CCAppColors.darkHighlightBackground,
     ),
     textStyle: const TextStyle(

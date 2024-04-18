@@ -6,6 +6,7 @@ import 'package:cubik_club/ui/common/widgets/search_top_bar.dart';
 import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/main/main_screen_view_model.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
+import 'package:cubik_club/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
@@ -33,21 +34,7 @@ class MainScreen extends StatelessWidget {
                     _QRCodeScanner(),
                   ],
                 ),
-                CustomSlider(
-                  count: 5,
-                  height: 360,
-                  onPageChanged: (index) => model.onSliderPageChanged(index),
-                  itemBuilder: (context, index, realIndex) {
-                    return Container(
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        color: CCAppColors.lightHighlightBackground,
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                      ),
-                      child: Center(child: Text('Картинка ${index + 1}')),
-                    );
-                  },
-                ),
+                const _PostsSlider(),
                 const SizedBox(height: 20),
                 const _GuidesCarousel(),
                 const SizedBox(height: 45),
@@ -73,6 +60,47 @@ class MainScreen extends StatelessWidget {
               child: SizedBox(height: kBottomNavigationBarHeight + 60)),
         ],
       ),
+    );
+  }
+}
+
+class _PostsSlider extends StatelessWidget {
+  const _PostsSlider({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.read<MainScreenViewModel>();
+    final sliderPosts = context.watch<MainScreenViewModel>().state.sliderPosts;
+    final count = sliderPosts.length;
+
+    return CustomSlider(
+      count: count == 0 ? 1 : count,
+      height: 360,
+      onPageChanged: (index) => model.onSliderPageChanged(index),
+      itemBuilder: (_, index, __) {
+        if (count == 0) {
+          return Container(
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              color: CCAppColors.lightHighlightBackground,
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+            ),
+            child: const Center(child: Text('Никаких объявлений')),
+          );
+        }
+
+        return GestureDetector(
+          onTap: () => model.onSliderPagePressed(index),
+          child: ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            child: Image.asset(
+              CCImages.cowboy,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+          ),
+        );
+      },
     );
   }
 }

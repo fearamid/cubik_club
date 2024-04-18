@@ -1,3 +1,5 @@
+import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/games_collection_screen.dart';
+import 'package:cubik_club/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 
 enum CollectionDisplayMode { list, grid }
@@ -23,7 +25,15 @@ class GamesCollectionScreenViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onRandomGameButtonPressed() {}
+  void onRandomGameButtonPressed(
+    BuildContext context, {
+    required WidgetBuilder builder,
+  }) {
+    showDialog(
+      context: context,
+      builder: builder,
+    );
+  }
 
   void onSearchFiltersButtonPressed() {}
 

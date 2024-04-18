@@ -31,14 +31,14 @@ class PlayersRange {
   }
 }
 
-class BoardGameParameters {
+class BoardGameTags {
   final List<String> genres;
   final int ageLimit;
   final String author;
   final int playersRange;
   final int duration;
 
-  const BoardGameParameters({
+  const BoardGameTags({
     required this.genres,
     required this.author,
     required this.ageLimit,
@@ -50,13 +50,13 @@ class BoardGameParameters {
 class BoardGame {
   final String name;
   final String description;
-  final BoardGameParameters parameters;
+  final BoardGameTags tags;
   final List<CommunityLink> communityLinks;
 
   const BoardGame({
     required this.name,
     required this.description,
-    required this.parameters,
+    required this.tags,
     required this.communityLinks,
   });
 }

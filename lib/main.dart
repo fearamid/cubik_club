@@ -8,11 +8,7 @@ void initSystemUI() {
   WidgetsFlutterBinding.ensureInitialized();
 // TODO: fix hide toolbar from qr scanner
   SystemChrome.setEnabledSystemUIMode(
-    SystemUiMode.manual,
-    overlays: [
-      SystemUiOverlay.top,
-      SystemUiOverlay.bottom,
-    ],
+    SystemUiMode.edgeToEdge,
   );
 
   SystemChrome.setSystemUIOverlayStyle(

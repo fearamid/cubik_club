@@ -1,3 +1,4 @@
+import 'package:cubik_club/ui/screens/account_create/account_create_view_model_interface.dart';
 import 'package:flutter/material.dart';
 
 enum AccountCreateSteps { one, two, three, verification }
@@ -39,7 +40,8 @@ class _ViewModelState {
   }
 }
 
-class AccountCreateViewModel extends ChangeNotifier {
+class AccountCreateViewModel extends ChangeNotifier
+    implements AccountCreateViewModelInteface {
   var state = const _ViewModelState();
   // final AccountCreateService service = AccountCreateService();
 

@@ -24,25 +24,59 @@ class GamesCollectionScreen extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         // TODO: convert topBar to SliverAppBar on all screens (it need?)
-
+        SliverAppBar(
+          titleSpacing: 0,
+          backgroundColor: CCAppColors.lightBackground,
+          toolbarHeight: 110,
+          pinned: true,
+          snap: true,
+          floating: true,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(35),
+              bottomRight: Radius.circular(35),
+            ),
+          ),
+          title: SearchTopBar(
+            top: 30,
+            actions: [
+              CustomIconButton(
+                icon: Iconsax.colorfilter_copy,
+                onPressed: () {
+                  model.onRandomGameButtonPressed(
+                    context,
+                    builder: (context) {
+                      return Text('fsdfsdfsdff');
+                    },
+                  );
+                },
+              ),
+              const SizedBox(width: 7),
+              CustomIconButton(
+                icon: Iconsax.candle_2_copy,
+                onPressed: model.onSearchFiltersButtonPressed,
+              ),
+            ],
+          ),
+        ),
         SliverList(
           delegate: SliverChildListDelegate(
             [
-              SearchTopBar(
-                actions: [
-                  CustomIconButton(
-                    icon: Iconsax.colorfilter_copy,
-                    onPressed: model.onRandomGameButtonPressed,
-                  ),
-                  const SizedBox(width: 7),
-                  CustomIconButton(
-                    icon: Iconsax.candle_2_copy,
-                    onPressed: model.onSearchFiltersButtonPressed,
-                  ),
-                ],
-              ),
-              const _SearchResultsViewBar(),
-              const SizedBox(height: 20),
+              // SearchTopBar(
+              //   actions: [
+              //     CustomIconButton(
+              //       icon: Iconsax.colorfilter_copy,
+              //       onPressed: model.onRandomGameButtonPressed,
+              //     ),
+              //     const SizedBox(width: 7),
+              //     CustomIconButton(
+              //       icon: Iconsax.candle_2_copy,
+              //       onPressed: model.onSearchFiltersButtonPressed,
+              //     ),
+              //   ],
+              // ),
+              // const _SearchResultsViewBar(),
+              // const SizedBox(height: 20),
             ],
           ),
         ),
@@ -57,7 +91,7 @@ class GamesCollectionScreen extends StatelessWidget {
             mainAxisExtent: collectionItemHeight,
           ),
           itemBuilder: (context, index) {
-            return const _GameCard();
+            return const GameCard();
           },
         ),
         const SliverToBoxAdapter(
@@ -67,8 +101,8 @@ class GamesCollectionScreen extends StatelessWidget {
   }
 }
 
-class _GameCard extends StatelessWidget {
-  const _GameCard({super.key});
+class GameCard extends StatelessWidget {
+  const GameCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -77,8 +111,8 @@ class _GameCard extends StatelessWidget {
         print('Tap on game card');
       },
       child: const Section(
-        paddingHorizontal: 10,
-        paddingVertical: 10,
+        paddingHorizontal: 15,
+        paddingVertical: 15,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -92,7 +126,7 @@ class _GameCard extends StatelessWidget {
             Text(
               'Роскошь Дуэль',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 20,
                 fontWeight: FontWeight.w700,
                 height: 1,
                 overflow: TextOverflow.ellipsis,
@@ -103,7 +137,7 @@ class _GameCard extends StatelessWidget {
             Text(
               'стратегия',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 18,
                 color: CCAppColors.secondary,
                 fontWeight: FontWeight.normal,
                 height: 1,
@@ -114,7 +148,7 @@ class _GameCard extends StatelessWidget {
             Text(
               '5 - 10 человек',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 18,
                 color: CCAppColors.secondary,
                 fontWeight: FontWeight.normal,
                 height: 1,
@@ -125,7 +159,7 @@ class _GameCard extends StatelessWidget {
             Text(
               '40 минут',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 18,
                 color: CCAppColors.secondary,
                 fontWeight: FontWeight.normal,
                 height: 1,
