@@ -12,15 +12,17 @@ import 'package:cubik_club/ui/screens/app_tabs/tabs/main/main_screen.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/main/main_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/profile/profile_screen.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/profile/profile_screen_view_model.dart';
+import 'package:cubik_club/ui/screens/folders/folders_screen.dart';
+import 'package:cubik_club/ui/screens/folders/folders_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/loader/loader_screen.dart';
 import 'package:cubik_club/ui/screens/loader/loader_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/login/login_screen.dart';
 import 'package:cubik_club/ui/screens/login/login_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/navigation_error/navigation_error_screen.dart';
 import 'package:cubik_club/ui/screens/onboarding/onboarding_screen.dart';
-import 'package:cubik_club/ui/screens/onboarding/onboarding_screen_view_model.dart';
+import 'package:cubik_club/ui/screens/onboarding/view_model/onboarding_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/post/post_screen.dart';
-import 'package:cubik_club/ui/screens/post/post_screen_view_model.dart';
+import 'package:cubik_club/ui/screens/post/view_model/post_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/qr_code/qr_code_screen.dart';
 import 'package:cubik_club/ui/screens/qr_code/qr_code_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/scanner/qr_scanner_screen.dart';
@@ -94,6 +96,13 @@ class ScreenFactory {
     return ChangeNotifierProvider(
       create: (_) => QrScannerScreenViewModel(),
       child: const QrScannerScreen(),
+    );
+  }
+
+  Widget makeFolders() {
+    return ChangeNotifierProvider(
+      create: (_) => FoldersScreenViewModel(),
+      child: const FoldersScreen(),
     );
   }
 

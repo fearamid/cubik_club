@@ -1,4 +1,4 @@
-import 'package:cubik_club/ui/common/widgets/components/tags_list.dart';
+import 'package:cubik_club/ui/common/components/single/tags_list.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';

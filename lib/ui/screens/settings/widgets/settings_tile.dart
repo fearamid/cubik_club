@@ -5,6 +5,8 @@ class SettingsTile extends StatelessWidget {
   final String label;
   final Widget action;
   final String? description;
+  final bool isNeedConfirmation;
+  final String confirmationText;
 
   final Icon? icon;
 
@@ -14,6 +16,8 @@ class SettingsTile extends StatelessWidget {
     required this.action,
     this.description,
     this.icon,
+    this.isNeedConfirmation = false,
+    this.confirmationText = 'Вы уверены?',
   });
 
   factory SettingsTile.toggle({

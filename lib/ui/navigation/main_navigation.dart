@@ -18,6 +18,7 @@ abstract class Screens {
   static const settings = "/settings";
   static const post = "/post";
   static const qrCode = "/qr_code";
+  static const folders = "/folders";
 }
 
 class MainNavigation {
@@ -37,6 +38,7 @@ class MainNavigation {
         Screens.settings: (_) => _screenFactory.makeSettings(),
         Screens.post: (context) => _screenFactory.makePost(context),
         Screens.qrCode: (context) => _screenFactory.makeQrCode(context),
+        Screens.folders: (_) => _screenFactory.makeFolders(),
       };
 
   Route<Object> onGenerateRoute(RouteSettings settings) {
@@ -62,6 +64,10 @@ class MainNavigation {
 
   static void toSettingsScreen(BuildContext context) async {
     await Navigator.of(context).pushNamed(Screens.settings);
+  }
+
+  static void toFoldersScreen(BuildContext context) async {
+    await Navigator.of(context).pushNamed(Screens.folders);
   }
 
   static void toQrCodeScreen(BuildContext context,

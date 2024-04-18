@@ -1,6 +1,6 @@
-import 'package:cubik_club/ui/common/widgets/components/custom_icon_button.dart';
-import 'package:cubik_club/ui/common/widgets/components/section.dart';
-import 'package:cubik_club/ui/common/widgets/search_top_bar.dart';
+import 'package:cubik_club/ui/common/components/single/custom_icon_button.dart';
+import 'package:cubik_club/ui/common/components/single/section.dart';
+import 'package:cubik_club/ui/common/components/search_top_bar.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/games_collection_screen_view_model.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 

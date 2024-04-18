@@ -1,4 +1,4 @@
-import 'package:cubik_club/ui/screens/onboarding/onboarding_screen_view_model.dart';
+import 'package:cubik_club/ui/screens/onboarding/view_model/onboarding_screen_view_model.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import "package:cubik_club/utils/constants/image_strings.dart";
 import "package:cubik_club/utils/constants/texts.dart";

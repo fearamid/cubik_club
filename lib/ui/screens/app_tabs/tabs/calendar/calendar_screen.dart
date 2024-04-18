@@ -1,6 +1,6 @@
 import 'package:cubik_club/domain/entities/event.dart';
-import 'package:cubik_club/ui/common/widgets/components/section.dart';
-import 'package:cubik_club/ui/common/widgets/event_thumbnail.dart';
+import 'package:cubik_club/ui/common/components/single/section.dart';
+import 'package:cubik_club/ui/common/components/event_thumbnail.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/calendar/calendar_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/calendar/widgets/event_calendar.dart';
 import 'package:cubik_club/utils/constants/colors.dart';

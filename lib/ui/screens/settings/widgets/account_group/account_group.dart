@@ -1,3 +1,4 @@
+import 'package:cubik_club/ui/screens/settings/settings_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/settings/widgets/account_group/account_group_view_model.dart';
 import 'package:cubik_club/ui/screens/settings/widgets/settings_group.dart';
 import 'package:cubik_club/ui/screens/settings/widgets/settings_tile.dart';
@@ -8,6 +9,7 @@ class AccountGroup {
   const AccountGroup();
 
   List<Widget> createTiles(BuildContext context) {
+    final model = context.read<SettingsScreenViewModel>();
     final List<Widget> accountTiles = [
       _DarkModeToggle.build(context),
       SettingsTile.value(
@@ -17,6 +19,10 @@ class AccountGroup {
       SettingsTile.value(
         label: 'Пароль',
         description: 'Настройка пароля',
+      ),
+      ElevatedButton(
+        onPressed: () => model.onLogoutButtonPressed(context),
+        child: const Text('Выйти'),
       ),
     ];
 

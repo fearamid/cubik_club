@@ -31,6 +31,7 @@ class ProfileScreenViewModel extends ChangeNotifier {
     );
   }
 
-  void onCustomizeButtonPressed(BuildContext context) {}
-  void onArchiveButtonPressed(BuildContext context) {}
+  void onFoldersButtonPressed(BuildContext context) {
+    MainNavigation.toFoldersScreen(context);
+  }
 }

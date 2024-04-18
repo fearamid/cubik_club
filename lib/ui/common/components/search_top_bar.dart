@@ -1,4 +1,4 @@
-import 'package:cubik_club/ui/common/widgets/components/search_input.dart';
+import 'package:cubik_club/ui/common/components/single/search_input.dart';
 import 'package:flutter/material.dart';
 
 class SearchTopBar extends StatelessWidget {

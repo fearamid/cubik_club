@@ -5,8 +5,16 @@ class FoldersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 70,
+        title: const Text(
+          'Архив',
+          style: TextStyle(fontSize: 25),
+        ),
+        centerTitle: true,
+      ),
+      body: const SafeArea(
         child: Column(),
       ),
     );

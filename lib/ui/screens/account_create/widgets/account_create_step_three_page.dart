@@ -1,5 +1,5 @@
-import 'package:cubik_club/ui/common/widgets/auth_page_template.dart';
-import 'package:cubik_club/ui/common/widgets/components/password_text_field.dart';
+import 'package:cubik_club/ui/common/components/auth_page_template.dart';
+import 'package:cubik_club/ui/common/components/single/password_text_field.dart';
 import 'package:cubik_club/ui/screens/account_create/account_create_view_model.dart';
 
 import 'package:cubik_club/utils/constants/image_strings.dart';

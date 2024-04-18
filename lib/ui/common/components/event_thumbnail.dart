@@ -1,5 +1,5 @@
 import 'package:cubik_club/domain/entities/event.dart';
-import 'package:cubik_club/ui/common/widgets/components/section.dart';
+import 'package:cubik_club/ui/common/components/single/section.dart';
 import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:flutter/material.dart';

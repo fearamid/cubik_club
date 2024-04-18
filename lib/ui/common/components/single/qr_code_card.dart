@@ -1,4 +1,4 @@
-import 'package:cubik_club/ui/common/widgets/components/section.dart';
+import 'package:cubik_club/ui/common/components/single/section.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';

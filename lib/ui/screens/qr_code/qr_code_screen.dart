@@ -1,5 +1,5 @@
 import 'package:cubik_club/domain/entities/qr_code_data.dart';
-import 'package:cubik_club/ui/common/widgets/components/section.dart';
+import 'package:cubik_club/ui/common/components/single/section.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';

@@ -1,7 +1,7 @@
 import 'package:cubik_club/domain/entities/user.dart';
-import 'package:cubik_club/ui/common/widgets/components/coins_indicator.dart';
-import 'package:cubik_club/ui/common/widgets/components/custom_icon_button.dart';
-import 'package:cubik_club/ui/common/widgets/components/section.dart';
+import 'package:cubik_club/ui/common/components/single/coins_indicator.dart';
+import 'package:cubik_club/ui/common/components/single/custom_icon_button.dart';
+import 'package:cubik_club/ui/common/components/single/section.dart';
 import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/profile/profile_screen_view_model.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
@@ -138,7 +138,7 @@ class _ActionsBar extends StatelessWidget {
             const SizedBox(height: 15),
             CustomIconButton(
               icon: Iconsax.folder_copy,
-              onPressed: () {},
+              onPressed: () => model.onFoldersButtonPressed(context),
             ),
           ],
         ),
@@ -209,7 +209,7 @@ class _UserAchievements extends StatelessWidget {
                 style: const TextStyle(fontSize: 18),
               ),
               const Text(
-                'Подробнее',
+                'DnD профиль',
                 style: TextStyle(fontSize: 18),
               ),
             ],

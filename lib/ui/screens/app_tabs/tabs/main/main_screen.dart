@@ -1,9 +1,9 @@
-import 'package:cubik_club/domain/entities/guide.dart';
-import 'package:cubik_club/ui/common/widgets/components/coins_indicator.dart';
-import 'package:cubik_club/ui/common/widgets/components/custom_icon_button.dart';
-import 'package:cubik_club/ui/common/widgets/event_thumbnail.dart';
-import 'package:cubik_club/ui/common/widgets/custom_slider.dart';
-import 'package:cubik_club/ui/common/widgets/search_top_bar.dart';
+import 'package:cubik_club/domain/entities/article.dart';
+import 'package:cubik_club/ui/common/components/single/coins_indicator.dart';
+import 'package:cubik_club/ui/common/components/single/custom_icon_button.dart';
+import 'package:cubik_club/ui/common/components/event_thumbnail.dart';
+import 'package:cubik_club/ui/common/components/custom_slider.dart';
+import 'package:cubik_club/ui/common/components/search_top_bar.dart';
 import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/main/main_screen_view_model.dart';
@@ -36,15 +36,30 @@ class MainScreen extends StatelessWidget {
                     _QRCodeScanner(),
                   ],
                 ),
-                const _PostsSlider(),
+                const _PostsCarousel(),
                 const SizedBox(height: 20),
-                const _GuidesCarousel(
+                const _ArticlesSlider(
                   guides: [
-                    Guide(image: CCImages.tomato),
-                    Guide(image: CCImages.cowboy),
-                    Guide(image: CCImages.tomato),
-                    Guide(image: CCImages.cowboy),
-                    Guide(image: CCImages.tomato),
+                    Article(
+                      image: CCImages.tomato,
+                      title: 'Как нас найти?',
+                      text: 'Мы по адресу...',
+                    ),
+                    Article(
+                      image: CCImages.cowboy,
+                      title: 'Как нас найти?',
+                      text: 'Мы по адресу...',
+                    ),
+                    Article(
+                      image: CCImages.tomato,
+                      title: 'Как нас найти?',
+                      text: 'Мы по адресу...',
+                    ),
+                    Article(
+                      image: CCImages.cowboy,
+                      title: 'Как нас найти?',
+                      text: 'Мы по адресу...',
+                    ),
                   ],
                 ),
                 const SizedBox(height: 45),
@@ -74,8 +89,8 @@ class MainScreen extends StatelessWidget {
   }
 }
 
-class _PostsSlider extends StatelessWidget {
-  const _PostsSlider({super.key});
+class _PostsCarousel extends StatelessWidget {
+  const _PostsCarousel();
 
   @override
   Widget build(BuildContext context) {
@@ -115,13 +130,12 @@ class _PostsSlider extends StatelessWidget {
   }
 }
 
-class _GuidesCarousel extends StatelessWidget {
-  const _GuidesCarousel({
-    super.key,
+class _ArticlesSlider extends StatelessWidget {
+  const _ArticlesSlider({
     required this.guides,
   });
 
-  final List<Guide> guides;
+  final List<Article> guides;
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +146,7 @@ class _GuidesCarousel extends StatelessWidget {
         itemCount: guides.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          return GuideThumbnail(
+          return ArticleThumbnail(
             guide: guides[index],
           );
         },
@@ -142,18 +156,19 @@ class _GuidesCarousel extends StatelessWidget {
   }
 }
 
-class GuideThumbnail extends StatelessWidget {
-  const GuideThumbnail({
+class ArticleThumbnail extends StatelessWidget {
+  const ArticleThumbnail({
     super.key,
     required this.guide,
   });
 
-  final Guide guide;
+  final Article guide;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        // TODO: article screen
         MainNavigation.toPostScreen(
           context,
           event: const Event(

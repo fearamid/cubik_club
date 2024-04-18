@@ -1,8 +1,8 @@
 import 'package:cubik_club/ui/screens/login/login_screen_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:cubik_club/ui/common/widgets/auth_page_template.dart';
-import 'package:cubik_club/ui/common/widgets/components/password_text_field.dart';
+import 'package:cubik_club/ui/common/components/auth_page_template.dart';
+import 'package:cubik_club/ui/common/components/single/password_text_field.dart';
 import 'package:cubik_club/ui/screens/login/widgets/login_with.dart';
 import 'package:cubik_club/utils/constants/image_strings.dart';
 import 'package:cubik_club/utils/constants/texts.dart';
