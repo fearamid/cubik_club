@@ -1,7 +1,9 @@
+import 'package:cubik_club/domain/entities/board_game.dart';
 import 'package:cubik_club/ui/common/components/single/custom_icon_button.dart';
 import 'package:cubik_club/ui/common/components/single/section.dart';
 import 'package:cubik_club/ui/common/components/search_top_bar.dart';
-import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/games_collection_screen_view_model.dart';
+import 'package:cubik_club/ui/navigation/main_navigation.dart';
+import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/view_model/games_collection_screen_view_model.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 
 import 'package:cubik_club/utils/constants/image_strings.dart';
@@ -40,22 +42,7 @@ class GamesCollectionScreen extends StatelessWidget {
           title: SearchTopBar(
             top: 30,
             actions: [
-              CustomIconButton(
-                icon: Iconsax.colorfilter_copy,
-                onPressed: () {
-                  model.onRandomGameButtonPressed(
-                    context,
-                    builder: (context) {
-                      return Text('fsdfsdfsdff');
-                    },
-                  );
-                },
-              ),
               const SizedBox(width: 7),
-              CustomIconButton(
-                icon: Iconsax.candle_2_copy,
-                onPressed: model.onSearchFiltersButtonPressed,
-              ),
             ],
           ),
         ),
@@ -91,7 +78,21 @@ class GamesCollectionScreen extends StatelessWidget {
             mainAxisExtent: collectionItemHeight,
           ),
           itemBuilder: (context, index) {
-            return const GameCard();
+            return GameCard(
+              BoardGame(
+                name: 'name',
+                description: 'description',
+                tags: const BoardGameTags(
+                    genres: [],
+                    author: '',
+                    ageLimit: 1,
+                    playersRange: 1,
+                    duration: 1),
+                communityLinks: [
+                  CommunityLink(),
+                ],
+              ),
+            );
           },
         ),
         const SliverToBoxAdapter(
@@ -102,13 +103,18 @@ class GamesCollectionScreen extends StatelessWidget {
 }
 
 class GameCard extends StatelessWidget {
-  const GameCard({super.key});
+  const GameCard(
+    this.game, {
+    super.key,
+  });
+
+  final BoardGame game;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('Tap on game card');
+        MainNavigation.toGameScreen(context);
       },
       child: const Section(
         paddingHorizontal: 15,

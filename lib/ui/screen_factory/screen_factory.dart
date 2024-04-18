@@ -7,13 +7,15 @@ import 'package:cubik_club/ui/screens/app_tabs/app_tabs_view_model.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/calendar/calendar_screen.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/calendar/calendar_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/games_collection_screen.dart';
-import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/games_collection_screen_view_model.dart';
+import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/view_model/games_collection_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/main/main_screen.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/main/main_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/profile/profile_screen.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/profile/profile_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/folders/folders_screen.dart';
 import 'package:cubik_club/ui/screens/folders/folders_screen_view_model.dart';
+import 'package:cubik_club/ui/screens/game_screen/game_screen.dart';
+import 'package:cubik_club/ui/screens/game_screen/view_model/game_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/loader/loader_screen.dart';
 import 'package:cubik_club/ui/screens/loader/loader_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/login/login_screen.dart';
@@ -131,6 +133,13 @@ class ScreenFactory {
     return ChangeNotifierProvider(
       create: (_) => ProfileScreenViewModel(),
       child: const ProfileScreen(),
+    );
+  }
+
+  Widget makeGame() {
+    return ChangeNotifierProvider(
+      create: (_) => GameScreenViewModel(),
+      child: const GameScreen(),
     );
   }
 

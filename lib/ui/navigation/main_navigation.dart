@@ -19,6 +19,7 @@ abstract class Screens {
   static const post = "/post";
   static const qrCode = "/qr_code";
   static const folders = "/folders";
+  static const game = "/game";
 }
 
 class MainNavigation {
@@ -39,6 +40,7 @@ class MainNavigation {
         Screens.post: (context) => _screenFactory.makePost(context),
         Screens.qrCode: (context) => _screenFactory.makeQrCode(context),
         Screens.folders: (_) => _screenFactory.makeFolders(),
+        Screens.game: (_) => _screenFactory.makeGame(),
       };
 
   Route<Object> onGenerateRoute(RouteSettings settings) {
@@ -82,5 +84,9 @@ class MainNavigation {
 
   static void toAccountCreateScreen(BuildContext context) async {
     await Navigator.of(context).pushNamed(Screens.accountCreate);
+  }
+
+  static void toGameScreen(BuildContext context) async {
+    await Navigator.of(context).pushNamed(Screens.game);
   }
 }
