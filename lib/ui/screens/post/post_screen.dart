@@ -3,13 +3,11 @@ import 'package:cubik_club/ui/screens/post/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class PostScreen extends StatelessWidget {
-  final BuildContext buildContext;
   final Event event;
 
   const PostScreen({
     super.key,
     required this.event,
-    required this.buildContext,
   });
 
   @override

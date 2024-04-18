@@ -1,19 +1,92 @@
-import 'package:cubik_club/domain/entities/board_game.dart';
-import 'package:cubik_club/ui/common/components/single/custom_icon_button.dart';
-import 'package:cubik_club/ui/common/components/single/section.dart';
+import 'package:cubik_club/domain/entities/game/game.dart';
 import 'package:cubik_club/ui/common/components/search_top_bar.dart';
-import 'package:cubik_club/ui/navigation/main_navigation.dart';
-import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/view_model/games_collection_screen_view_model.dart';
+import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/games_collection_widgets.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
-
-import 'package:cubik_club/utils/constants/image_strings.dart';
 import 'package:cubik_club/utils/device/device_utility.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
-import 'package:provider/provider.dart';
 
 class GamesCollectionScreen extends StatelessWidget {
   const GamesCollectionScreen({super.key});
+
+  static const List<Game> games = [
+    Game(
+      name: 'Монополия',
+      description: 'Крутая игра',
+      tags: GameTags(
+        genres: 'стратегия',
+        author: 'ppplay',
+        ageLimit: 16,
+        playersRange: [2, 3],
+        duration: 34,
+      ),
+    ),
+    Game(
+      name: 'Дуополия',
+      description: 'Крутая игра',
+      tags: GameTags(
+        genres: 'хоррор',
+        author: 'western',
+        ageLimit: 18,
+        playersRange: [2, 3],
+        duration: 20,
+      ),
+    ),
+    Game(
+      name: 'Роскошь Дуэль',
+      description: 'Крутая игра',
+      tags: GameTags(
+        genres: 'команда',
+        author: 'apikos',
+        ageLimit: 12,
+        playersRange: [2, 3],
+        duration: 12,
+      ),
+    ),
+    Game(
+      name: 'Игра',
+      description: 'Крутая игра',
+      tags: GameTags(
+        genres: 'стратегия',
+        author: 'volters',
+        ageLimit: 18,
+        playersRange: [2, 3],
+        duration: 60,
+      ),
+    ),
+    Game(
+      name: 'Inspo',
+      description: 'Крутая игра',
+      tags: GameTags(
+        genres: 'стратегия',
+        author: 'ppplay',
+        ageLimit: 12,
+        playersRange: [2, 3],
+        duration: 20,
+      ),
+    ),
+    Game(
+      name: 'Кубикс',
+      description: 'Крутая игра',
+      tags: GameTags(
+        genres: 'стратегия',
+        author: 'ppplay',
+        ageLimit: 6,
+        playersRange: [2, 3],
+        duration: 45,
+      ),
+    ),
+    Game(
+      name: 'Викинги',
+      description: 'Крутая игра',
+      tags: GameTags(
+        genres: 'стратегия',
+        author: 'insecto',
+        ageLimit: 16,
+        playersRange: [2, 3],
+        duration: 80,
+      ),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +94,16 @@ class GamesCollectionScreen extends StatelessWidget {
     final collectionItemHeight =
         (CCDeviceUtils.getScreenWidth(context) - 10) / 2 + 10 + 100;
 
-    final model = context.read<GamesCollectionScreenViewModel>();
-
     return CustomScrollView(
       slivers: [
-        // TODO: convert topBar to SliverAppBar on all screens (it need?)
-        SliverAppBar(
+        const SliverAppBar(
           titleSpacing: 0,
           backgroundColor: CCAppColors.lightBackground,
           toolbarHeight: 110,
           pinned: true,
           snap: true,
           floating: true,
-          shape: const RoundedRectangleBorder(
+          shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(35),
               bottomRight: Radius.circular(35),
@@ -42,34 +112,14 @@ class GamesCollectionScreen extends StatelessWidget {
           title: SearchTopBar(
             top: 30,
             actions: [
-              const SizedBox(width: 7),
+              RandomGameButton(),
+              SizedBox(width: 7),
+              SearchFiltersButton(),
             ],
           ),
         ),
-        SliverList(
-          delegate: SliverChildListDelegate(
-            [
-              // SearchTopBar(
-              //   actions: [
-              //     CustomIconButton(
-              //       icon: Iconsax.colorfilter_copy,
-              //       onPressed: model.onRandomGameButtonPressed,
-              //     ),
-              //     const SizedBox(width: 7),
-              //     CustomIconButton(
-              //       icon: Iconsax.candle_2_copy,
-              //       onPressed: model.onSearchFiltersButtonPressed,
-              //     ),
-              //   ],
-              // ),
-              // const _SearchResultsViewBar(),
-              // const SizedBox(height: 20),
-            ],
-          ),
-        ),
-
         SliverGrid.builder(
-          itemCount: 20,
+          itemCount: games.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 10,
@@ -78,208 +128,14 @@ class GamesCollectionScreen extends StatelessWidget {
             mainAxisExtent: collectionItemHeight,
           ),
           itemBuilder: (context, index) {
-            return GameCard(
-              BoardGame(
-                name: 'name',
-                description: 'description',
-                tags: const BoardGameTags(
-                    genres: [],
-                    author: '',
-                    ageLimit: 1,
-                    playersRange: 1,
-                    duration: 1),
-                communityLinks: [
-                  CommunityLink(),
-                ],
-              ),
+            return GameThumbnail(
+              game: games[index],
             );
           },
         ),
         const SliverToBoxAdapter(
             child: SizedBox(height: kBottomNavigationBarHeight + 60)),
       ],
-    );
-  }
-}
-
-class GameCard extends StatelessWidget {
-  const GameCard(
-    this.game, {
-    super.key,
-  });
-
-  final BoardGame game;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        MainNavigation.toGameScreen(context);
-      },
-      child: const Section(
-        paddingHorizontal: 15,
-        paddingVertical: 15,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AspectRatio(
-              aspectRatio: 1,
-              child: Image(
-                image: AssetImage(CCImages.gameOpt),
-              ),
-            ),
-            SizedBox(height: 10),
-            Text(
-              'Роскошь Дуэль',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                height: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              maxLines: 1,
-            ),
-            SizedBox(height: 5),
-            Text(
-              'стратегия',
-              style: TextStyle(
-                fontSize: 18,
-                color: CCAppColors.secondary,
-                fontWeight: FontWeight.normal,
-                height: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              maxLines: 1,
-            ),
-            Text(
-              '5 - 10 человек',
-              style: TextStyle(
-                fontSize: 18,
-                color: CCAppColors.secondary,
-                fontWeight: FontWeight.normal,
-                height: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              maxLines: 1,
-            ),
-            Text(
-              '40 минут',
-              style: TextStyle(
-                fontSize: 18,
-                color: CCAppColors.secondary,
-                fontWeight: FontWeight.normal,
-                height: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              maxLines: 1,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _DropDownFilters extends StatelessWidget {
-  const _DropDownFilters({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final model = context.read<GamesCollectionScreenViewModel>();
-
-    return DropdownButtonHideUnderline(
-      child: DropdownButton(
-        value: 0,
-        iconDisabledColor: CCAppColors.secondary,
-        iconEnabledColor: CCAppColors.secondary,
-        items: const [
-          DropdownMenuItem(
-            value: 0,
-            child: Text(
-              'Популярное',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.normal,
-                color: CCAppColors.secondary,
-              ),
-            ),
-          ),
-        ],
-        onChanged: (index) => model.onDropDownFiltersChanged(index),
-      ),
-    );
-  }
-}
-
-class _SearchResultsViewBar extends StatelessWidget {
-  const _SearchResultsViewBar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Section(
-      paddingVertical: 5,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _DropDownFilters(),
-          CollectionDisplayModeButton(),
-        ],
-      ),
-    );
-  }
-}
-
-class CollectionDisplayModeButton extends StatefulWidget {
-  const CollectionDisplayModeButton({super.key});
-
-  @override
-  State<CollectionDisplayModeButton> createState() =>
-      _CollectionDisplayModeButtonState();
-}
-
-class _CollectionDisplayModeButtonState
-    extends State<CollectionDisplayModeButton> {
-  static const IconData listIcon = Iconsax.row_horizontal_copy;
-  static const IconData gridIcon = Iconsax.row_vertical_copy;
-
-  late CollectionDisplayMode mode;
-  late IconData icon;
-
-  @override
-  void initState() {
-    super.initState();
-    final viewMode =
-        context.read<GamesCollectionScreenViewModel>().state.displayMode;
-
-    mode = viewMode;
-    icon = viewMode == CollectionDisplayMode.list ? gridIcon : listIcon;
-  }
-
-  void toggleMode() {
-    if (mode == CollectionDisplayMode.list) {
-      mode = CollectionDisplayMode.grid;
-      icon = listIcon;
-    } else {
-      mode = CollectionDisplayMode.list;
-      icon = gridIcon;
-    }
-    setState(() {});
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final viewModel = context.read<GamesCollectionScreenViewModel>();
-
-    return IconButton(
-      icon: Icon(
-        icon,
-        size: 35,
-        color: CCAppColors.secondary,
-      ),
-      onPressed: () {
-        toggleMode();
-        viewModel.onCollectionViewModeButtonPressed(mode);
-      },
     );
   }
 }

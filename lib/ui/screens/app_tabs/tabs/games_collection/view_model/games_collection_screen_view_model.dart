@@ -1,3 +1,5 @@
+import 'package:cubik_club/domain/entities/game/game.dart';
+import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/games_collection_screen.dart';
 import 'package:cubik_club/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +35,10 @@ class GamesCollectionScreenViewModel extends ChangeNotifier {
       context: context,
       builder: builder,
     );
+  }
+
+  void onGameThumbnailPressed(BuildContext context, {required Game game}) {
+    MainNavigation.toGameScreen(context, game: game);
   }
 
   void onSearchFiltersButtonPressed() {}

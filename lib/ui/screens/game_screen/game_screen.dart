@@ -1,9 +1,14 @@
+import 'package:cubik_club/domain/entities/game/game.dart';
+import 'package:cubik_club/ui/screens/game_screen/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
-import '../post/widgets/widgets.dart';
-
 class GameScreen extends StatelessWidget {
-  const GameScreen({super.key});
+  const GameScreen({
+    super.key,
+    required this.game,
+  });
+
+  final Game game;
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +18,14 @@ class GameScreen extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                const PostCover(),
+                const GameCover(),
                 const SizedBox(height: 20),
-                const PostDescription(
-                  name: 'event.name',
-                  description: 'event.description',
+                GameDescription(
+                  name: game.name,
+                  description: game.description,
                 ),
                 const SizedBox(height: 20),
-                const GamesList(["Монополия", "Другая игра"]),
+                const TagsList(["Монополия", "Другая игра"]),
                 const SizedBox(height: kBottomNavigationBarHeight + 60),
               ],
             ),

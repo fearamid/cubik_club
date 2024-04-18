@@ -1,4 +1,5 @@
 import 'package:cubik_club/domain/entities/event.dart';
+import 'package:cubik_club/domain/entities/game/game.dart';
 import 'package:cubik_club/domain/entities/qr_code_data.dart';
 import 'package:cubik_club/ui/screen_factory/screen_factory.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,7 @@ class MainNavigation {
         Screens.post: (context) => _screenFactory.makePost(context),
         Screens.qrCode: (context) => _screenFactory.makeQrCode(context),
         Screens.folders: (_) => _screenFactory.makeFolders(),
-        Screens.game: (_) => _screenFactory.makeGame(),
+        Screens.game: (context) => _screenFactory.makeGame(context),
       };
 
   Route<Object> onGenerateRoute(RouteSettings settings) {
@@ -86,7 +87,7 @@ class MainNavigation {
     await Navigator.of(context).pushNamed(Screens.accountCreate);
   }
 
-  static void toGameScreen(BuildContext context) async {
-    await Navigator.of(context).pushNamed(Screens.game);
+  static void toGameScreen(BuildContext context, {required Game game}) async {
+    await Navigator.of(context).pushNamed(Screens.game, arguments: game);
   }
 }

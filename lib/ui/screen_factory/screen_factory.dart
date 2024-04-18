@@ -1,4 +1,5 @@
 import 'package:cubik_club/domain/entities/event.dart';
+import 'package:cubik_club/domain/entities/game/game.dart';
 import 'package:cubik_club/domain/entities/qr_code_data.dart';
 import 'package:cubik_club/ui/screens/account_create/account_create_screen.dart';
 import 'package:cubik_club/ui/screens/account_create/account_create_view_model.dart';
@@ -89,7 +90,6 @@ class ScreenFactory {
       create: (_) => PostScreenViewModel(),
       child: PostScreen(
         event: event,
-        buildContext: context,
       ),
     );
   }
@@ -136,10 +136,18 @@ class ScreenFactory {
     );
   }
 
-  Widget makeGame() {
+  Widget makeGame(BuildContext context) {
+    final game = ModalRoute.of(context)?.settings.arguments;
+
+    if (game == null || game is! Game) {
+      return makeNavigationError('Не удалось получить информацию о игре.');
+    }
+
     return ChangeNotifierProvider(
       create: (_) => GameScreenViewModel(),
-      child: const GameScreen(),
+      child: GameScreen(
+        game: game,
+      ),
     );
   }
 
