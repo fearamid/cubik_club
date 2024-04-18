@@ -1,9 +1,11 @@
+import 'package:cubik_club/domain/entities/guide.dart';
 import 'package:cubik_club/ui/common/widgets/components/coins_indicator.dart';
 import 'package:cubik_club/ui/common/widgets/components/custom_icon_button.dart';
 import 'package:cubik_club/ui/common/widgets/event_thumbnail.dart';
 import 'package:cubik_club/ui/common/widgets/custom_slider.dart';
 import 'package:cubik_club/ui/common/widgets/search_top_bar.dart';
 import 'package:cubik_club/domain/entities/event.dart';
+import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/main/main_screen_view_model.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:cubik_club/utils/constants/image_strings.dart';
@@ -36,7 +38,15 @@ class MainScreen extends StatelessWidget {
                 ),
                 const _PostsSlider(),
                 const SizedBox(height: 20),
-                const _GuidesCarousel(),
+                const _GuidesCarousel(
+                  guides: [
+                    Guide(image: CCImages.tomato),
+                    Guide(image: CCImages.cowboy),
+                    Guide(image: CCImages.tomato),
+                    Guide(image: CCImages.cowboy),
+                    Guide(image: CCImages.tomato),
+                  ],
+                ),
                 const SizedBox(height: 45),
                 const _PostCategoryTabBar(),
                 const SizedBox(height: 20),
@@ -106,30 +116,66 @@ class _PostsSlider extends StatelessWidget {
 }
 
 class _GuidesCarousel extends StatelessWidget {
-  const _GuidesCarousel({super.key});
+  const _GuidesCarousel({
+    super.key,
+    required this.guides,
+  });
+
+  final List<Guide> guides;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 150,
+      height: 170,
       child: ListView.separated(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        itemCount: 5,
+        itemCount: guides.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          return Container(
-            width: 100,
-            decoration: const BoxDecoration(
-              color: CCAppColors.lightSectionBackground,
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              border: Border.fromBorderSide(
-                BorderSide(
-                    color: CCAppColors.lightHighlightBackground, width: 2),
-              ),
-            ),
+          return GuideThumbnail(
+            guide: guides[index],
           );
         },
         separatorBuilder: (context, index) => const SizedBox(width: 10),
+      ),
+    );
+  }
+}
+
+class GuideThumbnail extends StatelessWidget {
+  const GuideThumbnail({
+    super.key,
+    required this.guide,
+  });
+
+  final Guide guide;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        MainNavigation.toPostScreen(
+          context,
+          event: const Event(
+              name: 'Заглушка', description: 'Сделать новый класс под guide'),
+        );
+      },
+      child: Container(
+        width: 110,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(guide.image),
+            fit: BoxFit.cover,
+          ),
+          color: CCAppColors.lightSectionBackground,
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
+          border: const Border.fromBorderSide(
+            BorderSide(
+              color: CCAppColors.lightHighlightBackground,
+              width: 2,
+            ),
+          ),
+        ),
       ),
     );
   }

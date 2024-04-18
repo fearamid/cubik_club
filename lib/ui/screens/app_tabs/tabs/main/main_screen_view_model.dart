@@ -27,7 +27,7 @@ class MainScreenViewModel extends ChangeNotifier {
   }
 
   void onQrScannerButtonPressed(BuildContext context) {
-    Navigator.of(context).pushNamed(Screens.scanner);
+    MainNavigation.toScannerScreen(context);
   }
 
   void onSliderPageChanged(int index) {}

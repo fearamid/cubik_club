@@ -16,14 +16,14 @@ class ProfileScreenViewModel extends ChangeNotifier {
   }
 
   void onSettingsButtonPressed(BuildContext context) {
-    Navigator.of(context).pushNamed(Screens.settings);
+    MainNavigation.toSettingsScreen(context);
   }
 
   void onQrCodeButtonPressed(BuildContext context) {
     // TODO: change to User
-    Navigator.of(context).pushNamed(
-      Screens.qrCode,
-      arguments: const User(
+    MainNavigation.toQrCodeScreen(
+      context,
+      entity: const User(
         name: 'Дмитрий',
         surname: 'Калашников',
         id: 'user_283471023',

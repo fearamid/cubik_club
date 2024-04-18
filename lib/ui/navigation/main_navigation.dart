@@ -1,3 +1,5 @@
+import 'package:cubik_club/domain/entities/event.dart';
+import 'package:cubik_club/domain/entities/qr_code_data.dart';
 import 'package:cubik_club/ui/screen_factory/screen_factory.dart';
 import 'package:flutter/material.dart';
 
@@ -44,5 +46,35 @@ class MainNavigation {
           builder: (_) => _screenFactory.makeNavigationError(),
         );
     }
+  }
+
+  static void toPostScreen(BuildContext context, {required Event event}) async {
+    await Navigator.of(context).pushNamed(Screens.post, arguments: event);
+  }
+
+  static void toLoaderScreen(BuildContext context) async {
+    await Navigator.of(context).pushNamed(Screens.loader);
+  }
+
+  static void toScannerScreen(BuildContext context) async {
+    await Navigator.of(context).pushNamed(Screens.scanner);
+  }
+
+  static void toSettingsScreen(BuildContext context) async {
+    await Navigator.of(context).pushNamed(Screens.settings);
+  }
+
+  static void toQrCodeScreen(BuildContext context,
+      {required IQrCodeAble entity}) async {
+    await Navigator.of(context).pushNamed(Screens.qrCode, arguments: entity);
+  }
+
+  static void toAppTabsScreen(BuildContext context) async {
+    await Navigator.of(context)
+        .pushNamedAndRemoveUntil(Screens.appTabs, (route) => false);
+  }
+
+  static void toAccountCreateScreen(BuildContext context) async {
+    await Navigator.of(context).pushNamed(Screens.accountCreate);
   }
 }

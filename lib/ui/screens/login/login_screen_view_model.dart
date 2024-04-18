@@ -70,9 +70,7 @@ class LoginScreenViewModel extends ChangeNotifier {
     try {
       await _authService.login(login, password);
       updateState(isAuthProccess: false);
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil(Screens.appTabs, (route) => false);
-      // TODO: переход в приложение
+      MainNavigation.toAppTabsScreen(context);
     } on AuthApiProviderIncorrectLoginData {
       updateState(
         authErrorText: 'Неправильный логин или пароль',
@@ -91,7 +89,7 @@ class LoginScreenViewModel extends ChangeNotifier {
 
   Future<void> onAccounCreateButtonPressed(BuildContext context) async {
     // TODO: right action or link?
-    await Navigator.of(context).pushNamed(Screens.accountCreate);
+    MainNavigation.toAccountCreateScreen(context);
   }
 
   Future<void> onForgotPasswordButtonPressed(BuildContext context) async {

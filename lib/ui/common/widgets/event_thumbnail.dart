@@ -17,7 +17,7 @@ class EventThumbnail extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(Screens.post, arguments: event);
+        MainNavigation.toPostScreen(context, event: event);
         if (onTap != null) {
           onTap!();
         }
