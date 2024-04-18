@@ -18,7 +18,7 @@ class GameDescription extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Описание',
             style: TextStyle(
               color: CCAppColors.lightTextPrimary,
@@ -34,7 +34,6 @@ class GameDescription extends StatelessWidget {
               fontSize: 18,
               fontWeight: FontWeight.normal,
               color: CCAppColors.lightTextPrimary,
-              height: 1.2,
             ),
           ),
         ],

@@ -20,12 +20,15 @@ class GameScreen extends StatelessWidget {
               [
                 const GameCover(),
                 const SizedBox(height: 20),
+                GameTagsList(
+                  gameName: game.name,
+                  tags: const ['стратегия', '18+', 'westplay'],
+                ),
+                const SizedBox(height: 20),
                 GameDescription(
                   name: game.name,
                   description: game.description,
                 ),
-                const SizedBox(height: 20),
-                const TagsList(["Монополия", "Другая игра"]),
                 const SizedBox(height: kBottomNavigationBarHeight + 60),
               ],
             ),
