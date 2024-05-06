@@ -21,7 +21,7 @@ class StepThreePage extends StatelessWidget {
         title: CCTexts.accountCreateStep3Title,
         subtitle: CCTexts.accountCreateStep3SubTitle,
         mainAction: ElevatedButton(
-          onPressed: () => viewModel.onStepOneContinueButtonPressed(),
+          onPressed: () => viewModel.onContinueButtonPressed(context),
           child: ConstrainedBox(
             constraints: const BoxConstraints(minWidth: double.infinity),
             child: const Text("Далее", textAlign: TextAlign.center),

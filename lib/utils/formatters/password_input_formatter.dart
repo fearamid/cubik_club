@@ -45,17 +45,11 @@ class PasswordInputFormatter extends TextInputFormatter {
       // TODO: fix cursor jump (если вводишь середине текста, то перескакивает в конец)
       TextEditingValue oldValue,
       TextEditingValue newValue) {
+    const maxLength = 30;
     final regExp = RegExp(r'[^a-zA-Z\d_.!()]', unicode: true);
     final clearText = newValue.text.replaceAll(regExp, '');
-    final value =
-        clearText.substring(0, clearText.length < 21 ? clearText.length : 21);
-    // final value = checkPasswordComplexity(
-    //   password: newValue.text,
-    //   length: 8,
-    //   patternsToEscape: ['qwe'],
-    //   caseSensitivity: false,
-    //   numericDigits: true,
-    // );
+    final value = clearText.substring(
+        0, clearText.length < maxLength ? clearText.length : maxLength);
 
     return TextEditingValue(text: value);
   }

@@ -1,9 +1,11 @@
 import 'package:cubik_club/domain/entities/user.dart';
+import 'package:cubik_club/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 
 class _ViewModelState {
   final String login;
   final String password;
+  final String repeatPassword;
   final String name;
   final String surname;
   final Genders gender;
@@ -11,14 +13,18 @@ class _ViewModelState {
   const _ViewModelState({
     this.login = '',
     this.password = '',
+    this.repeatPassword = '',
     this.name = '',
     this.surname = '',
     this.gender = Genders.undefined,
   });
 
+  //TODO: delete copyWith
+
   _ViewModelState copyWith({
     String? login,
     String? password,
+    String? repeatPassword,
     String? name,
     String? surname,
     Genders? gender,
@@ -26,6 +32,7 @@ class _ViewModelState {
     return _ViewModelState(
       login: login ?? this.login,
       password: password ?? this.password,
+      repeatPassword: repeatPassword ?? this.repeatPassword,
       name: name ?? this.name,
       surname: surname ?? this.surname,
       gender: gender ?? this.gender,
@@ -35,22 +42,35 @@ class _ViewModelState {
 
 class RegistrationViewModel extends ChangeNotifier {
   var _state = const _ViewModelState();
-  get state => _state;
+  _ViewModelState get state => _state;
+
   // final AccountCreateService service = AccountCreateService();
 
   final PageController controller = PageController();
+  final maxPageIndex = 1;
   int currentPageIndex = 0;
 
+  final nameController = TextEditingController();
+  final surnameController = TextEditingController();
+  final loginController = TextEditingController();
+  final passwordController = TextEditingController();
+  final repeatPasswordController = TextEditingController();
+
   void updateState({
+    String? login,
+    String? password,
+    String? repeatPassword,
     String? name,
     String? surname,
-    String? password,
-    String? clubName,
+    Genders? gender,
   }) {
-    _state = _state.copyWith(
+    _state = state.copyWith(
+      login: login?.toLowerCase(),
+      password: password,
+      repeatPassword: repeatPassword,
       name: name,
       surname: surname,
-      password: password,
+      gender: gender,
     );
     notifyListeners();
   }
@@ -60,20 +80,62 @@ class RegistrationViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onStepOneContinueButtonPressed() {
-    // if (!_canActionOnMain(currentStep)) return;
-
-    if (currentPageIndex == 3) {
+  void _toNextPage() {
+    if (currentPageIndex == maxPageIndex) {
       // TODO: To next page action
       return;
     }
 
-    int page = (currentPageIndex + 1).toInt();
+    int nextPage = (currentPageIndex + 1).toInt();
     controller.animateToPage(
-      page,
+      nextPage,
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
     );
+  }
+
+  void _showSnackBar(BuildContext context, String message) {
+    if (!context.mounted) return;
+
+    CCHelperFunctions.showSnackBar(
+      context: context,
+      message: message,
+    );
+  }
+
+  void onContinueButtonPressed(BuildContext context) {
+    final validator = isStepOneComplete();
+    if (validator['complete']) {
+      _toNextPage();
+    } else {
+      _showSnackBar(context, validator['error']);
+    }
+  }
+
+  void onRegistrationButtonPressed(BuildContext context) {
+    final validator = isStepTwoComplete();
+    if (validator['complete']) {
+      _toNextPage();
+    } else {
+      _showSnackBar(context, validator['error']);
+    }
+  }
+
+  void onGenderTabChanged(int tabIndex) {
+    switch (tabIndex) {
+      case 0:
+        updateState(gender: Genders.male);
+        break;
+      case 1:
+        updateState(gender: Genders.female);
+        break;
+      case 2:
+        updateState(gender: Genders.undefined);
+        break;
+      default:
+        updateState(gender: Genders.undefined);
+        break;
+    }
   }
 
   void onBackButtonPressed(BuildContext context) {
@@ -82,7 +144,7 @@ class RegistrationViewModel extends ChangeNotifier {
       return;
     }
 
-    int page = (currentPageIndex - 1).toInt();
+    int page = (currentPageIndex - 1);
     controller.animateToPage(
       page,
       duration: const Duration(milliseconds: 300),
@@ -90,21 +152,36 @@ class RegistrationViewModel extends ChangeNotifier {
     );
   }
 
-  bool isStepOneComplete() {
-    bool isComplete = _state.name.isNotEmpty && _state.surname.isNotEmpty;
+  Map<String, dynamic> isStepOneComplete() {
+    bool complete = state.name.isNotEmpty && state.surname.isNotEmpty;
+    Map<String, dynamic> result = {'complete': complete};
 
-    return isComplete;
+    if (!complete) {
+      result.addAll({'error': 'Не все поля заполнены'});
+    }
+
+    return result;
   }
 
-  bool isStepTwoComplete() {
-    return true;
-  }
+  Map<String, dynamic> isStepTwoComplete() {
+    final login = state.login;
+    final pass = state.password;
+    final repPass = state.repeatPassword;
+    Map<String, dynamic> result = {'complete': false};
 
-  bool isStepThreeComplete() {
-    return true;
-  }
+    final allFilled = login.isNotEmpty && pass.isNotEmpty && repPass.isNotEmpty;
+    if (!allFilled) {
+      result.addAll({'error': 'Не все поля заполнены'});
+      return result;
+    }
 
-  bool isVerificationComplete() {
-    return true;
+    if (!(pass == repPass)) {
+      result.addAll({'error': 'Пароли не совпадают'});
+      return result;
+    }
+
+    result['complete'] = true;
+
+    return result;
   }
 }

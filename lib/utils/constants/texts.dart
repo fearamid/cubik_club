@@ -21,13 +21,13 @@ abstract class CCTexts {
       'Возвращайся на поля сражений и магии вместе с нашим клубом.';
 
   // Account Create
-  static const String accountCreateStep1Title = 'Шаг 1';
+  static const String accountCreateStep1Title = 'Немного о вас';
   static const String accountCreateStep1SubTitle =
       'Вижу тебя впервые здесь, путник. Кто ты?';
 
-  static const String accountCreateStep2Title = 'Шаг 2';
+  static const String accountCreateStep2Title = 'Только тсс...';
   static const String accountCreateStep2SubTitle =
-      'Об этом имени будут слагать легенды.';
+      'Никому не говори эти данные.';
   static const String accountCreateStep2Description =
       'Клубное имя является уникальным внутри нашего сообщества. В дальнейшем его изменение будет невозможно.';
 
