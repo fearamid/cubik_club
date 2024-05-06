@@ -11,13 +11,13 @@ class CCTextFieldTheme {
     suffixIconColor: CCAppColors.secondary,
     // constraints: const BoxConstraints.expand(),
     labelStyle: const TextStyle().copyWith(
-        fontSize: 16,
+        fontSize: 18,
         color: CCAppColors.secondary,
-        fontWeight: FontWeight.w400),
+        fontWeight: FontWeight.normal),
     hintStyle: const TextStyle().copyWith(
-        fontSize: 16,
+        fontSize: 18,
         color: CCAppColors.secondary,
-        fontWeight: FontWeight.w400),
+        fontWeight: FontWeight.normal),
     errorStyle: const TextStyle(fontStyle: FontStyle.normal),
     floatingLabelStyle:
         const TextStyle().copyWith(color: CCAppColors.secondary),
@@ -47,14 +47,14 @@ class CCTextFieldTheme {
     suffixIconColor: CCAppColors.secondary,
     // constraints: const BoxConstraints.expand(),
     labelStyle: const TextStyle().copyWith(
-      fontSize: 16,
+      fontSize: 18,
       color: CCAppColors.secondary,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.normal,
     ),
     hintStyle: const TextStyle().copyWith(
-      fontSize: 16,
+      fontSize: 18,
       color: CCAppColors.secondary,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.normal,
     ),
     errorStyle: const TextStyle(fontStyle: FontStyle.normal),
     floatingLabelStyle:

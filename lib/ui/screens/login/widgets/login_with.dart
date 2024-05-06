@@ -40,7 +40,7 @@ class _LoginWithSeparator extends StatelessWidget {
     this.textColor = CCAppColors.secondary,
     this.lineColor = CCAppColors.lightHighlightBackground,
     this.darkLineColor = CCAppColors.darkHighlightBackground,
-    this.lineThick = 2,
+    this.lineThick = 1,
   });
 
   @override

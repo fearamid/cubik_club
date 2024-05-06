@@ -56,7 +56,7 @@ class OnboardingScreen extends StatelessWidget {
 }
 
 class _DotNavigation extends StatelessWidget {
-  const _DotNavigation({super.key});
+  const _DotNavigation();
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +84,7 @@ class _DotNavigation extends StatelessWidget {
 }
 
 class _NextButton extends StatelessWidget {
-  const _NextButton({super.key});
+  const _NextButton();
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +105,7 @@ class _NextButton extends StatelessWidget {
 }
 
 class _SkipButton extends StatelessWidget {
-  const _SkipButton({super.key});
+  const _SkipButton();
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +122,6 @@ class _SkipButton extends StatelessWidget {
 
 class _OnboardingPage extends StatelessWidget {
   const _OnboardingPage({
-    super.key,
     required this.image,
     required this.title,
     required this.subtitle,

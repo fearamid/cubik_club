@@ -79,6 +79,8 @@ class MainNavigation {
   }
 
   static void toAppTabsScreen(BuildContext context) async {
+    if (!context.mounted) return;
+
     await Navigator.of(context)
         .pushNamedAndRemoveUntil(Screens.appTabs, (route) => false);
   }

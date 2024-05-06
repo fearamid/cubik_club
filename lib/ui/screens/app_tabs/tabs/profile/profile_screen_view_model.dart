@@ -26,7 +26,8 @@ class ProfileScreenViewModel extends ChangeNotifier {
       entity: const User(
         name: 'Дмитрий',
         surname: 'Калашников',
-        id: 'user_283471023',
+        login: 'user_283471023',
+        gender: Genders.male,
       ),
     );
   }

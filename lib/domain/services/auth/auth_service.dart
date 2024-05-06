@@ -1,22 +1,48 @@
-import 'package:cubik_club/domain/data_providers/auth_api_provider.dart';
-import 'package:cubik_club/domain/data_providers/session_data_provider.dart';
+import 'package:cubik_club/domain/api_clients/auth_api_client.dart';
+import 'package:cubik_club/domain/data_providers/jwt_provider.dart';
 
 class AuthService {
-  // TODO: ApiClient для авторизации
-  final _sessionDataProvider = SessionDataProvider();
-  final _authApiProvider = AuthApiProvider();
+  final _sessionDataProvider = JWTProvider();
+  final _authApiClient = AuthApiClient();
 
   Future<bool> checkAuth() async {
-    final apiKey = await _sessionDataProvider.apiKey();
-    return apiKey != null && apiKey != '';
+    final accessToken = await _sessionDataProvider.getAccessToken();
+    return accessToken != null && accessToken != '';
+  }
+
+  Future<void> registration(String login, String password) async {
+    final Map<String, dynamic> response;
+
+    try {
+      response = await _authApiClient.registration(login, password);
+    } catch (e) {
+      rethrow;
+    }
+
+    await _saveTokensInMemory(response);
   }
 
   Future<void> login(String login, String password) async {
-    final apiKey = await _authApiProvider.login(login, password);
-    await _sessionDataProvider.saveApiKey(apiKey);
+    final Map<String, dynamic> response;
+
+    try {
+      response = await _authApiClient.login(login, password);
+    } catch (e) {
+      rethrow;
+    }
+
+    await _saveTokensInMemory(response);
   }
 
   Future<void> logout() async {
-    await _sessionDataProvider.clearApiKey();
+    await _sessionDataProvider.clearAccessToken();
+  }
+
+  Future<void> _saveTokensInMemory(response) async {
+    await _sessionDataProvider.saveTokens(
+      accessToken: response['accessToken'],
+      refreshToken: response['refreshToken'],
+      accessTokenExpiration: response['accessTokenExpiration'],
+    );
   }
 }

@@ -15,7 +15,7 @@ class CCOutlinedButtonTheme {
     textStyle: const TextStyle(
       fontSize: 18,
       color: CCAppColors.secondary,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.normal,
     ),
     padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 20),
     shape: RoundedRectangleBorder(
@@ -34,7 +34,7 @@ class CCOutlinedButtonTheme {
     textStyle: const TextStyle(
       fontSize: 18,
       color: CCAppColors.secondary,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.normal,
     ),
     padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 20),
     shape: RoundedRectangleBorder(

@@ -1,6 +1,5 @@
-import 'package:cubik_club/ui/common/components/auth_page_template.dart';
-import 'package:cubik_club/ui/common/components/single/password_text_field.dart';
-import 'package:cubik_club/ui/screens/account_create/account_create_view_model.dart';
+import 'package:cubik_club/ui/common/components/components.dart';
+import 'package:cubik_club/ui/screens/registration/registration_view_model.dart';
 
 import 'package:cubik_club/utils/constants/image_strings.dart';
 import 'package:cubik_club/utils/constants/texts.dart';
@@ -10,27 +9,26 @@ import 'package:cubik_club/utils/formatters/ru_phone_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AccountCreateStepThreePage extends StatelessWidget {
-  const AccountCreateStepThreePage({super.key});
+class StepThreePage extends StatelessWidget {
+  const StepThreePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<AccountCreateViewModel>();
+    final viewModel = context.read<RegistrationViewModel>();
     return SingleChildScrollView(
       child: AuthPageTemplate(
         image: CCImages.accountCreateStep3,
         title: CCTexts.accountCreateStep3Title,
         subtitle: CCTexts.accountCreateStep3SubTitle,
         mainAction: ElevatedButton(
-          onPressed: () => viewModel.onMainButtonPressed(
-              currentStep: AccountCreateSteps.three),
+          onPressed: () => viewModel.onStepOneContinueButtonPressed(),
           child: ConstrainedBox(
             constraints: const BoxConstraints(minWidth: double.infinity),
             child: const Text("Далее", textAlign: TextAlign.center),
           ),
         ),
         optionalAction: OutlinedButton(
-          onPressed: () => viewModel.onOptionalButtonPressed(context),
+          onPressed: () => viewModel.onBackButtonPressed(context),
           child: ConstrainedBox(
             constraints: const BoxConstraints(minWidth: double.infinity),
             child: const Text("Назад", textAlign: TextAlign.center),
@@ -38,10 +36,9 @@ class AccountCreateStepThreePage extends StatelessWidget {
         ),
         body: [
           TextField(
-            controller: viewModel.phoneNumberController,
-            onChanged: (phoneNumber) {
-              viewModel.updateState(phoneNumber: phoneNumber);
-            },
+            // onChanged: (phoneNumber) {
+            //   viewModel.updateState(phoneNumber: phoneNumber);
+            // },
             keyboardType: TextInputType.phone,
             inputFormatters: [
               RuPhoneInputFormatter(),
@@ -54,7 +51,6 @@ class AccountCreateStepThreePage extends StatelessWidget {
           const PasswordTextField(),
           const SizedBox(height: 15),
           TextField(
-            controller: viewModel.repeatPasswordController,
             obscureText: true,
             inputFormatters: [PasswordInputFormatter()],
             decoration: const InputDecoration(

@@ -197,7 +197,7 @@ class ArticleThumbnail extends StatelessWidget {
 }
 
 class _QRCodeScanner extends StatelessWidget {
-  const _QRCodeScanner({super.key});
+  const _QRCodeScanner();
 
   @override
   Widget build(BuildContext context) {
@@ -212,7 +212,7 @@ class _QRCodeScanner extends StatelessWidget {
 // ---------- Post Tabs ----------
 
 class _PostCategoryTabBar extends StatefulWidget {
-  const _PostCategoryTabBar({super.key});
+  const _PostCategoryTabBar();
 
   @override
   State<_PostCategoryTabBar> createState() => _PostCategoryTabBarState();

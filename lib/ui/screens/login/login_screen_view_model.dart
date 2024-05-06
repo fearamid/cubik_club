@@ -1,4 +1,4 @@
-import 'package:cubik_club/domain/data_providers/auth_api_provider.dart';
+import 'package:cubik_club/domain/api_clients/auth_api_client.dart';
 import 'package:cubik_club/domain/services/auth/auth_service.dart';
 import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:cubik_club/utils/helpers/helper_functions.dart';
@@ -22,10 +22,9 @@ class _LoginScreenViewModelState {
     }
   }
 
-  //TODO: clear values
   const _LoginScreenViewModelState({
-    this.login = 'admin',
-    this.password = '1234',
+    this.login = '',
+    this.password = '',
     this.authErrorText = '',
     this.isAuthProccess = false,
   });
@@ -53,6 +52,8 @@ class LoginScreenViewModel extends ChangeNotifier {
   }
 
   void _showSnackBar(BuildContext context, {String? message}) {
+    if (!context.mounted) return;
+
     CCHelperFunctions.showSnackBar(
       context: context,
       message: message,
@@ -60,7 +61,7 @@ class LoginScreenViewModel extends ChangeNotifier {
     );
   }
 
-  Future<void> onAuthButtonPressed(BuildContext context) async {
+  Future<void> onLoginButtonPressed(BuildContext context) async {
     final login = _state.login;
     final password = _state.password;
 
@@ -71,16 +72,17 @@ class LoginScreenViewModel extends ChangeNotifier {
       await _authService.login(login, password);
       updateState(isAuthProccess: false);
       MainNavigation.toAppTabsScreen(context);
-    } on AuthApiProviderIncorrectLoginData {
+    } catch (e) {
+      final String errorText;
+
+      if (e is AuthApiClientError) {
+        errorText = e.error;
+      } else {
+        errorText = 'Случилась ошибка авторизации, попробуйте повторить позже';
+      }
+
       updateState(
-        authErrorText: 'Неправильный логин или пароль',
-        isAuthProccess: false,
-      );
-      _showSnackBar(context);
-    } catch (exception) {
-      updateState(
-        authErrorText:
-            'Случилась ошибка авторизации, попробуйте повторить позже',
+        authErrorText: errorText,
         isAuthProccess: false,
       );
       _showSnackBar(context);

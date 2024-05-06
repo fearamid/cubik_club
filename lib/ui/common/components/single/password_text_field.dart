@@ -1,5 +1,6 @@
 import 'package:cubik_club/utils/formatters/password_input_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class PasswordTextField<Type> extends StatefulWidget {
   final ValueChanged<String>? onChanged;
@@ -26,8 +27,8 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       decoration: InputDecoration(
         labelText: 'Пароль',
         suffixIcon: IconButton(
-          icon:
-              Icon(isPasswordVisible ? Icons.visibility : Icons.visibility_off),
+          icon: Icon(
+              isPasswordVisible ? Iconsax.eye_copy : Iconsax.eye_slash_copy),
           onPressed: () {
             setState(() {
               isPasswordVisible = !isPasswordVisible;

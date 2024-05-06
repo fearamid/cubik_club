@@ -6,7 +6,6 @@ import 'package:cubik_club/ui/common/components/single/password_text_field.dart'
 import 'package:cubik_club/ui/screens/login/widgets/login_with.dart';
 import 'package:cubik_club/utils/constants/image_strings.dart';
 import 'package:cubik_club/utils/constants/texts.dart';
-import 'package:cubik_club/utils/formatters/ru_phone_input_formatter.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -29,9 +28,6 @@ class LoginScreen extends StatelessWidget {
           body: [
             TextField(
               keyboardType: TextInputType.emailAddress,
-              inputFormatters: [
-                // RuPhoneInputFormatter(),
-              ],
               onChanged: (text) => viewModel.updateState(login: text),
               // viewModel.changeLogin,
               decoration: const InputDecoration(
@@ -68,7 +64,7 @@ class LoginScreen extends StatelessWidget {
 }
 
 class _MainActionButton extends StatelessWidget {
-  const _MainActionButton({super.key});
+  const _MainActionButton();
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +75,7 @@ class _MainActionButton extends StatelessWidget {
 
     final onAuthButtonPressed =
         authButtonState == LoginScreenAuthButonState.canSubmit
-            ? () => viewModel.onAuthButtonPressed(context)
+            ? () => viewModel.onLoginButtonPressed(context)
             : null;
 
     return ElevatedButton(
@@ -93,7 +89,7 @@ class _MainActionButton extends StatelessWidget {
 }
 
 class _OptionalActionButton extends StatelessWidget {
-  const _OptionalActionButton({super.key});
+  const _OptionalActionButton();
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,5 @@
 import 'package:cubik_club/ui/common/components/auth_page_template.dart';
-import 'package:cubik_club/ui/screens/account_create/account_create_view_model.dart';
+import 'package:cubik_club/ui/screens/registration/registration_view_model.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:cubik_club/utils/constants/image_strings.dart';
 import 'package:cubik_club/utils/constants/texts.dart';
@@ -8,28 +8,27 @@ import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
 
-class AccountCreateVerificationPage extends StatelessWidget {
-  const AccountCreateVerificationPage({super.key});
+class VerificationPage extends StatelessWidget {
+  const VerificationPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<AccountCreateViewModel>();
+    final viewModel = context.read<RegistrationViewModel>();
     return SingleChildScrollView(
       child: AuthPageTemplate(
         image: CCImages.accountCreateVerification,
         title: CCTexts.accountCreateVerificationTitle,
-        subtitle:
-            '${CCTexts.accountCreateVerificationSubTitle}\n${viewModel.state.phoneNumber}',
+        // '${CCTexts.accountCreateVerificationSubTitle}\n${viewModel.state.phoneNumber}'
+        subtitle: 'Any subtitle...',
         mainAction: ElevatedButton(
-          onPressed: () => viewModel.onMainButtonPressed(
-              currentStep: AccountCreateSteps.verification),
+          onPressed: () => viewModel.onStepOneContinueButtonPressed(),
           child: ConstrainedBox(
             constraints: const BoxConstraints(minWidth: double.infinity),
             child: const Text("Далее", textAlign: TextAlign.center),
           ),
         ),
         optionalAction: OutlinedButton(
-          onPressed: () => viewModel.onOptionalButtonPressed(context),
+          onPressed: () => viewModel.onBackButtonPressed(context),
           child: ConstrainedBox(
             constraints: const BoxConstraints(minWidth: double.infinity),
             child: const Text("Назад", textAlign: TextAlign.center),

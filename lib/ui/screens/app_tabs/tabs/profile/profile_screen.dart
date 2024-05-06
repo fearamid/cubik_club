@@ -1,8 +1,6 @@
-import 'package:cubik_club/domain/entities/user.dart';
 import 'package:cubik_club/ui/common/components/single/coins_indicator.dart';
 import 'package:cubik_club/ui/common/components/single/custom_icon_button.dart';
 import 'package:cubik_club/ui/common/components/single/section.dart';
-import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/profile/profile_screen_view_model.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:cubik_club/utils/constants/image_strings.dart';

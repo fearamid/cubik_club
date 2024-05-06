@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 
 class _CalendarScreenViewModelState {
   final DateTime? selectedDay;
+  final int currentEventIndex;
 
   _CalendarScreenViewModelState({
     this.selectedDay,
+    this.currentEventIndex = 0,
   });
 }
 
@@ -13,7 +15,7 @@ class CalendarScreenViewModel extends ChangeNotifier {
   var _state = _CalendarScreenViewModelState(selectedDay: DateTime.now());
   get state => _state;
 
-  Map<DateTime, List<Event>> selectedEvents = {
+  Map<DateTime, List<Event>> events = {
     DateTime.utc(2024, 4, 7): [
       const Event(
         name: 'Томатная атака',
@@ -23,17 +25,17 @@ class CalendarScreenViewModel extends ChangeNotifier {
     ],
     DateTime.utc(2024, 4, 15): [
       const Event(
-        name: 'Сырное лобби 1 СЫР СЫРНЫ',
+        name: 'Сырное лобби',
         description:
             'Устраиваем ковбойский вечер. Если вы готовы грабить караваны, стрелять с двух рук и носить шляпу, то ждем вас. Ждем вас!',
       ),
       const Event(
-        name: 'Сырное лобби 2',
+        name: 'Мышеловка',
         description:
             'Если вы готовы грабить караваны, стрелять с двух рук и носить шляпу, то ждем вас.',
       ),
       const Event(
-        name: 'Сырное лобби 2',
+        name: 'Чеддер пати',
         description:
             'Устраиваем ковбойский вечер. Если вы готовы грабить караваны, стрелять с двух рук и носить шляпу, то ждем вас. Ждем вас!',
       ),
@@ -50,9 +52,11 @@ class CalendarScreenViewModel extends ChangeNotifier {
   void updateState({
     DateTime? selectedDay,
     DateTime? focusedDay,
+    int? currentEventIndex,
   }) {
     _state = _CalendarScreenViewModelState(
       selectedDay: selectedDay ?? _state.selectedDay,
+      currentEventIndex: currentEventIndex ?? _state.currentEventIndex,
     );
     notifyListeners();
   }
@@ -62,13 +66,17 @@ class CalendarScreenViewModel extends ChangeNotifier {
   }
 
   List<Event> eventsBuilder(DateTime day) {
-    return selectedEvents[day] ?? [];
+    return events[day] ?? [];
   }
 
-  List<Event>? createCurrentDateEvent(DateTime date) {
-    if (selectedEvents.containsKey(date)) {
-      return selectedEvents[date];
+  List<Event>? getCurrentDateEventsList(DateTime date) {
+    if (events.containsKey(date)) {
+      return events[date];
     }
     return null;
+  }
+
+  void onCurrentEventChange(int index) {
+    updateState(currentEventIndex: index);
   }
 }

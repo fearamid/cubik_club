@@ -15,7 +15,7 @@ class CCElevatedButtonTheme {
         borderRadius: BorderRadius.circular(20),
       ),
       textStyle: const TextStyle(
-          fontSize: 18, color: Colors.white, fontWeight: FontWeight.w500),
+          fontSize: 18, color: Colors.white, fontWeight: FontWeight.normal),
       padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 20),
       side: BorderSide.none,
     ),
@@ -33,7 +33,7 @@ class CCElevatedButtonTheme {
         borderRadius: BorderRadius.circular(20),
       ),
       textStyle: const TextStyle(
-          fontSize: 18, color: Colors.white, fontWeight: FontWeight.w500),
+          fontSize: 18, color: Colors.white, fontWeight: FontWeight.normal),
       padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 20),
       side: BorderSide.none,
     ),

@@ -1,8 +1,8 @@
 import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/domain/entities/game/game.dart';
 import 'package:cubik_club/domain/entities/qr_code_data.dart';
-import 'package:cubik_club/ui/screens/account_create/account_create_screen.dart';
-import 'package:cubik_club/ui/screens/account_create/account_create_view_model.dart';
+import 'package:cubik_club/ui/screens/registration/registration_screen.dart';
+import 'package:cubik_club/ui/screens/registration/registration_view_model.dart';
 import 'package:cubik_club/ui/screens/app_tabs/app_tabs.dart';
 import 'package:cubik_club/ui/screens/app_tabs/app_tabs_view_model.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/calendar/calendar_screen.dart';
@@ -39,8 +39,8 @@ import 'package:provider/provider.dart';
 class ScreenFactory {
   Widget makeAccountCreate() {
     return ChangeNotifierProvider(
-      create: (_) => AccountCreateViewModel(),
-      child: const AccountCreateScreen(),
+      create: (_) => RegistrationViewModel(),
+      child: const RegistrationScreen(),
     );
   }
 

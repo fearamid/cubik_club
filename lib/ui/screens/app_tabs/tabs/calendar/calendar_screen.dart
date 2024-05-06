@@ -29,7 +29,7 @@ class CalendarScreen extends StatelessWidget {
               ),
               const SizedBox(height: 15),
               CurrentDateInformation(
-                events: viewModel.createCurrentDateEvent(selectedDay),
+                events: viewModel.getCurrentDateEventsList(selectedDay),
               ),
               const SizedBox(height: kBottomNavigationBarHeight + 60)
             ],
@@ -50,8 +50,10 @@ class CurrentDateInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel =
-        context.watch<CalendarScreenViewModel>().state.selectedDay;
+    final currentEventIndex =
+        context.watch<CalendarScreenViewModel>().state.currentEventIndex + 1;
+
+    final model = context.read<CalendarScreenViewModel>();
 
     if (events == null) {
       return const Section(
@@ -74,8 +76,33 @@ class CurrentDateInformation extends StatelessWidget {
         );
       }
 
-      return ExpandablePageView(
-        children: widgetsList,
+      return Stack(
+        children: [
+          ExpandablePageView(
+            onPageChanged: model.onCurrentEventChange,
+            children: widgetsList,
+          ),
+          Positioned(
+            bottom: 10,
+            right: 10,
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+              decoration: BoxDecoration(
+                color: CCAppColors.lightBackground,
+                borderRadius: BorderRadius.circular(
+                  20,
+                ),
+              ),
+              child: Text(
+                '$currentEventIndex / ${events!.length}',
+                style: const TextStyle(
+                  color: CCAppColors.lightTextPrimary,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ),
+        ],
       );
     }
   }

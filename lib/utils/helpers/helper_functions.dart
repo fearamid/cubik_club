@@ -1,3 +1,4 @@
+import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 abstract class CCHelperFunctions {
@@ -12,8 +13,17 @@ abstract class CCHelperFunctions {
     }
 
     final snackBar = SnackBar(
-      duration: const Duration(seconds: 2),
-      content: Text(text),
+      showCloseIcon: true,
+      backgroundColor: CCAppColors.lightTextPrimary,
+      duration: const Duration(seconds: 3),
+      content: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 16,
+          color: CCAppColors.lightBackground,
+          fontWeight: FontWeight.normal,
+        ),
+      ),
     );
 
     ScaffoldMessenger.of(context).hideCurrentSnackBar();

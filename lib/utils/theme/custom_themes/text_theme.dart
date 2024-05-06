@@ -8,11 +8,11 @@ class CCTextTheme {
       headlineMedium: const TextStyle().copyWith(
           color: mainTextColor, fontSize: 20, fontWeight: FontWeight.bold),
       titleMedium: const TextStyle().copyWith(
-          color: mainTextColor, fontSize: 16, fontWeight: FontWeight.bold),
+          color: mainTextColor, fontSize: 22, fontWeight: FontWeight.bold),
       titleLarge: const TextStyle().copyWith(
           color: mainTextColor, fontSize: 25, fontWeight: FontWeight.bold),
       bodyMedium: const TextStyle().copyWith(
-          color: mainTextColor, fontSize: 16, fontWeight: FontWeight.normal),
+          color: mainTextColor, fontSize: 18, fontWeight: FontWeight.normal),
       labelLarge: const TextStyle().copyWith(
           color: secondaryTextColor, fontSize: 16, fontWeight: FontWeight.bold),
       labelMedium: const TextStyle().copyWith(

@@ -8,9 +8,10 @@ class Event implements IQrCodeAble {
   // final List<BoardGame> gamesList;
 
   const Event({
+    this.dateTime,
     required this.name,
     required this.description,
-    this.dateTime,
+
     // required this.dateTime,
     // required this.gamesList,
   });
