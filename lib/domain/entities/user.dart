@@ -6,14 +6,27 @@ class User implements IQrCodeAble {
   final String login;
   final String name;
   final String surname;
-  final Genders gender;
+  final Genders _gender;
 
   const User({
     required this.name,
     required this.surname,
     required this.login,
-    required this.gender,
-  });
+    required Genders gender,
+  }) : _gender = gender;
+
+  get gender => _gender;
+
+  String get genderChar {
+    switch (_gender) {
+      case Genders.male:
+        return 'm';
+      case Genders.female:
+        return 'f';
+      case Genders.undefined:
+        return 'u';
+    }
+  }
 
   @override
   String generateQr() {

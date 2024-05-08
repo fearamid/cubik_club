@@ -1,6 +1,8 @@
 import 'package:cubik_club/domain/entities/game/game.dart';
 import 'package:cubik_club/ui/common/components/search_top_bar.dart';
-import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/games_collection_widgets.dart';
+import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/widgets/game_thumbnail.dart';
+import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/widgets/random_game_button.dart';
+import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/widgets/search_filters_button.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:cubik_club/utils/device/device_utility.dart';
 import 'package:flutter/material.dart';

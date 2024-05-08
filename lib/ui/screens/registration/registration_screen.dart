@@ -18,8 +18,6 @@ class RegistrationScreen extends StatelessWidget {
       children: const [
         StepOnePage(),
         StepTwoPage(),
-        // AccountCreateStepThreePage(),
-        // AccountCreateVerificationPage(),
       ],
     );
   }

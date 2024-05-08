@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 abstract class Screens {
   static const login = '/login';
   static const onboarding = "/onboarding";
-  static const accountCreate = "/account_create";
+  static const registration = "/registration";
   static const appTabs = "/app_tabs";
   static const loader = "/loader";
   static const navigationError = "/navigation_error";
@@ -29,7 +29,7 @@ class MainNavigation {
   Map<String, WidgetBuilder> get routes => <String, WidgetBuilder>{
         Screens.login: (_) => _screenFactory.makeLogin(),
         Screens.onboarding: (_) => _screenFactory.makeOnboarding(),
-        Screens.accountCreate: (_) => _screenFactory.makeAccountCreate(),
+        Screens.registration: (_) => _screenFactory.makeRegistration(),
         Screens.appTabs: (_) => _screenFactory.makeAppTabs(),
         Screens.loader: (_) => _screenFactory.makeLoader(),
         Screens.scanner: (_) => _screenFactory.makeScanner(),
@@ -53,43 +53,46 @@ class MainNavigation {
     }
   }
 
-  static void toPostScreen(BuildContext context, {required Event event}) async {
+  static Future<void> toPostScreen(BuildContext context,
+      {required Event event}) async {
     await Navigator.of(context).pushNamed(Screens.post, arguments: event);
   }
 
-  static void toLoaderScreen(BuildContext context) async {
+  static Future<void> toLoaderScreen(BuildContext context) async {
     await Navigator.of(context).pushNamed(Screens.loader);
   }
 
-  static void toScannerScreen(BuildContext context) async {
+  static Future<void> toScannerScreen(BuildContext context) async {
     await Navigator.of(context).pushNamed(Screens.scanner);
   }
 
-  static void toSettingsScreen(BuildContext context) async {
+  static Future<void> toSettingsScreen(BuildContext context) async {
     await Navigator.of(context).pushNamed(Screens.settings);
   }
 
-  static void toFoldersScreen(BuildContext context) async {
+  static Future<void> toFoldersScreen(BuildContext context) async {
     await Navigator.of(context).pushNamed(Screens.folders);
   }
 
-  static void toQrCodeScreen(BuildContext context,
+  static Future<void> toQrCodeScreen(BuildContext context,
       {required IQrCodeAble entity}) async {
     await Navigator.of(context).pushNamed(Screens.qrCode, arguments: entity);
   }
 
-  static void toAppTabsScreen(BuildContext context) async {
+  static Future<void> toAppTabsScreen(BuildContext context) async {
     if (!context.mounted) return;
 
     await Navigator.of(context)
         .pushNamedAndRemoveUntil(Screens.appTabs, (route) => false);
   }
 
-  static void toAccountCreateScreen(BuildContext context) async {
-    await Navigator.of(context).pushNamed(Screens.accountCreate);
+  static Future<dynamic> toRegistrationScreen(BuildContext context) async {
+    final result = await Navigator.of(context).pushNamed(Screens.registration);
+    return result;
   }
 
-  static void toGameScreen(BuildContext context, {required Game game}) async {
+  static Future<void> toGameScreen(BuildContext context,
+      {required Game game}) async {
     await Navigator.of(context).pushNamed(Screens.game, arguments: game);
   }
 }

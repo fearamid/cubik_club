@@ -37,7 +37,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ScreenFactory {
-  Widget makeAccountCreate() {
+  Widget makeRegistration() {
     return ChangeNotifierProvider(
       create: (_) => RegistrationViewModel(),
       child: const RegistrationScreen(),

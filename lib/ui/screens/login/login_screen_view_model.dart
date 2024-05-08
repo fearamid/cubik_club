@@ -36,6 +36,9 @@ class LoginScreenViewModel extends ChangeNotifier {
   var _state = const _LoginScreenViewModelState();
   get state => _state;
 
+  final loginController = TextEditingController();
+  final passwordController = TextEditingController();
+
   void updateState({
     String? login,
     String? password,
@@ -89,13 +92,22 @@ class LoginScreenViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> onAccounCreateButtonPressed(BuildContext context) async {
-    // TODO: right action or link?
-    MainNavigation.toAccountCreateScreen(context);
+  Future<void> onRegistrationButtonPressed(BuildContext context) async {
+    final result = await MainNavigation.toRegistrationScreen(context);
+    if (result == null && result! is Map<String, String>) return;
+    final login = result['login'].isNotEmpty ? result['login'] : '';
+    final password = result['password'].isNotEmpty ? result['password'] : '';
+
+    updateState(
+      login: login,
+      password: password,
+    );
+
+    loginController.text = login;
+    passwordController.text = password;
   }
 
   Future<void> onForgotPasswordButtonPressed(BuildContext context) async {
-    // TODO: right action or link?
     // await Navigator.of(context).pushNamed('/forgot_password');
   }
 

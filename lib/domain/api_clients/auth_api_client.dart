@@ -5,22 +5,33 @@ class AuthApiClient {
 
   final _apiClient = ApiClient();
 
-  Future<Map<String, dynamic>> registration(
-      String login, String password) async {
+  Future<Map<String, dynamic>> registration({
+    required String login,
+    required String password,
+    required String name,
+    required String surname,
+    required String gender,
+  }) async {
     final response = await _apiClient.post(
       path: '$_basePath/registration',
-      headers: {"Content-Type": "application/json"},
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
       body: {
         "login": login,
         "password": password,
+        "name": name,
+        "surname": surname,
+        "gender": gender,
       },
     );
-
     final json = await ApiClient.getJson(response);
 
     switch (response.statusCode) {
       case 200:
         break;
+      case 409:
+        throw AuthClientUserAlreadyExistError();
       case 500:
         throw AuthClientRegistrationFatalError();
       default:
@@ -33,7 +44,9 @@ class AuthApiClient {
   Future<Map<String, dynamic>> login(String login, String password) async {
     final response = await _apiClient.post(
       path: '$_basePath/login',
-      headers: {"Content-Type": "application/json"},
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
       body: {
         "login": login,
         "password": password,
@@ -61,7 +74,9 @@ class AuthApiClient {
   Future<void> logout(String refreshToken) async {
     final response = await _apiClient.post(
       path: '$_basePath/logout',
-      headers: {"Content-Type": "application/json"},
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
       body: {
         "refreshToken": refreshToken,
       },
@@ -78,7 +93,9 @@ class AuthApiClient {
   Future<Map<String, dynamic>> refresh(String refreshToken) async {
     final response = await _apiClient.post(
       path: '$_basePath/refresh',
-      headers: {"Content-Type": "application/json"},
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
       body: {
         "refreshToken": refreshToken,
       },
@@ -125,6 +142,11 @@ class AuthClientRegistrationFatalError implements AuthApiClientError {
 class AuthClientLoginFatalError implements AuthApiClientError {
   @override
   String get error => 'Fatal: ошибка входа';
+}
+
+class AuthClientUserAlreadyExistError implements AuthApiClientError {
+  @override
+  String get error => 'Пользователь с таким логином уже существует';
 }
 
 class AuthClientRefreshFatalError implements AuthApiClientError {

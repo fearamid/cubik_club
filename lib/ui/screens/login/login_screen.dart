@@ -1,4 +1,5 @@
 import 'package:cubik_club/ui/screens/login/login_screen_view_model.dart';
+import 'package:cubik_club/utils/formatters/login_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cubik_club/ui/common/components/auth_page_template.dart';
@@ -27,16 +28,20 @@ class LoginScreen extends StatelessWidget {
           marginBodyBottom: 40,
           body: [
             TextField(
-              keyboardType: TextInputType.emailAddress,
+              controller: viewModel.loginController,
               onChanged: (text) => viewModel.updateState(login: text),
-              // viewModel.changeLogin,
+              inputFormatters: [
+                LoginInputFormatter(),
+              ],
               decoration: const InputDecoration(
-                labelText: 'Телефон или email',
+                labelText: 'Логин',
               ),
             ),
             const SizedBox(height: 15),
             PasswordTextField(
-                onChanged: (text) => viewModel.updateState(password: text)),
+              controller: viewModel.passwordController,
+              onChanged: (text) => viewModel.updateState(password: text),
+            ),
             const SizedBox(height: 5),
             Align(
               alignment: Alignment.centerRight,
@@ -95,7 +100,7 @@ class _OptionalActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = context.read<LoginScreenViewModel>();
     return OutlinedButton(
-      onPressed: () => viewModel.onAccounCreateButtonPressed(context),
+      onPressed: () => viewModel.onRegistrationButtonPressed(context),
       child: ConstrainedBox(
         constraints: const BoxConstraints(minWidth: double.infinity),
         child: const Text("Создать аккаунт", textAlign: TextAlign.center),

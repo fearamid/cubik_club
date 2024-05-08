@@ -76,7 +76,9 @@ class _RegistrationButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = context.read<RegistrationViewModel>();
     return ElevatedButton(
-      onPressed: () => viewModel.onRegistrationButtonPressed(context),
+      onPressed: () async {
+        await viewModel.onRegistrationButtonPressed(context);
+      },
       child: ConstrainedBox(
         constraints: const BoxConstraints(minWidth: double.infinity),
         child: const Text("Создать", textAlign: TextAlign.center),

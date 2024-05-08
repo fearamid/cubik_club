@@ -1,4 +1,7 @@
+import 'package:cubik_club/domain/api_clients/api_client.dart';
+import 'package:cubik_club/domain/api_clients/auth_api_client.dart';
 import 'package:cubik_club/domain/entities/user.dart';
+import 'package:cubik_club/domain/services/auth/auth_service.dart';
 import 'package:cubik_club/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 
@@ -44,7 +47,7 @@ class RegistrationViewModel extends ChangeNotifier {
   var _state = const _ViewModelState();
   _ViewModelState get state => _state;
 
-  // final AccountCreateService service = AccountCreateService();
+  final authService = AuthService();
 
   final PageController controller = PageController();
   final maxPageIndex = 1;
@@ -80,9 +83,13 @@ class RegistrationViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _toNextPage() {
+  void _toNextStep(BuildContext context, {void Function()? onRegistration}) {
     if (currentPageIndex == maxPageIndex) {
-      // TODO: To next page action
+      if (!context.mounted) return;
+
+      if (onRegistration == null) return;
+      onRegistration();
+
       return;
     }
 
@@ -106,16 +113,33 @@ class RegistrationViewModel extends ChangeNotifier {
   void onContinueButtonPressed(BuildContext context) {
     final validator = isStepOneComplete();
     if (validator['complete']) {
-      _toNextPage();
+      _toNextStep(context);
     } else {
       _showSnackBar(context, validator['error']);
     }
   }
 
-  void onRegistrationButtonPressed(BuildContext context) {
+  Future<void> onRegistrationButtonPressed(BuildContext context) async {
     final validator = isStepTwoComplete();
     if (validator['complete']) {
-      _toNextPage();
+      final newUser = User(
+        name: _state.name,
+        surname: _state.surname,
+        login: _state.login,
+        gender: _state.gender,
+      );
+
+      try {
+        await authService.registration(newUser, password: _state.password);
+        _toNextStep(context, onRegistration: () {
+          Navigator.pop(
+              context, {"login": _state.login, "password": _state.password});
+        });
+      } catch (e) {
+        String error = '$e';
+        if (e is AuthApiClientError) error = e.error;
+        _showSnackBar(context, error);
+      }
     } else {
       _showSnackBar(context, validator['error']);
     }

@@ -29,7 +29,7 @@ class ApiClient {
 
   Future<HttpClientResponse> post({
     required String path,
-    required Map<String, dynamic> body,
+    required Map<String, String> body,
     Map<String, Object>? headers,
     String? query,
     Map<String, dynamic>? queryParameters,

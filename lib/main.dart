@@ -17,7 +17,7 @@ void initSystemUI() {
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+      statusBarIconBrightness: Brightness.light, // For Android (dark icons)
       statusBarBrightness: Brightness.light, // For iOS (dark icons)
       statusBarColor: Colors.white,
       systemNavigationBarColor: Colors.white,

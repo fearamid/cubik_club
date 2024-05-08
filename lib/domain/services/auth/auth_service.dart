@@ -1,5 +1,6 @@
 import 'package:cubik_club/domain/api_clients/auth_api_client.dart';
 import 'package:cubik_club/domain/data_providers/jwt_provider.dart';
+import 'package:cubik_club/domain/entities/user.dart';
 
 class AuthService {
   final _sessionDataProvider = JWTProvider();
@@ -10,11 +11,17 @@ class AuthService {
     return accessToken != null && accessToken != '';
   }
 
-  Future<void> registration(String login, String password) async {
+  Future<void> registration(User user, {required String password}) async {
     final Map<String, dynamic> response;
 
     try {
-      response = await _authApiClient.registration(login, password);
+      response = await _authApiClient.registration(
+        login: user.login,
+        password: password,
+        name: user.name,
+        surname: user.surname,
+        gender: user.genderChar,
+      );
     } catch (e) {
       rethrow;
     }
