@@ -1,4 +1,3 @@
-import 'package:cubik_club/domain/api_clients/api_client.dart';
 import 'package:cubik_club/domain/api_clients/auth_api_client.dart';
 import 'package:cubik_club/domain/entities/user.dart';
 import 'package:cubik_club/domain/services/auth/auth_service.dart';

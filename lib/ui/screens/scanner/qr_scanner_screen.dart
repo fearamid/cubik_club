@@ -1,6 +1,7 @@
 import 'package:cubik_club/ui/screens/scanner/qr_scanner_screen_view_model.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,7 @@ class QrScannerScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         // toolbarHeight: 70,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
         leading: IconButton(
           icon: const Icon(Iconsax.arrow_left_2_copy),
           iconSize: 35,

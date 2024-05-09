@@ -14,10 +14,7 @@ class PostCover extends StatelessWidget {
         AspectRatio(
           aspectRatio: 1,
           child: ClipRRect(
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20),
-            ),
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
             child: Image.asset(CCImages.tomato),
           ),
         ),
