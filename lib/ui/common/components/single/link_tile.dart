@@ -29,12 +29,7 @@ class LinkTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      splashColor: Colors.red,
-      focusColor: Colors.red,
-      hoverColor: Colors.red,
-      highlightColor: Colors.red,
-      // overlayColor: Colors.red,
+    return GestureDetector(
       onTap: () => onPressed(),
       child: Container(
         padding: const EdgeInsets.only(
