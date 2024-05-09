@@ -1,132 +1,95 @@
-import 'package:cubik_club/ui/common/components/single/link_tile.dart';
-import 'package:cubik_club/ui/common/components/single/section.dart';
-import 'package:cubik_club/utils/constants/colors.dart';
+import 'package:cubik_club/domain/entities/game/game.dart';
 import 'package:flutter/material.dart';
 
-class GamesList extends StatelessWidget {
-  final List<String> games;
+import '../../../common/components/export/components.dart';
 
-  const GamesList(
-    this.games, {
+class GamesList extends StatelessWidget {
+  final List<Game> games;
+  final void Function(Game game) onGamePressed;
+
+  const GamesList({
     super.key,
+    required this.games,
+    required this.onGamePressed,
   });
 
-  List<Widget> _createChildren() {
-    final count = games.length;
-    List<Widget> children = [];
-
-    children.addAll(_createTitle(count));
-    children.addAll(_createBody(count).map((widget) => widget));
-
-    return children;
+  List<Widget> _noGamesEvent() {
+    return const [Text('У мероприятия нет игр')];
   }
 
-  List<Widget> _createTitle(int count) {
-    String title = '';
-
-    if (count == 0) {
-      title = 'Игра отсутствует';
-    } else if (count == 1) {
-      title = games[0];
-    } else {
-      title = 'Играем в эти настолки';
-    }
-
+  List<Widget> _oneGameEvent() {
     return [
       Text(
-        title,
-        style: const TextStyle(
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
-          color: CCAppColors.lightTextPrimary,
-        ),
+        games[0].name,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
       ),
-      const SizedBox(height: 7),
-    ];
-  }
-
-  List<Widget> _createBody(int count) {
-    if (count == 0) {
-      return [
-        const Text(
-          'У этого мероприятия отсутсвует назначенная игра.',
-          style: TextStyle(
-            fontSize: 18,
-          ),
-        )
-      ];
-    } else if (count == 1) {
-      return _createSingleGameBody();
-    }
-    return [_createMultipleGamesBody(count)];
-  }
-
-  Widget _createMultipleGamesBody(int count) {
-    return ListView.separated(
-      physics: const NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.zero,
-      shrinkWrap: true,
-      itemCount: count,
-      itemBuilder: (context, index) {
-        return LinkTile.withTags(
-            onPressed: () {},
-            title: games[index],
-            tags: ["Стратегия", "18+", "Сложная"]);
-      },
-      separatorBuilder: (_, __) {
-        return const SizedBox(height: 10);
-      },
-    );
-  }
-
-  List<Widget> _createSingleGameBody() {
-    return [
-      ListView.separated(
-        physics: const NeverScrollableScrollPhysics(),
-        padding: EdgeInsets.zero,
-        shrinkWrap: true,
-        itemCount: 4,
-        itemBuilder: (context, index) {
-          return Row(
-            children: [
-              Expanded(
-                child: Text(
-                  'Параметр $index',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    color: CCAppColors.secondary,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  'Значение $index',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    color: CCAppColors.lightTextPrimary,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ),
-            ],
-          );
-        },
-        separatorBuilder: (_, __) {
-          return const SizedBox(height: 7);
-        },
-      ),
-      const SizedBox(height: 15),
+      const SizedBox(height: 3),
+      GameTagsView(tags: games[0].tags),
+      const SizedBox(height: 20),
       OutlinedButton(
-        style: ButtonStyle(
-          padding: MaterialStateProperty.all(
-            const EdgeInsets.symmetric(vertical: 15, horizontal: 40),
-          ),
+        onPressed: () {
+          onGamePressed(games[0]);
+        },
+        child: const Text(
+          'Подробнее',
+          style: TextStyle(fontWeight: FontWeight.normal),
         ),
-        onPressed: () {},
-        child: const Text('Подробнее'),
       )
     ];
+  }
+
+  List<Widget> _multipleGamesEvent() {
+    final ff = games.map(
+      (Game game) => LinkTile.withTags(
+        onPressed: () {
+          onGamePressed(game);
+        },
+        title: game.name,
+        tags: game.tags,
+      ),
+    );
+
+    return [
+      const Text(
+        'Играем в эти настолки',
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+      ),
+      const SizedBox(height: 10),
+      ListView.separated(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: games.length,
+        itemBuilder: (_, index) {
+          final game = games[index];
+          return LinkTile.withTags(
+            onPressed: () {
+              onGamePressed(game);
+            },
+            title: game.name,
+            tags: game.tags,
+          );
+        },
+        separatorBuilder: (_, __) => const SizedBox(height: 20),
+      )
+    ];
+  }
+
+  List<Widget> _createChildren() {
+    List<Widget> children = [];
+
+    if (games.isEmpty) {
+      children.addAll(_noGamesEvent());
+    } else if (games.length == 1) {
+      children.addAll(_oneGameEvent());
+    } else {
+      children.addAll(_multipleGamesEvent());
+    }
+
+    return children;
   }
 
   @override

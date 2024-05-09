@@ -12,10 +12,11 @@ class GamesCollectionScreen extends StatelessWidget {
 
   static const List<Game> games = [
     Game(
+      id: '',
       name: 'Монополия',
       description: 'Крутая игра',
       tags: GameTags(
-        genres: 'стратегия',
+        genres: ['стратегия'],
         author: 'ppplay',
         ageLimit: 16,
         playersRange: [2, 3],
@@ -23,10 +24,11 @@ class GamesCollectionScreen extends StatelessWidget {
       ),
     ),
     Game(
+      id: '',
       name: 'Дуополия',
       description: 'Крутая игра',
       tags: GameTags(
-        genres: 'хоррор',
+        genres: ['хоррор'],
         author: 'western',
         ageLimit: 18,
         playersRange: [2, 3],
@@ -34,10 +36,11 @@ class GamesCollectionScreen extends StatelessWidget {
       ),
     ),
     Game(
+      id: '',
       name: 'Роскошь Дуэль',
       description: 'Крутая игра',
       tags: GameTags(
-        genres: 'команда',
+        genres: ['команда'],
         author: 'apikos',
         ageLimit: 12,
         playersRange: [2, 3],
@@ -45,10 +48,11 @@ class GamesCollectionScreen extends StatelessWidget {
       ),
     ),
     Game(
+      id: '',
       name: 'Игра',
       description: 'Крутая игра',
       tags: GameTags(
-        genres: 'стратегия',
+        genres: ['стратегия'],
         author: 'volters',
         ageLimit: 18,
         playersRange: [2, 3],
@@ -56,10 +60,11 @@ class GamesCollectionScreen extends StatelessWidget {
       ),
     ),
     Game(
+      id: '',
       name: 'Inspo',
       description: 'Крутая игра',
       tags: GameTags(
-        genres: 'стратегия',
+        genres: ['стратегия'],
         author: 'ppplay',
         ageLimit: 12,
         playersRange: [2, 3],
@@ -67,10 +72,11 @@ class GamesCollectionScreen extends StatelessWidget {
       ),
     ),
     Game(
+      id: '',
       name: 'Кубикс',
       description: 'Крутая игра',
       tags: GameTags(
-        genres: 'стратегия',
+        genres: ['стратегия'],
         author: 'ppplay',
         ageLimit: 6,
         playersRange: [2, 3],
@@ -78,10 +84,11 @@ class GamesCollectionScreen extends StatelessWidget {
       ),
     ),
     Game(
+      id: '',
       name: 'Викинги',
       description: 'Крутая игра',
       tags: GameTags(
-        genres: 'стратегия',
+        genres: ['стратегия'],
         author: 'insecto',
         ageLimit: 16,
         playersRange: [2, 3],

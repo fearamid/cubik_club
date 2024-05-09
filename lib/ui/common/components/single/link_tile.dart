@@ -1,4 +1,5 @@
-import 'package:cubik_club/ui/common/components/single/tags_list.dart';
+import 'package:cubik_club/domain/entities/game/game.dart';
+import 'package:cubik_club/ui/common/components/export/components.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
@@ -17,18 +18,23 @@ class LinkTile extends StatelessWidget {
   static LinkTile withTags({
     required VoidCallback onPressed,
     required String title,
-    required List<String> tags,
+    required GameTags tags,
   }) {
     return LinkTile(
       onPressed: onPressed,
       title: title,
-      description: TagsList(tags),
+      description: GameTagsView.shortWrap(tags: tags),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      splashColor: Colors.red,
+      focusColor: Colors.red,
+      hoverColor: Colors.red,
+      highlightColor: Colors.red,
+      // overlayColor: Colors.red,
       onTap: () => onPressed(),
       child: Container(
         padding: const EdgeInsets.only(

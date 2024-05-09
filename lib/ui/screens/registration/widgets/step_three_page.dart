@@ -1,4 +1,4 @@
-import 'package:cubik_club/ui/common/components/components.dart';
+import 'package:cubik_club/ui/common/components/export/components.dart';
 import 'package:cubik_club/ui/screens/registration/registration_view_model.dart';
 
 import 'package:cubik_club/utils/constants/image_strings.dart';

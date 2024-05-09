@@ -1,6 +1,5 @@
 import 'package:cubik_club/domain/entities/game/game.dart';
 import 'package:cubik_club/ui/common/components/single/section.dart';
-import 'package:cubik_club/ui/common/components/single/tags_list.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/games_collection.dart';
 import 'package:cubik_club/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
@@ -47,12 +46,12 @@ class GameThumbnail extends StatelessWidget {
               maxLines: 1,
             ),
             const SizedBox(height: 10),
-            TagsList([
-              tags.genres,
-              tags.author,
-              '${tags.duration} мин',
-              '${tags.ageLimit}+'
-            ]),
+            // TagsList([
+            //   tags.genres,
+            //   tags.author,
+            //   '${tags.duration} мин',
+            //   '${tags.ageLimit}+'
+            // ]),
           ],
         ),
       ),

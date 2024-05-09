@@ -17,7 +17,7 @@ class CCOutlinedButtonTheme {
       color: CCAppColors.secondary,
       fontWeight: FontWeight.normal,
     ),
-    padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 20),
+    padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 40),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(20),
     ),
@@ -36,7 +36,7 @@ class CCOutlinedButtonTheme {
       color: CCAppColors.secondary,
       fontWeight: FontWeight.normal,
     ),
-    padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 20),
+    padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 40),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(20),
     ),

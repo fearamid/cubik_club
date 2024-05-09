@@ -1,5 +1,6 @@
 import 'package:cubik_club/domain/entities/event.dart';
-import 'package:cubik_club/ui/screens/post/widgets/widgets.dart';
+import 'package:cubik_club/domain/entities/game/game.dart';
+import 'package:cubik_club/ui/screens/post/widgets/export/widgets.dart';
 import 'package:flutter/material.dart';
 
 class PostScreen extends StatelessWidget {
@@ -12,56 +13,54 @@ class PostScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<Game> games = [
+      const Game(
+        id: '123',
+        name: 'Монополия',
+        description: 'Описание игры',
+        tags: GameTags(
+          genres: ['стратегия', 'хоррор'],
+          author: 'Westplay games',
+          ageLimit: 18,
+          playersRange: [2, 5],
+          duration: 20,
+        ),
+      ),
+      const Game(
+        id: '123',
+        name: 'Монополия',
+        description: 'Описание игры',
+        tags: GameTags(
+          genres: ['стратегия', 'хоррор'],
+          author: 'Westplay games',
+          ageLimit: 18,
+          playersRange: [2, 5],
+          duration: 20,
+        ),
+      ),
+    ];
+
     return Scaffold(
-      // floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      // floatingActionButton: Container(
-      //   decoration: const BoxDecoration(
-      //     color: CCAppColors.lightBackground,
-      //     shape: BoxShape.circle,
-      //   ),
-      //   child: CustomIconButton(
-      //     icon: Iconsax.arrow_left_2_copy,
-      //     onPressed: () {},
-      //   ),
-      // ),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            // SliverAppBar(
-            //   pinned: true,
-            //   floating: true,
-            //   expandedHeight: 370,
-            //   toolbarHeight: 0,
-            //   collapsedHeight: 0,
-            //   automaticallyImplyLeading: false,
-            //   backgroundColor: CCAppColors.lightBackground,
-            //   flexibleSpace: FlexibleSpaceBar(
-            //     background: ClipRRect(
-            //       borderRadius: const BorderRadius.only(
-            //         bottomRight: Radius.circular(20),
-            //         bottomLeft: Radius.circular(20),
-            //       ),
-            //       child: Image.asset(
-            //         CCImages.cowboy,
-            //         fit: BoxFit.cover,
-            //       ),
-            //     ),
-            //   ),
-            // ),
             SliverList(
-              delegate: SliverChildListDelegate([
-                // const SizedBox(height: kToolbarHeight),
-                const PostCover(),
-                const SizedBox(height: 20),
-                PostDescription(
-                  name: event.name,
-                  description: event.description,
-                ),
-                const SizedBox(height: 20),
-                const GamesList(["Монополия", "Другая игра"]),
-                const SizedBox(height: kBottomNavigationBarHeight + 60),
-              ]),
-            )
+              delegate: SliverChildListDelegate(
+                [
+                  const PostCover(),
+                  const SizedBox(height: 20),
+                  PostDescription(
+                    name: event.name,
+                    description: event.description,
+                  ),
+                  const SizedBox(height: 20),
+                  GamesList(
+                    games: games,
+                    onGamePressed: (Game game) {},
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

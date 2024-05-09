@@ -16,7 +16,7 @@ class CCElevatedButtonTheme {
       ),
       textStyle: const TextStyle(
           fontSize: 18, color: Colors.white, fontWeight: FontWeight.normal),
-      padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 40),
       side: BorderSide.none,
     ),
   );
@@ -34,7 +34,7 @@ class CCElevatedButtonTheme {
       ),
       textStyle: const TextStyle(
           fontSize: 18, color: Colors.white, fontWeight: FontWeight.normal),
-      padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 40),
       side: BorderSide.none,
     ),
   );
