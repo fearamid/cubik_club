@@ -72,7 +72,7 @@ class MainScreen extends StatelessWidget {
             itemCount: 10,
             itemBuilder: (context, index) {
               final event = Event(
-                name: 'Мероприятие $index',
+                title: 'Мероприятие $index',
                 description:
                     'Будем играть в такую очень интересную игру с увлекательными механиками. Возьмите с собой хорошее настроение, несколько часов свободного времени и наше приложение. Будем играть в такую очень интересную игру с увлекательными механиками. Возьмите с собой хорошее настроение, несколько часов свободного времени и наше приложение.',
               );
@@ -172,7 +172,7 @@ class ArticleThumbnail extends StatelessWidget {
         MainNavigation.toPostScreen(
           context,
           event: const Event(
-              name: 'Заглушка', description: 'Сделать новый класс под guide'),
+              title: 'Заглушка', description: 'Сделать новый класс под guide'),
         );
       },
       child: Container(

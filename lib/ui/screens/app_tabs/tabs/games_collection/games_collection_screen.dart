@@ -142,7 +142,7 @@ class GamesCollectionScreen extends StatelessWidget {
           },
         ),
         const SliverToBoxAdapter(
-            child: SizedBox(height: kBottomNavigationBarHeight + 60)),
+            child: SizedBox(height: kBottomNavigationBarHeight + 45)),
       ],
     );
   }

@@ -33,9 +33,9 @@ class User implements IQrCodeAble {
 
   factory User.empty() {
     return const User(
-      name: '',
-      surname: '',
-      login: '',
+      name: 'Не заполнено',
+      surname: 'Не заполнено',
+      login: 'Не заполнено',
       gender: Genders.undefined,
     );
   }
@@ -73,12 +73,11 @@ class User implements IQrCodeAble {
   }
 
   @override
-  String generateQr() {
-    return login;
-  }
+  String getQrValue() => login;
 
   @override
-  String generateQrTitle() {
-    return 'Пользователь';
-  }
+  String getQrTitle() => 'Пользователь';
+
+  @override
+  String getQrPrefix() => 'user';
 }

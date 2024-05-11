@@ -16,12 +16,11 @@ class Game implements IQrCodeAble {
   });
 
   @override
-  String generateQr() {
-    return 'board-game_$id';
-  }
+  String getQrValue() => 'board-game_$id';
 
   @override
-  String generateQrTitle() {
-    return 'Настольная игра';
-  }
+  String getQrTitle() => 'Настольная игра';
+
+  @override
+  String getQrPrefix() => 'game';
 }

@@ -19,6 +19,7 @@ class AppTabs extends StatelessWidget {
         pageIndex: selectedPageIndex,
       ),
       body: SafeArea(
+        maintainBottomViewPadding: true,
         child: PageView(
           physics: const NeverScrollableScrollPhysics(),
           controller: viewModel.controller,

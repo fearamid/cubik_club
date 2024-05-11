@@ -9,27 +9,63 @@ import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  late Future<User>? _userFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _userFuture = context.read<ProfileScreenViewModel>().getUserDataAsync();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<ProfileScreenViewModel>();
-    return CustomScrollView(
-      slivers: [
-        SliverList(
-          delegate: SliverChildListDelegate(
-            [
-              const _ProfileHeader(),
-              const _UserResources(),
-              const _UserAchievements(),
-              const _BookingInformation(),
-              const SizedBox(height: 20),
-              const _ClubInformation(),
-            ],
-          ),
-        ),
-      ],
+    return FutureBuilder(
+      future: _userFuture,
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+          case ConnectionState.active:
+            return const Center(child: CircularProgressIndicator());
+
+          case ConnectionState.done:
+            User? userData = snapshot.data;
+            if (snapshot.hasError || userData == null) {
+              return const Center(child: Text('Произошла ошибка'));
+            }
+
+            context
+                .read<ProfileScreenViewModel>()
+                .updateStateWithoutNotification(user: userData);
+
+            return CustomScrollView(
+              slivers: [
+                SliverList(
+                  delegate: SliverChildListDelegate(
+                    [
+                      _ProfileHeader(),
+                      const _UserResources(),
+                      const _UserAchievements(),
+                      const _BookingInformation(),
+                      const SizedBox(height: 20),
+                      const _ClubInformation(),
+                      const SizedBox(height: kBottomNavigationBarHeight + 45)
+                    ],
+                  ),
+                ),
+              ],
+            );
+          default:
+            return const Center(child: Text('Ошибка'));
+        }
+      },
     );
   }
 }
@@ -64,87 +100,128 @@ class _UserInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<ProfileScreenViewModel>().state.user;
-    final viewModel = context.read<ProfileScreenViewModel>();
-    return FutureBuilder<User>(
-      future: viewModel.getUserDataAsync(),
-      builder: (context, snapshot) {
-        User? userData = snapshot.data;
-        // if (userData == null) {
-        //   userData == User.empty();
-        // }
-        // viewModel.updateState(user: userData);
-
-        switch (snapshot.connectionState) {
-          case ConnectionState.waiting:
-            return Expanded(
-              child: Column(
-                children: [
-                  const CircleAvatar(
-                    maxRadius: 95,
-                    backgroundColor: CCAppColors.lightSectionBackground,
-                  ),
-                  const SizedBox(height: 15),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    width: double.maxFinite,
-                    height: 25,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: CCAppColors.lightSectionBackground,
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 50),
-                    width: double.maxFinite,
-                    height: 25,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: CCAppColors.lightSectionBackground,
-                    ),
-                  ),
-                ],
-              ),
-            );
-
-          default:
-            return Expanded(
-              child: Column(
-                children: [
-                  const CircleAvatar(
-                    maxRadius: 95,
-                    backgroundImage: AssetImage(CCImages.accountCreateStep2),
-                  ),
-                  const SizedBox(height: 15),
-                  Text(
-                    '${userData?.name} ${userData?.surname}',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w700,
-                      color: CCAppColors.lightTextPrimary,
-                      height: 1,
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    '${userData?.login}',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
-                      color: CCAppColors.lightTextSecodary,
-                      height: 1,
-                    ),
-                  ),
-                ],
-              ),
-            );
-        }
-      },
+    return Expanded(
+      child: Column(
+        children: [
+          const CircleAvatar(
+            maxRadius: 95,
+            backgroundImage: AssetImage(CCImages.accountCreateStep2),
+          ),
+          const SizedBox(height: 15),
+          Text(
+            '${user.name} ${user.surname}',
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.w700,
+              color: CCAppColors.lightTextPrimary,
+              height: 1,
+            ),
+          ),
+          const SizedBox(height: 5),
+          Text(
+            '${user.login}',
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w400,
+              color: CCAppColors.lightTextSecodary,
+              height: 1,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
+
+// class _UserInformation extends StatelessWidget {
+//   const _UserInformation();
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final user = context.watch<ProfileScreenViewModel>().state.user;
+//     final viewModel = context.read<ProfileScreenViewModel>();
+//     return FutureBuilder<User>(
+//       future: viewModel.getUserDataAsync(),
+//       builder: (context, snapshot) {
+//         User? userData = snapshot.data;
+//         // if (userData == null) {
+//         //   userData == User.empty();
+//         // }
+//         // viewModel.updateState(user: userData);
+
+//         switch (snapshot.connectionState) {
+//           case ConnectionState.waiting:
+//             return Expanded(
+//               child: Column(
+//                 children: [
+//                   const CircleAvatar(
+//                     maxRadius: 95,
+//                     backgroundColor: CCAppColors.lightSectionBackground,
+//                   ),
+//                   const SizedBox(height: 15),
+//                   Container(
+//                     margin: const EdgeInsets.symmetric(horizontal: 20),
+//                     width: double.maxFinite,
+//                     height: 25,
+//                     decoration: BoxDecoration(
+//                       borderRadius: BorderRadius.circular(20),
+//                       color: CCAppColors.lightSectionBackground,
+//                     ),
+//                   ),
+//                   const SizedBox(height: 5),
+//                   Container(
+//                     margin: const EdgeInsets.symmetric(horizontal: 50),
+//                     width: double.maxFinite,
+//                     height: 25,
+//                     decoration: BoxDecoration(
+//                       borderRadius: BorderRadius.circular(20),
+//                       color: CCAppColors.lightSectionBackground,
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             );
+
+//           default:
+//             return Expanded(
+//               child: Column(
+//                 children: [
+//                   const CircleAvatar(
+//                     maxRadius: 95,
+//                     backgroundImage: AssetImage(CCImages.accountCreateStep2),
+//                   ),
+//                   const SizedBox(height: 15),
+//                   Text(
+//                     '${userData?.name} ${userData?.surname}',
+//                     textAlign: TextAlign.center,
+//                     style: const TextStyle(
+//                       fontSize: 25,
+//                       fontWeight: FontWeight.w700,
+//                       color: CCAppColors.lightTextPrimary,
+//                       height: 1,
+//                     ),
+//                   ),
+//                   const SizedBox(height: 5),
+//                   Text(
+//                     '${userData?.login}',
+//                     textAlign: TextAlign.center,
+//                     style: const TextStyle(
+//                       fontSize: 20,
+//                       fontWeight: FontWeight.w400,
+//                       color: CCAppColors.lightTextSecodary,
+//                       height: 1,
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             );
+//         }
+//       },
+//     );
+//   }
+// }
 
 class _ActionsBar extends StatelessWidget {
   const _ActionsBar();

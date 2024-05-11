@@ -50,7 +50,7 @@ class PostScreen extends StatelessWidget {
                   const PostCover(),
                   const SizedBox(height: 20),
                   PostDescription(
-                    name: event.name,
+                    name: event.title,
                     description: event.description,
                   ),
                   const SizedBox(height: 20),

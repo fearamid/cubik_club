@@ -27,7 +27,7 @@ class EventThumbnail extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              event.name,
+              event.title,
               style: const TextStyle(
                 color: CCAppColors.lightTextPrimary,
                 fontSize: 25,

@@ -1,6 +1,7 @@
 abstract interface class IQrCodeAble {
-  String generateQr();
-  String generateQrTitle();
+  String getQrValue();
+  String getQrTitle();
+  String getQrPrefix();
 }
 
 // TODO: It's has native QrCode class in qr code generator class with creation from data. Maybe use it?
@@ -14,7 +15,7 @@ class QrCodeData {
   });
 
   static fromEntity<T extends IQrCodeAble>(T entity) {
-    return QrCodeData(
-        data: entity.generateQr(), title: entity.generateQrTitle());
+    final String value = entity.getQrPrefix() + ':' + entity.getQrValue();
+    return QrCodeData(data: value, title: entity.getQrTitle());
   }
 }

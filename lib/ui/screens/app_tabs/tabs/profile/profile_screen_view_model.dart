@@ -25,10 +25,15 @@ class ProfileScreenViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateStateWithoutNotification({User? user}) {
+    _state = _ProfileScreenViewModelState(
+      user: user ?? _state.user,
+    );
+  }
+
   Future<User> getUserDataAsync() async {
-    final User user = await UserService().getUserDataFromAccessToken();
     // updateState(user: user);
-    return user;
+    return await UserService().getUserDataFromAccessToken();
   }
 
   void onSettingsButtonPressed(BuildContext context) {
