@@ -1,18 +1,34 @@
 import 'package:cubik_club/domain/entities/user.dart';
+import 'package:cubik_club/domain/services/user/user_service.dart';
 import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:flutter/material.dart';
 
 class _ProfileScreenViewModelState {
-  const _ProfileScreenViewModelState();
+  final User user;
+  const _ProfileScreenViewModelState({
+    required this.user,
+  });
 }
 
 class ProfileScreenViewModel extends ChangeNotifier {
-  var _state = const _ProfileScreenViewModelState();
-  get state => _state;
+  _ProfileScreenViewModelState get state => _state;
+  var _state = _ProfileScreenViewModelState(user: User.empty());
 
-  void updateState() {
-    _state = const _ProfileScreenViewModelState();
+  ProfileScreenViewModel() {}
+
+  void updateState({
+    User? user,
+  }) {
+    _state = _ProfileScreenViewModelState(
+      user: user ?? _state.user,
+    );
     notifyListeners();
+  }
+
+  Future<User> getUserDataAsync() async {
+    final User user = await UserService().getUserDataFromAccessToken();
+    // updateState(user: user);
+    return user;
   }
 
   void onSettingsButtonPressed(BuildContext context) {
@@ -23,12 +39,7 @@ class ProfileScreenViewModel extends ChangeNotifier {
     // TODO: change to User
     MainNavigation.toQrCodeScreen(
       context,
-      entity: const User(
-        name: 'Дмитрий',
-        surname: 'Калашников',
-        login: 'user_283471023',
-        gender: Genders.male,
-      ),
+      entity: state.user,
     );
   }
 

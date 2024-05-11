@@ -1,3 +1,4 @@
+import 'package:cubik_club/domain/entities/user.dart';
 import 'package:cubik_club/ui/common/components/single/coins_indicator.dart';
 import 'package:cubik_club/ui/common/components/single/custom_icon_button.dart';
 import 'package:cubik_club/ui/common/components/single/section.dart';
@@ -13,6 +14,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.read<ProfileScreenViewModel>();
     return CustomScrollView(
       slivers: [
         SliverList(
@@ -27,15 +29,13 @@ class ProfileScreen extends StatelessWidget {
             ],
           ),
         ),
-        const SliverToBoxAdapter(
-            child: SizedBox(height: kBottomNavigationBarHeight + 60)),
       ],
     );
   }
 }
 
 class _ProfileHeader extends StatelessWidget {
-  const _ProfileHeader({super.key});
+  const _ProfileHeader();
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _ProfileHeader extends StatelessWidget {
         bottom: 20,
         left: 20,
         right: 20,
-        top: kToolbarHeight,
+        top: 25,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -59,47 +59,95 @@ class _ProfileHeader extends StatelessWidget {
 }
 
 class _UserInformation extends StatelessWidget {
-  const _UserInformation({super.key});
+  const _UserInformation();
 
   @override
   Widget build(BuildContext context) {
-    return const Expanded(
-      child: Column(
-        children: [
-          CircleAvatar(
-            maxRadius: 95,
-            backgroundImage: AssetImage(CCImages.accountCreateStep2),
-          ),
-          SizedBox(height: 15),
-          Text(
-            'Софи Оганнисян',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.w700,
-              color: CCAppColors.lightTextPrimary,
-              height: 1,
-            ),
-          ),
-          SizedBox(height: 5),
-          Text(
-            'mega_gamer123',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w400,
-              color: CCAppColors.lightTextSecodary,
-              height: 1,
-            ),
-          ),
-        ],
-      ),
+    final user = context.watch<ProfileScreenViewModel>().state.user;
+    final viewModel = context.read<ProfileScreenViewModel>();
+    return FutureBuilder<User>(
+      future: viewModel.getUserDataAsync(),
+      builder: (context, snapshot) {
+        User? userData = snapshot.data;
+        // if (userData == null) {
+        //   userData == User.empty();
+        // }
+        // viewModel.updateState(user: userData);
+
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            return Expanded(
+              child: Column(
+                children: [
+                  const CircleAvatar(
+                    maxRadius: 95,
+                    backgroundColor: CCAppColors.lightSectionBackground,
+                  ),
+                  const SizedBox(height: 15),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    width: double.maxFinite,
+                    height: 25,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: CCAppColors.lightSectionBackground,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 50),
+                    width: double.maxFinite,
+                    height: 25,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: CCAppColors.lightSectionBackground,
+                    ),
+                  ),
+                ],
+              ),
+            );
+
+          default:
+            return Expanded(
+              child: Column(
+                children: [
+                  const CircleAvatar(
+                    maxRadius: 95,
+                    backgroundImage: AssetImage(CCImages.accountCreateStep2),
+                  ),
+                  const SizedBox(height: 15),
+                  Text(
+                    '${userData?.name} ${userData?.surname}',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w700,
+                      color: CCAppColors.lightTextPrimary,
+                      height: 1,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    '${userData?.login}',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400,
+                      color: CCAppColors.lightTextSecodary,
+                      height: 1,
+                    ),
+                  ),
+                ],
+              ),
+            );
+        }
+      },
     );
   }
 }
 
 class _ActionsBar extends StatelessWidget {
-  const _ActionsBar({super.key});
+  const _ActionsBar();
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +213,7 @@ class _UserResources extends StatelessWidget {
 }
 
 class _UserAchievements extends StatelessWidget {
-  const _UserAchievements({super.key});
+  const _UserAchievements();
 
   Color pickColorFromIndex(int index) {
     final clasterNumber = (index + 1) % 4;
@@ -219,7 +267,7 @@ class _UserAchievements extends StatelessWidget {
 }
 
 class _BookingInformation extends StatelessWidget {
-  const _BookingInformation({super.key});
+  const _BookingInformation();
 
   @override
   Widget build(BuildContext context) {
@@ -245,7 +293,7 @@ class _BookingInformation extends StatelessWidget {
 }
 
 class _ClubInformation extends StatelessWidget {
-  const _ClubInformation({super.key});
+  const _ClubInformation();
 
   @override
   Widget build(BuildContext context) {

@@ -18,10 +18,12 @@ class AppTabs extends StatelessWidget {
       bottomNavigationBar: _AppBottomNavigation(
         pageIndex: selectedPageIndex,
       ),
-      body: PageView(
-        physics: const NeverScrollableScrollPhysics(),
-        controller: viewModel.controller,
-        children: viewModel.bottomNavigationScreens,
+      body: SafeArea(
+        child: PageView(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: viewModel.controller,
+          children: viewModel.bottomNavigationScreens,
+        ),
       ),
     );
   }

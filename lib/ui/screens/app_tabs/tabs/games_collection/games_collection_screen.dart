@@ -108,7 +108,7 @@ class GamesCollectionScreen extends StatelessWidget {
         const SliverAppBar(
           titleSpacing: 0,
           backgroundColor: CCAppColors.lightBackground,
-          toolbarHeight: 110,
+          toolbarHeight: 105,
           pinned: true,
           snap: true,
           floating: true,
@@ -119,7 +119,6 @@ class GamesCollectionScreen extends StatelessWidget {
             ),
           ),
           title: SearchTopBar(
-            top: 30,
             actions: [
               RandomGameButton(),
               SizedBox(width: 7),

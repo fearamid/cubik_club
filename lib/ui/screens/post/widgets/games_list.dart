@@ -41,16 +41,6 @@ class GamesList extends StatelessWidget {
   }
 
   List<Widget> _multipleGamesEvent() {
-    final ff = games.map(
-      (Game game) => LinkTile.withTags(
-        onPressed: () {
-          onGamePressed(game);
-        },
-        title: game.name,
-        tags: game.tags,
-      ),
-    );
-
     return [
       const Text(
         'Играем в эти настолки',

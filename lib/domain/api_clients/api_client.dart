@@ -13,6 +13,7 @@ class ApiClient {
   Future<HttpClientResponse> get({
     required String path,
     String? query,
+    Map<String, Object>? headers,
     Map<String, dynamic>? queryParameters,
   }) async {
     final url = _createUri(
@@ -22,6 +23,11 @@ class ApiClient {
     );
 
     final request = await _client.getUrl(url);
+
+    headers?.forEach((header, value) {
+      request.headers.set(header, value);
+    });
+
     final response = await request.close();
 
     return response;

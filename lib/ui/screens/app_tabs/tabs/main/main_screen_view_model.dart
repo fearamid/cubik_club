@@ -11,7 +11,8 @@ class _MainScreenViewModelState {
 class MainScreenViewModel extends ChangeNotifier {
   MainScreenViewModel() {
     updateState(
-        sliderPosts: <String, int>{"dfsdf": 2, 'fsdfsdf': 232, "fsfsf": 11});
+      sliderPosts: <String, int>{"dfsdf": 2, 'fsdfsdf': 232, "fsfsf": 11},
+    );
   }
 
   var _state = const _MainScreenViewModelState();
