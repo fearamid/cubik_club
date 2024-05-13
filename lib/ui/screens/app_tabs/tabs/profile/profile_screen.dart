@@ -49,14 +49,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               slivers: [
                 SliverList(
                   delegate: SliverChildListDelegate(
-                    [
+                    const [
                       _ProfileHeader(),
-                      const _UserResources(),
-                      const _UserAchievements(),
-                      const _BookingInformation(),
-                      const SizedBox(height: 20),
-                      const _ClubInformation(),
-                      const SizedBox(height: kBottomNavigationBarHeight + 45)
+                      _UserResources(),
+                      _UserAchievements(),
+                      _BookingInformation(),
+                      SizedBox(height: 20),
+                      _ClubInformation(),
+                      SizedBox(height: kBottomNavigationBarHeight + 45)
                     ],
                   ),
                 ),
@@ -254,10 +254,10 @@ class _ActionsBar extends StatelessWidget {
               onPressed: () => model.onQrCodeButtonPressed(context),
             ),
             const SizedBox(height: 15),
-            // CustomIconButton(
-            //   icon: Iconsax.brush_3_copy,
-            //   onPressed: () {},
-            // ),
+            CustomIconButton(
+              icon: Iconsax.brush_3_copy,
+              onPressed: () {},
+            ),
             const SizedBox(height: 15),
             CustomIconButton(
               icon: Iconsax.folder_copy,

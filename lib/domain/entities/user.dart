@@ -1,9 +1,9 @@
 import 'package:cubik_club/domain/entities/qr_code_data.dart';
-import 'package:flutter/scheduler.dart';
 
 enum Genders { male, female, undefined }
 
 class User implements IQrCodeAble {
+  final int id;
   final String login;
   final String role;
   final String name;
@@ -11,6 +11,7 @@ class User implements IQrCodeAble {
   final Genders _gender;
 
   const User({
+    required this.id,
     this.role = 'USER',
     required this.name,
     required this.surname,
@@ -20,8 +21,8 @@ class User implements IQrCodeAble {
 
   get gender => _gender;
 
-  String get genderChar {
-    switch (_gender) {
+  static String genderChar(Genders gender) {
+    switch (gender) {
       case Genders.male:
         return 'm';
       case Genders.female:
@@ -33,6 +34,7 @@ class User implements IQrCodeAble {
 
   factory User.empty() {
     return const User(
+      id: 0,
       name: 'Не заполнено',
       surname: 'Не заполнено',
       login: 'Не заполнено',
@@ -55,15 +57,18 @@ class User implements IQrCodeAble {
 
   static User fromJson(Map<String, dynamic> userJson) {
     return User(
+      id: userJson['id'],
       name: userJson['name'],
       surname: userJson['surname'],
       login: userJson['login'],
       gender: userJson['gender'],
+      role: userJson['role'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
+      "id": id,
       "login": login,
       "name": name,
       "surname": surname,

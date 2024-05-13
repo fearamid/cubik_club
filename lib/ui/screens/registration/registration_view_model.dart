@@ -121,15 +121,14 @@ class RegistrationViewModel extends ChangeNotifier {
   Future<void> onRegistrationButtonPressed(BuildContext context) async {
     final validator = isStepTwoComplete();
     if (validator['complete']) {
-      final newUser = User(
-        name: _state.name,
-        surname: _state.surname,
-        login: _state.login,
-        gender: _state.gender,
-      );
-
       try {
-        await authService.registration(newUser, password: _state.password);
+        await authService.registration(
+          login: _state.login,
+          password: _state.password,
+          name: _state.name,
+          surname: _state.surname,
+          gender: User.genderChar(_state.gender),
+        );
         _toNextStep(context, onRegistration: () {
           Navigator.pop(
               context, {"login": _state.login, "password": _state.password});
