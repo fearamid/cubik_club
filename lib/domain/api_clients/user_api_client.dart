@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:cubik_club/domain/api_clients/api_client.dart';
 
 class UserApiClient {

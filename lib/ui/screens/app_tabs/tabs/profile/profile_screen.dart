@@ -38,7 +38,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
           case ConnectionState.done:
             User? userData = snapshot.data;
             if (snapshot.hasError || userData == null) {
-              return const Center(child: Text('Произошла ошибка'));
+              print(snapshot.error);
+              print(userData);
+              return CustomScrollView(
+                slivers: [
+                  SliverList(
+                    delegate: SliverChildListDelegate(
+                      const [
+                        _ProfileHeader(),
+                        _UserResources(),
+                        _UserAchievements(),
+                        _BookingInformation(),
+                        SizedBox(height: 20),
+                        _ClubInformation(),
+                        SizedBox(height: kBottomNavigationBarHeight + 45)
+                      ],
+                    ),
+                  ),
+                ],
+              );
             }
 
             context

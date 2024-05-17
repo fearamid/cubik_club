@@ -1,3 +1,4 @@
+import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingScreenViewModel extends ChangeNotifier {
@@ -22,7 +23,7 @@ class OnboardingScreenViewModel extends ChangeNotifier {
   Future<void> nextPage(BuildContext context) async {
     if (currentPageIndex == 2) {
       // Навигация к следующим страницам после анбординга
-      await Navigator.of(context).pushReplacementNamed('/login');
+      await Navigator.of(context).pushReplacementNamed(Screens.login);
     } else {
       int page = currentPageIndex + 1;
       pageController.animateToPage(

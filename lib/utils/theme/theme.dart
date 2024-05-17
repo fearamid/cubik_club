@@ -38,7 +38,6 @@ class CCAppTheme {
     dialogTheme: CCDialogTheme.lightTheme,
     snackBarTheme: CCSnackBarTheme.lightTheme,
     switchTheme: CCSwitchTheme.lightTheme,
-    // TODO: SnackBarTheme (dark, light)
   );
 
   static ThemeData darkTheme = ThemeData(
