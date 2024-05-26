@@ -11,7 +11,6 @@ class _LoginScreenViewModelState {
   final String password;
   final String authErrorText;
   final bool isAuthProccess;
-
   LoginScreenAuthButonState get authButtonState {
     if (isAuthProccess) {
       return LoginScreenAuthButonState.authProcess;
@@ -70,18 +69,20 @@ class LoginScreenViewModel extends ChangeNotifier {
 
     if (login.isEmpty || password.isEmpty) return;
     updateState(authErrorText: '', isAuthProccess: true);
-    //TODO: добавить другие ошибки, если есть (проверка на интернет и т.д.)
+
     try {
       await _authService.login(login, password);
       updateState(isAuthProccess: false);
-      MainNavigation.toAppTabsScreen(context);
+      await MainNavigation.toAppTabsScreen(context);
     } catch (e) {
       final String errorText;
 
       if (e is AuthApiClientError) {
         errorText = e.error;
       } else {
-        errorText = 'Случилась ошибка авторизации, попробуйте повторить позже';
+        print(e);
+        errorText = e.toString();
+        // errorText = 'Случилась ошибка авторизации, попробуйте повторить позже';
       }
 
       updateState(
@@ -106,6 +107,8 @@ class LoginScreenViewModel extends ChangeNotifier {
     loginController.text = login;
     passwordController.text = password;
   }
+
+  //TODO: добавить другие ошибки, если есть (проверка на интернет и т.д.)
 
   Future<void> onForgotPasswordButtonPressed(BuildContext context) async {
     // await Navigator.of(context).pushNamed('/forgot_password');

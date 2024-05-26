@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 
+// TODO: these methods ~ equal, maybe create common func
+
 class ApiClient {
   static const String _scheme = 'https';
-  static const String _host = 'fearamid-cubik-club-backend-f68c.twc1.net';
+  static const String _host = 'fearamid-cubik-club-backend-898e.twc1.net';
   static const String _baseApiPath = '/api';
 
   final _client = HttpClient();
-
-  // TODO: these methods ~ equal, maybe create common func
 
   Future<HttpClientResponse> get({
     required String path,
@@ -73,13 +73,12 @@ class ApiClient {
     );
   }
 
-  static Future<Map<String, dynamic>> getJson(
-      HttpClientResponse response) async {
+  static Future<T> getJson<T>(HttpClientResponse response) async {
     final json = await response
         .transform(utf8.decoder)
         .toList()
         .then((value) => value.join())
-        .then((v) => jsonDecode(v) as Map<String, dynamic>);
+        .then((v) => jsonDecode(v) as T);
 
     return json;
   }

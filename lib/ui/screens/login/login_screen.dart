@@ -11,7 +11,6 @@ import 'package:cubik_club/utils/constants/texts.dart';
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
-// dfsfss
   @override
   Widget build(BuildContext context) {
     final viewModel = context.read<LoginScreenViewModel>();
@@ -43,24 +42,6 @@ class LoginScreen extends StatelessWidget {
               onChanged: (text) => viewModel.updateState(password: text),
             ),
             const SizedBox(height: 5),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () =>
-                    viewModel.onForgotPasswordButtonPressed(context),
-                child: const Text('Забыли пароль?'),
-              ),
-            ),
-          ],
-          extraActions: [
-            // TODO: сделать это всё в одном виджете (используется только тут, зачем универсальность extraActions?)
-            const SizedBox(height: 15),
-            LoginWith(
-              children: [
-                _VkLoginButton(),
-                _GoogleLoginButton(),
-              ],
-            ),
           ],
         ),
       ),
@@ -80,7 +61,9 @@ class _MainActionButton extends StatelessWidget {
 
     final onAuthButtonPressed =
         authButtonState == LoginScreenAuthButonState.canSubmit
-            ? () => viewModel.onLoginButtonPressed(context)
+            ? () async {
+                await viewModel.onLoginButtonPressed(context);
+              }
             : null;
 
     return ElevatedButton(
@@ -128,3 +111,26 @@ class _GoogleLoginButton extends LoginWithButton {
           },
         );
 }
+
+
+// TODO: сделать это всё в одном виджете (используется только тут, зачем универсальность extraActions?)
+
+      //  extraActions: [
+      //       const SizedBox(height: 15),
+      //       LoginWith(
+      //         children: [
+      //           _VkLoginButton(),
+      //           _GoogleLoginButton(),
+      //         ],
+      //       ),
+      //     ],
+
+
+                // Align(
+            //   alignment: Alignment.centerRight,
+            //   child: TextButton(
+            //     onPressed: () =>
+            //         viewModel.onForgotPasswordButtonPressed(context),
+            //     child: const Text('Забыли пароль?'),
+            //   ),
+            // ),

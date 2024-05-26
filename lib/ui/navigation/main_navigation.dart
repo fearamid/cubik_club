@@ -96,3 +96,14 @@ class MainNavigation {
     await Navigator.of(context).pushNamed(Screens.game, arguments: game);
   }
 }
+
+class MyWidget extends StatefulWidget {
+  const MyWidget({super.key});
+  @override
+  State<MyWidget> createState() => _MyWidgetState();
+}
+
+class _MyWidgetState extends State<MyWidget> {
+  @override
+  Widget build(BuildContext context) => const Text('Новый виджет');
+}

@@ -18,12 +18,12 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<MainScreenViewModel>();
+    final vm = context.read<MainScreenViewModel>();
     return RefreshIndicator(
       backgroundColor: CCAppColors.lightBackground,
       triggerMode: RefreshIndicatorTriggerMode.anywhere,
       strokeWidth: 2,
-      onRefresh: model.onRefreshPage,
+      onRefresh: vm.onRefreshPage,
       child: CustomScrollView(
         slivers: [
           SliverList(
@@ -68,18 +68,49 @@ class MainScreen extends StatelessWidget {
               ],
             ),
           ),
-          SliverList.separated(
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              final event = Event(
-                title: 'Мероприятие $index',
-                description:
-                    'Будем играть в такую очень интересную игру с увлекательными механиками. Возьмите с собой хорошее настроение, несколько часов свободного времени и наше приложение. Будем играть в такую очень интересную игру с увлекательными механиками. Возьмите с собой хорошее настроение, несколько часов свободного времени и наше приложение.',
-              );
+          FutureBuilder<List<Map<dynamic, dynamic>>>(
+            future: vm.loadRelevantEvents(),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                  return const SliverToBoxAdapter(
+                    child: Center(
+                      child: Text('Загружаем данные...'),
+                    ),
+                  );
+                case ConnectionState.active:
+                  return const SliverToBoxAdapter(
+                    child: Center(
+                      child: Text('Данные в активном состоянии'),
+                    ),
+                  );
+                case ConnectionState.done:
+                  break;
+                default:
+              }
 
-              return EventThumbnail(event: event);
+              if (snapshot.hasError) {
+                return const SliverToBoxAdapter(
+                  child: Center(
+                    child: Text('Ошибка загрузки данных...'),
+                  ),
+                );
+              }
+              final events = snapshot.data;
+
+              return SliverList.separated(
+                itemCount: events?.length,
+                itemBuilder: (context, index) {
+                  final event = Event(
+                    title: '${events?[index]['title']}',
+                    description: '${events?[index]['description']}',
+                  );
+                  return EventThumbnail(event: event);
+                },
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 20),
+              );
             },
-            separatorBuilder: (context, index) => const SizedBox(height: 20),
           ),
           const SliverToBoxAdapter(
               child: SizedBox(height: kBottomNavigationBarHeight + 60)),

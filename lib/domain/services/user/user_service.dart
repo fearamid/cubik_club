@@ -11,11 +11,9 @@ class UserService {
 
   Future<User> getUserDataFromAccessToken() async {
     final String? accessToken = await _jwtProvider.getAccessToken();
-    // print("INNER TOKEN  accessToken");
-    // print(accessToken);
 
     if (accessToken == null) {
-      throw Error();
+      throw Exception('accessToken is null error: custom error');
     }
     try {
       final String text = accessToken.split('.')[1];
@@ -23,8 +21,6 @@ class UserService {
 
       final decoded = base64.decode(normalizedText);
       final Map<String, dynamic> json = jsonDecode(utf8.decode(decoded));
-
-      json['gender'] = User.genderFromChar(json['gender']);
 
       final User user = User.fromJson(json);
       return user;
