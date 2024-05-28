@@ -18,12 +18,12 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final vm = context.read<MainScreenViewModel>();
+    final viewModel = context.read<MainScreenViewModel>();
     return RefreshIndicator(
       backgroundColor: CCAppColors.lightBackground,
       triggerMode: RefreshIndicatorTriggerMode.anywhere,
       strokeWidth: 2,
-      onRefresh: vm.onRefreshPage,
+      onRefresh: viewModel.onRefreshPage,
       child: CustomScrollView(
         slivers: [
           SliverList(
@@ -68,54 +68,58 @@ class MainScreen extends StatelessWidget {
               ],
             ),
           ),
-          FutureBuilder<List<Map<dynamic, dynamic>>>(
-            future: vm.loadRelevantEvents(),
-            builder: (context, snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.waiting:
-                  return const SliverToBoxAdapter(
-                    child: Center(
-                      child: Text('Загружаем данные...'),
-                    ),
-                  );
-                case ConnectionState.active:
-                  return const SliverToBoxAdapter(
-                    child: Center(
-                      child: Text('Данные в активном состоянии'),
-                    ),
-                  );
-                case ConnectionState.done:
-                  break;
-                default:
-              }
-
-              if (snapshot.hasError) {
-                return const SliverToBoxAdapter(
-                  child: Center(
-                    child: Text('Ошибка загрузки данных...'),
-                  ),
-                );
-              }
-              final events = snapshot.data;
-
-              return SliverList.separated(
-                itemCount: events?.length,
-                itemBuilder: (context, index) {
-                  final event = Event(
-                    title: '${events?[index]['title']}',
-                    description: '${events?[index]['description']}',
-                  );
-                  return EventThumbnail(event: event);
-                },
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: 20),
-              );
-            },
-          ),
+          const _EventsList(),
           const SliverToBoxAdapter(
               child: SizedBox(height: kBottomNavigationBarHeight + 60)),
         ],
       ),
+    );
+  }
+}
+
+class _EventsList extends StatelessWidget {
+  const _EventsList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = context.read<MainScreenViewModel>();
+    return FutureBuilder<List<Map<dynamic, dynamic>>>(
+      future: viewModel.loadRelevantEvents(),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+          case ConnectionState.active:
+            return const SliverToBoxAdapter(
+              child: Center(
+                child: Text('Загружаем данные...'),
+              ),
+            );
+          case ConnectionState.done:
+            break;
+          default:
+        }
+
+        if (snapshot.hasError) {
+          return const SliverToBoxAdapter(
+            child: Center(
+              child: Text('Ошибка загрузки данных...'),
+            ),
+          );
+        }
+        final events = snapshot.data;
+
+        return SliverList.separated(
+          itemCount: events?.length,
+          itemBuilder: (context, index) {
+            final event = Event(
+              title: '${events?[index]['title']}',
+              description: '${events?[index]['description']}',
+            );
+            return EventThumbnail(event: event);
+          },
+          separatorBuilder: (context, index) => const SizedBox(height: 20),
+        );
+      },
     );
   }
 }

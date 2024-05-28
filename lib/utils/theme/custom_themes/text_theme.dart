@@ -6,7 +6,7 @@ class CCTextTheme {
   static TextTheme lightTheme(Color mainTextColor, Color secondaryTextColor) {
     return TextTheme(
       headlineMedium: const TextStyle().copyWith(
-          color: mainTextColor, fontSize: 20, fontWeight: FontWeight.bold),
+          color: mainTextColor, fontSize: 25, fontWeight: FontWeight.bold),
       titleMedium: const TextStyle().copyWith(
           color: mainTextColor, fontSize: 22, fontWeight: FontWeight.bold),
       titleLarge: const TextStyle().copyWith(

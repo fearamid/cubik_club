@@ -5,6 +5,7 @@ import "package:cubik_club/utils/constants/texts.dart";
 import 'package:cubik_club/utils/device/device_utility.dart';
 import 'package:cubik_club/utils/helpers/helper_functions.dart';
 import "package:flutter/material.dart";
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -16,40 +17,42 @@ class OnboardingScreen extends StatelessWidget {
     final viewModel = context.read<OnboardingScreenViewModel>();
 
     return Scaffold(
-      body: Stack(
-        children: [
-          // Onboarding pages
-          PageView(
-            controller: viewModel.pageController,
-            onPageChanged: (index) => viewModel.updatePageIndicator(index),
-            children: const [
-              _OnboardingPage(
-                image: CCImages.onBoardingImage1,
-                title: CCTexts.onBoardingTitle1,
-                subtitle: CCTexts.onBoardingSubTitle1,
-              ),
-              _OnboardingPage(
-                image: CCImages.onBoardingImage2,
-                title: CCTexts.onBoardingTitle2,
-                subtitle: CCTexts.onBoardingSubTitle2,
-              ),
-              _OnboardingPage(
-                image: CCImages.onBoardingImage3,
-                title: CCTexts.onBoardingTitle3,
-                subtitle: CCTexts.onBoardingSubTitle3,
-              ),
-            ],
-          ),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            // Onboarding pages
+            PageView(
+              controller: viewModel.pageController,
+              onPageChanged: viewModel.updatePageIndicator,
+              children: const [
+                _OnboardingPage(
+                  image: CCImages.onBoardingImage1,
+                  title: CCTexts.onBoardingTitle1,
+                  subtitle: CCTexts.onBoardingSubTitle1,
+                ),
+                _OnboardingPage(
+                  image: CCImages.onBoardingImage2,
+                  title: CCTexts.onBoardingTitle2,
+                  subtitle: CCTexts.onBoardingSubTitle2,
+                ),
+                _OnboardingPage(
+                  image: CCImages.onBoardingImage3,
+                  title: CCTexts.onBoardingTitle3,
+                  subtitle: CCTexts.onBoardingSubTitle3,
+                ),
+              ],
+            ),
 
-          // Skip Button
-          const _SkipButton(),
+            // Skip Button
+            const _SkipButton(),
 
-          // Dot Navigation
-          const _DotNavigation(),
+            // Dot Navigation
+            const _DotNavigation(),
 
-          // Action Button
-          const _NextButton()
-        ],
+            // Action Button
+            const _NextButton()
+          ],
+        ),
       ),
     );
   }
@@ -68,9 +71,9 @@ class _DotNavigation extends StatelessWidget {
       left: 30,
       child: SmoothPageIndicator(
         effect: WormEffect(
-          activeDotColor: isDarkMode
-              ? CCAppColors.lightBackground
-              : CCAppColors.darkBackground,
+          dotColor: CCAppColors.lightHighlightBackground,
+          activeDotColor:
+              isDarkMode ? CCAppColors.lightBackground : CCAppColors.primary,
           dotHeight: 12,
           dotWidth: 12,
           spacing: 20,
@@ -94,10 +97,13 @@ class _NextButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () =>
             context.read<OnboardingScreenViewModel>().nextPage(context),
-        style: ElevatedButton.styleFrom(shape: const CircleBorder()),
+        style: ElevatedButton.styleFrom(
+          shape: const CircleBorder(),
+          padding: const EdgeInsets.all(15),
+        ),
         child: const Icon(
-          Icons.navigate_next,
-          size: 45,
+          Iconsax.arrow_right_3_copy,
+          size: 40,
         ),
       ),
     );
@@ -110,11 +116,14 @@ class _SkipButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: CCDeviceUtils.getAppBarHeight(),
-      right: 10,
+      top: 30,
+      right: 20,
       child: TextButton(
         onPressed: context.read<OnboardingScreenViewModel>().skipPage,
-        child: Text('в конец', style: Theme.of(context).textTheme.bodyMedium),
+        child: Text(
+          'Пропустить',
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
       ),
     );
   }
@@ -132,12 +141,14 @@ class _OnboardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.only(
+        bottom: 0,
+        right: 20,
+        left: 20,
+        top: 100,
+      ),
       child: Column(
         children: [
-          SizedBox(
-            height: CCDeviceUtils.getAppBarHeight() + 40,
-          ),
           Image(
             width: CCHelperFunctions.screenHeight(context),
             // height: CCHelperFunctions.screenHeight(context) * 0.6,
