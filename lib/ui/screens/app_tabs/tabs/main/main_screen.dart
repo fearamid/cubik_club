@@ -111,9 +111,11 @@ class _EventsList extends StatelessWidget {
         return SliverList.separated(
           itemCount: events?.length,
           itemBuilder: (context, index) {
+            final currentEvent = events?[index];
             final event = Event(
-              title: '${events?[index]['title']}',
-              description: '${events?[index]['description']}',
+              title: '${currentEvent?['title']}',
+              description: '${currentEvent?['description']}',
+              coverLink: '${currentEvent?['cover_link']}',
             );
             return EventThumbnail(event: event);
           },
@@ -207,7 +209,10 @@ class ArticleThumbnail extends StatelessWidget {
         MainNavigation.toPostScreen(
           context,
           event: const Event(
-              title: 'Заглушка', description: 'Сделать новый класс под guide'),
+            title: 'Заглушка',
+            description: 'Сделать новый класс под guide',
+            coverLink: '',
+          ),
         );
       },
       child: Container(

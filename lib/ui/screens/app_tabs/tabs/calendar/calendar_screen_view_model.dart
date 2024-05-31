@@ -21,6 +21,7 @@ class CalendarScreenViewModel extends ChangeNotifier {
         title: 'Томатная атака',
         description:
             'Устраиваем ковбойский вечер. Если вы готовы грабить караваны, стрелять с двух рук и носить шляпу, то ждем вас. Ждем вас!',
+        coverLink: '',
       ),
     ],
     DateTime.utc(2024, 4, 15): [
@@ -28,16 +29,19 @@ class CalendarScreenViewModel extends ChangeNotifier {
         title: 'Сырное лобби',
         description:
             'Устраиваем ковбойский вечер. Если вы готовы грабить караваны, стрелять с двух рук и носить шляпу, то ждем вас. Ждем вас!',
+        coverLink: '',
       ),
       const Event(
         title: 'Мышеловка',
         description:
             'Если вы готовы грабить караваны, стрелять с двух рук и носить шляпу, то ждем вас.',
+        coverLink: '',
       ),
       const Event(
         title: 'Чеддер пати',
         description:
             'Устраиваем ковбойский вечер. Если вы готовы грабить караваны, стрелять с двух рук и носить шляпу, то ждем вас. Ждем вас!',
+        coverLink: '',
       ),
     ],
     DateTime.utc(2024, 4, 20): [
@@ -45,6 +49,7 @@ class CalendarScreenViewModel extends ChangeNotifier {
         title: 'Встреча ковбоев',
         description:
             'Устраиваем ковбойский вечер. Если вы готовы грабить караваны, стрелять с двух рук и носить шляпу, то ждем вас. Ждем вас!',
+        coverLink: '',
       )
     ],
   };

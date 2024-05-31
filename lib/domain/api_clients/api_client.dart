@@ -5,7 +5,7 @@ import 'dart:io';
 
 class ApiClient {
   static const String _scheme = 'https';
-  static const String _host = 'fearamid-cubik-club-backend-898e.twc1.net';
+  static const String _host = 'fearamid-cubik-club-backend-777f.twc1.net';
   static const String _baseApiPath = '/api';
 
   final _client = HttpClient();

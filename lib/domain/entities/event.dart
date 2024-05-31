@@ -4,6 +4,7 @@ class Event implements IQrCodeAble {
   final DateTime? dateTime;
   final String title;
   final String description;
+  final String coverLink;
   // final DateTime dateTime;
   // final List<BoardGame> gamesList;
 
@@ -11,9 +12,7 @@ class Event implements IQrCodeAble {
     this.dateTime,
     required this.title,
     required this.description,
-
-    // required this.dateTime,
-    // required this.gamesList,
+    required this.coverLink,
   });
 
   @override

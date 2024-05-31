@@ -27,7 +27,7 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   bluetooth_classic: ^0.0.1
   intl: ^0.19.0
-
+  cached_network_image: ^3.3.1
   skeletonizer: ^1.1.2+1
   iconsax_flutter: ^1.0.0
 

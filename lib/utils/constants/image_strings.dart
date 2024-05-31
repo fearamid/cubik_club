@@ -30,5 +30,8 @@ abstract class CCImages {
   static const String accountCreateVerification =
       'assets/images/auth_images/account_create_verification.png';
   static const String game = 'assets/images/auth_images/game.png';
+  static const String calico = 'assets/images/auth_images/calico.jpg';
+  static const String dune = 'assets/images/auth_images/dune.jpg';
+  static const String gobit = 'assets/images/auth_images/gobit.jpg';
   static const String gameOpt = 'assets/images/auth_images/gameOpt.jpg';
 }

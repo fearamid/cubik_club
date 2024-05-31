@@ -1,8 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/ui/common/components/single/section.dart';
 import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
-import 'package:cubik_club/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
 
 class EventThumbnail extends StatelessWidget {
@@ -104,14 +104,19 @@ class EventThumbnail extends StatelessWidget {
             const SizedBox(height: 15),
             Container(
               width: double.maxFinite,
-              child: Image.asset(
-                CCImages.accountCreateStep3,
-                fit: BoxFit.fitHeight,
-              ),
               height: 335,
               decoration: const BoxDecoration(
                 color: CCAppColors.lightHighlightBackground,
                 borderRadius: BorderRadius.all(Radius.circular(20)),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: CachedNetworkImage(
+                  imageUrl: event.coverLink,
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ],

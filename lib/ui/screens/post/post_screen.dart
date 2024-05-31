@@ -1,7 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/domain/entities/game/game.dart';
-import 'package:cubik_club/ui/screens/post/widgets/export/widgets.dart';
+import 'package:cubik_club/ui/screens/post/widgets/games_list.dart';
+import 'package:cubik_club/ui/screens/post/widgets/post_description.dart';
+import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class PostScreen extends StatelessWidget {
   final Event event;
@@ -47,7 +51,7 @@ class PostScreen extends StatelessWidget {
             SliverList(
               delegate: SliverChildListDelegate(
                 [
-                  const PostCover(),
+                  _PostCover(event.coverLink),
                   const SizedBox(height: 20),
                   PostDescription(
                     name: event.title,
@@ -64,6 +68,50 @@ class PostScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _PostCover extends StatelessWidget {
+  final String coverLink;
+  const _PostCover(this.coverLink);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        AspectRatio(
+          aspectRatio: 1,
+          child: ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            child: CachedNetworkImage(
+              imageUrl: coverLink,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: 20,
+          left: 20,
+          child: GestureDetector(
+            onTap: () => Navigator.of(context).pop(),
+            child: Container(
+              width: 55,
+              height: 55,
+              decoration: BoxDecoration(
+                color: CCAppColors.lightBackground,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: const Icon(
+                Iconsax.arrow_left_2_copy,
+                size: 35,
+                color: CCAppColors.secondary,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
