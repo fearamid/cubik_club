@@ -35,7 +35,7 @@ class MainScreenViewModel extends ChangeNotifier {
   }
 
   Future<List<Map<dynamic, dynamic>>> loadRelevantEvents() async {
-    return await _eventsService.getRelevantEvents();
+    return _eventsService.getRelevantEvents();
   }
 
   Event parseEvent(Map<dynamic, dynamic>? eventJson) {

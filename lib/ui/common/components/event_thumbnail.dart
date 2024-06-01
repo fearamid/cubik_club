@@ -81,7 +81,10 @@ class EventThumbnail extends StatelessWidget {
                 imageUrl: event.coverLink,
                 placeholder: (context, url) =>
                     const CircularProgressIndicator(),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+                errorWidget: (context, url, error) => const Icon(
+                  Icons.error,
+                  color: CCAppColors.secondary,
+                ),
                 fit: BoxFit.cover,
               ),
             ),

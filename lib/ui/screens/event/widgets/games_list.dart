@@ -5,12 +5,12 @@ import '../../../common/components/export/components.dart';
 
 class GamesList extends StatelessWidget {
   final List<Game> games;
-  final void Function(Game game) onGamePressed;
+  final void Function(Game game) onTap;
 
   const GamesList({
     super.key,
     required this.games,
-    required this.onGamePressed,
+    required this.onTap,
   });
 
   List<Widget> _noGamesEvent() {
@@ -30,7 +30,7 @@ class GamesList extends StatelessWidget {
       const SizedBox(height: 20),
       OutlinedButton(
         onPressed: () {
-          onGamePressed(games[0]);
+          onTap(games[0]);
         },
         child: const Text(
           'Подробнее',
@@ -57,7 +57,7 @@ class GamesList extends StatelessWidget {
           final game = games[index];
           return LinkTile.withTags(
             onPressed: () {
-              onGamePressed(game);
+              onTap(game);
             },
             title: game.name,
             tags: game.tags,

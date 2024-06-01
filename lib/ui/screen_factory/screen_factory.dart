@@ -24,8 +24,8 @@ import 'package:cubik_club/ui/screens/login/login_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/navigation_error/navigation_error_screen.dart';
 import 'package:cubik_club/ui/screens/onboarding/onboarding_screen.dart';
 import 'package:cubik_club/ui/screens/onboarding/view_model/onboarding_screen_view_model.dart';
-import 'package:cubik_club/ui/screens/post/post_screen.dart';
-import 'package:cubik_club/ui/screens/post/view_model/post_screen_view_model.dart';
+import 'package:cubik_club/ui/screens/event/event_screen.dart';
+import 'package:cubik_club/ui/screens/event/view_model/event_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/qr_code/qr_code_screen.dart';
 import 'package:cubik_club/ui/screens/qr_code/qr_code_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/scanner/qr_scanner_screen.dart';
@@ -87,8 +87,8 @@ class ScreenFactory {
     }
 
     return ChangeNotifierProvider(
-      create: (_) => PostScreenViewModel(),
-      child: PostScreen(
+      create: (_) => EventScreenViewModel(event),
+      child: EventScreen(
         event: event,
       ),
     );
