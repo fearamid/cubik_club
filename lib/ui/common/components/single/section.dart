@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class Section extends StatelessWidget {
   final Widget child;
+  final VoidCallback? onTap;
   final double? height;
   final double? width;
   final double borderRadius;
@@ -22,23 +23,28 @@ class Section extends StatelessWidget {
     this.alignment = Alignment.topLeft,
     this.height,
     this.width,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      width: width,
-      alignment: alignment,
-      padding: EdgeInsets.symmetric(
-        horizontal: paddingHorizontal,
-        vertical: paddingVertical,
-      ),
-      decoration: BoxDecoration(
+    return Material(
+      color: color,
+      borderRadius: BorderRadius.circular(borderRadius),
+      child: InkWell(
+        onTap: onTap,
         borderRadius: BorderRadius.circular(borderRadius),
-        color: color,
+        child: Container(
+          height: height,
+          width: width,
+          alignment: alignment,
+          padding: EdgeInsets.symmetric(
+            horizontal: paddingHorizontal,
+            vertical: paddingVertical,
+          ),
+          child: child,
+        ),
       ),
-      child: child,
     );
   }
 }

@@ -1,9 +1,5 @@
 import 'package:cubik_club/domain/entities/article.dart';
-import 'package:cubik_club/ui/common/components/single/coins_indicator.dart';
-import 'package:cubik_club/ui/common/components/single/custom_icon_button.dart';
-import 'package:cubik_club/ui/common/components/event_thumbnail.dart';
-import 'package:cubik_club/ui/common/components/custom_slider.dart';
-import 'package:cubik_club/ui/common/components/search_top_bar.dart';
+import 'package:cubik_club/ui/common/components/export/components.dart';
 import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/main/main_screen_view_model.dart';
@@ -111,12 +107,8 @@ class _EventsList extends StatelessWidget {
         return SliverList.separated(
           itemCount: events?.length,
           itemBuilder: (context, index) {
-            final currentEvent = events?[index];
-            final event = Event(
-              title: '${currentEvent?['title']}',
-              description: '${currentEvent?['description']}',
-              coverLink: '${currentEvent?['cover_link']}',
-            );
+            final event = viewModel.parseEvent(events?[index]);
+
             return EventThumbnail(event: event);
           },
           separatorBuilder: (context, index) => const SizedBox(height: 20),
@@ -208,10 +200,12 @@ class ArticleThumbnail extends StatelessWidget {
         // TODO: article screen
         MainNavigation.toPostScreen(
           context,
-          event: const Event(
+          event: Event(
             title: 'Заглушка',
             description: 'Сделать новый класс под guide',
             coverLink: '',
+            startDateTime: DateTime.now(),
+            endDateTime: DateTime.now(),
           ),
         );
       },

@@ -1,3 +1,4 @@
+import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/domain/services/events_service.dart';
 import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,13 @@ class MainScreenViewModel extends ChangeNotifier {
 
   Future<List<Map<dynamic, dynamic>>> loadRelevantEvents() async {
     return await _eventsService.getRelevantEvents();
+  }
+
+  Event parseEvent(Map<dynamic, dynamic>? eventJson) {
+    if (eventJson == null) {
+      throw Error();
+    }
+    return Event.fromJson(eventJson);
   }
 
   void onSliderPageChanged(int index) {}
