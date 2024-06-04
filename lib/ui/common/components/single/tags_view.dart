@@ -4,22 +4,22 @@ import 'package:cubik_club/utils/extensions/string_casing_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class GameTagsView extends StatelessWidget {
+class TagsView extends StatelessWidget {
   final GameTags tags;
   final double spacing;
   final Widget Function(GameTags tags) widgetBuilder;
 
-  const GameTagsView._build({
+  const TagsView._build({
     required this.tags,
     required this.spacing,
     required this.widgetBuilder,
   });
 
-  factory GameTagsView({
+  factory TagsView({
     required GameTags tags,
     double spacing = 8,
   }) {
-    return GameTagsView._build(
+    return TagsView._build(
       tags: tags,
       spacing: spacing,
       widgetBuilder: (tags) {
@@ -39,7 +39,7 @@ class GameTagsView extends StatelessWidget {
                   child: Text(
                     tagName,
                     style: const TextStyle(
-                      fontSize: 18,
+                      fontSize: 16,
                       color: CCAppColors.secondary,
                     ),
                   ),
@@ -56,12 +56,12 @@ class GameTagsView extends StatelessWidget {
     );
   }
 
-  factory GameTagsView.shortWrap({
+  factory TagsView.shortWrap({
     required GameTags tags,
     List<int> tagsIndexes = const [0, 4, 1],
     double spacing = 8,
   }) {
-    return GameTagsView._build(
+    return TagsView._build(
       tags: tags,
       spacing: spacing,
       widgetBuilder: (tags) {
@@ -74,7 +74,7 @@ class GameTagsView extends StatelessWidget {
           '$tag1 / $tag2 / $tag3',
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: const TextStyle(color: CCAppColors.secondary),
+          style: const TextStyle(color: CCAppColors.secondary, fontSize: 16),
         );
       },
     );

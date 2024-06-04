@@ -1,4 +1,5 @@
 import 'package:cubik_club/domain/entities/game/game.dart';
+import 'package:cubik_club/domain/entities/game/publisher.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/components/export/components.dart';
@@ -23,10 +24,10 @@ class GamesList extends StatelessWidget {
         games[0].name,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
       const SizedBox(height: 3),
-      GameTagsView(tags: games[0].tags),
+      TagsView(tags: games[0].tags),
       const SizedBox(height: 20),
       OutlinedButton(
         onPressed: () {
@@ -46,7 +47,7 @@ class GamesList extends StatelessWidget {
         'Играем в эти настолки',
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
       ),
       const SizedBox(height: 10),
       ListView.separated(
@@ -60,7 +61,13 @@ class GamesList extends StatelessWidget {
               onTap(game);
             },
             title: game.name,
-            tags: game.tags,
+            tags: const GameTags(
+              genres: ['genres'],
+              author: Publisher(id: 1, name: 'fsdf'),
+              ageLimit: 1,
+              playersRange: [1, 2],
+              durationRange: 1,
+            ),
           );
         },
         separatorBuilder: (_, __) => const SizedBox(height: 20),

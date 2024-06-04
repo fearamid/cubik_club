@@ -1,25 +1,29 @@
+import 'package:cubik_club/domain/entities/game/publisher.dart';
+
 class GameTags {
   final List<String> genres;
   final int ageLimit;
-  final String author;
+  final int complexity;
+  final Publisher author;
   final List<int> playersRange;
-  final int duration;
+  final List<int> durationRange;
 
   const GameTags({
     required this.genres,
     required this.author,
     required this.ageLimit,
+    required this.complexity,
     required this.playersRange,
-    required this.duration,
+    required this.durationRange,
   });
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       "genres": genres,
       "ageLimit": ageLimit,
       "author": author,
       "playersRange": playersRange,
-      "duration": duration,
+      "duration": durationRange,
     };
   }
 
@@ -29,7 +33,20 @@ class GameTags {
       ["Автор", author],
       ["Возраст", ageLimit],
       ["Кол-во игроков", playersRange],
-      ["Длительность", duration],
+      ["Длительность", durationRange],
     ];
+  }
+}
+
+class PlayersRange {
+  final int min;
+  final int max;
+
+  PlayersRange._create(this.min, this.max);
+
+  factory PlayersRange(int min, int max) {
+    if (min > max) {}
+
+    return PlayersRange._create(min, max);
   }
 }

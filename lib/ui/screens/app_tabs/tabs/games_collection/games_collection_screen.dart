@@ -1,4 +1,5 @@
 import 'package:cubik_club/domain/entities/game/game.dart';
+import 'package:cubik_club/domain/entities/game/publisher.dart';
 import 'package:cubik_club/ui/common/components/search_top_bar.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/widgets/game_thumbnail.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/widgets/random_game_button.dart';
@@ -10,90 +11,97 @@ import 'package:flutter/material.dart';
 class GamesCollectionScreen extends StatelessWidget {
   const GamesCollectionScreen({super.key});
 
-  static const List<Game> games = [
+  static List<Game> games = [
     Game(
-      id: '',
+      id: 1,
       name: 'Монополия',
       description: 'Крутая игра',
-      tags: GameTags(
+      tags: const GameTags(
         genres: ['стратегия'],
-        author: 'ppplay',
+        author: Publisher(id: 1, name: 'fsdf'),
         ageLimit: 16,
         playersRange: [2, 3],
-        duration: 34,
+        durationRange: 34,
       ),
+      rules: '',
     ),
     Game(
-      id: '',
+      id: 2,
       name: 'Дуополия',
       description: 'Крутая игра',
-      tags: GameTags(
+      tags: const GameTags(
         genres: ['хоррор'],
-        author: 'western',
+        author: Publisher(id: 1, name: 'fsdf'),
         ageLimit: 18,
         playersRange: [2, 3],
-        duration: 20,
+        durationRange: 20,
       ),
+      rules: '',
     ),
     Game(
-      id: '',
+      id: 3,
       name: 'Роскошь Дуэль',
       description: 'Крутая игра',
-      tags: GameTags(
+      tags: const GameTags(
         genres: ['команда'],
-        author: 'apikos',
+        author: Publisher(id: 1, name: 'fsdf'),
         ageLimit: 12,
         playersRange: [2, 3],
-        duration: 12,
+        durationRange: 12,
       ),
+      rules: '',
     ),
     Game(
-      id: '',
+      id: 4,
       name: 'Игра',
       description: 'Крутая игра',
-      tags: GameTags(
+      tags: const GameTags(
         genres: ['стратегия'],
-        author: 'volters',
+        author: Publisher(id: 1, name: 'fsdf'),
         ageLimit: 18,
         playersRange: [2, 3],
-        duration: 60,
+        durationRange: 60,
       ),
+      rules: '',
     ),
     Game(
-      id: '',
+      id: 5,
       name: 'Inspo',
       description: 'Крутая игра',
-      tags: GameTags(
+      tags: const GameTags(
         genres: ['стратегия'],
-        author: 'ppplay',
+        author: Publisher(id: 1, name: 'fsdf'),
         ageLimit: 12,
         playersRange: [2, 3],
-        duration: 20,
+        durationRange: 20,
       ),
+      rules: '',
     ),
     Game(
-      id: '',
+      id: 6,
       name: 'Кубикс',
       description: 'Крутая игра',
-      tags: GameTags(
+      tags: const GameTags(
         genres: ['стратегия'],
-        author: 'ppplay',
+        author: Publisher(id: 1, name: 'fsdf'),
         ageLimit: 6,
         playersRange: [2, 3],
-        duration: 45,
+        durationRange: 45,
       ),
+      rules: '',
     ),
     Game(
-      id: '',
+      id: 7,
       name: 'Викинги',
       description: 'Крутая игра',
-      tags: GameTags(
+      tags: const GameTags(
         genres: ['стратегия'],
-        author: 'insecto',
+        author: Publisher(id: 1, name: 'fsdf'),
         ageLimit: 16,
         playersRange: [2, 3],
-        duration: 80,
+        durationRange: 80,
       ),
+      rules: '',
     ),
   ];
 

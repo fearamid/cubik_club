@@ -16,7 +16,6 @@ class GameThumbnail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.read<GamesCollectionScreenViewModel>();
-    final tags = game.tags;
 
     return Section(
       paddingHorizontal: 15,

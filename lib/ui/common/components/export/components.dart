@@ -10,5 +10,5 @@ export '../single/password_text_field.dart';
 export '../single/qr_code_card.dart';
 export '../single/search_input.dart';
 export '../single/section.dart';
-export '../single/game_tags_view.dart';
+export '../single/tags_view.dart';
 export '../single/wide_button.dart';

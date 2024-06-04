@@ -23,7 +23,7 @@ class LinkTile extends StatelessWidget {
     return LinkTile(
       onPressed: onPressed,
       title: title,
-      description: GameTagsView.shortWrap(tags: tags),
+      description: TagsView.shortWrap(tags: tags),
     );
   }
 

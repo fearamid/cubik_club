@@ -5,6 +5,7 @@ import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:cubik_club/utils/formatters/formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class EventThumbnail extends StatelessWidget {
   final Event event;
@@ -20,6 +21,7 @@ class EventThumbnail extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Title
           Text(
             event.title,
             style: const TextStyle(
@@ -30,6 +32,7 @@ class EventThumbnail extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 2),
+          // DateTime Range
           Row(
             children: [
               Text(
@@ -62,6 +65,7 @@ class EventThumbnail extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 5),
+          // Description
           Text(
             event.description,
             maxLines: 5,
@@ -73,17 +77,24 @@ class EventThumbnail extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
+          // Image
           AspectRatio(
             aspectRatio: 1,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: CachedNetworkImage(
                 imageUrl: event.coverLink,
-                placeholder: (context, url) =>
-                    const CircularProgressIndicator(),
+                placeholder: (context, url) => const Center(
+                  child: CircularProgressIndicator(
+                    strokeAlign: BorderSide.strokeAlignInside,
+                    color: CCAppColors.secondary,
+                    strokeWidth: 1,
+                  ),
+                ),
                 errorWidget: (context, url, error) => const Icon(
-                  Icons.error,
-                  color: CCAppColors.secondary,
+                  Iconsax.gallery_copy,
+                  size: 45,
+                  color: CCAppColors.lightHighlightBackground,
                 ),
                 fit: BoxFit.cover,
               ),

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/domain/entities/game/game.dart';
+import 'package:cubik_club/domain/entities/game/publisher.dart';
 import 'package:cubik_club/ui/common/components/export/components.dart';
 import 'package:cubik_club/ui/screens/event/view_model/event_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/event/widgets/games_list.dart';
@@ -93,29 +94,31 @@ class _EventGamesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Game> games = [
-      const Game(
-        id: '123',
+      Game(
+        id: 123,
         name: 'Монополия',
         description: 'Описание игры',
-        tags: GameTags(
+        tags: const GameTags(
           genres: ['стратегия', 'хоррор'],
-          author: 'Westplay games',
+          author: Publisher(id: 1, name: 'fsdf'),
           ageLimit: 18,
           playersRange: [2, 5],
-          duration: 20,
+          durationRange: 20,
         ),
+        rules: '',
       ),
-      const Game(
-        id: '123',
+      Game(
+        id: 123,
         name: 'Монополия',
         description: 'Описание игры',
-        tags: GameTags(
+        tags: const GameTags(
           genres: ['стратегия', 'хоррор'],
-          author: 'Westplay games',
+          author: Publisher(id: 1, name: 'fsdf'),
           ageLimit: 18,
           playersRange: [2, 5],
-          duration: 20,
+          durationRange: 20,
         ),
+        rules: '',
       ),
     ];
     return GamesList(
@@ -160,7 +163,7 @@ class _BookingButton extends StatelessWidget {
 }
 
 class _Title extends StatelessWidget {
-  const _Title({super.key});
+  const _Title();
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +179,7 @@ class _Title extends StatelessWidget {
 }
 
 class _Description extends StatelessWidget {
-  const _Description({super.key});
+  const _Description();
 
   @override
   Widget build(BuildContext context) {
