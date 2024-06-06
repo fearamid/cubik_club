@@ -6,6 +6,7 @@ class Event implements IQrCodeAble {
   final String title;
   final String description;
   final String coverLink;
+  final bool? booking;
   // final DateTime dateTime;
   // final List<BoardGame> gamesList;
 
@@ -15,6 +16,7 @@ class Event implements IQrCodeAble {
     required this.title,
     required this.description,
     required this.coverLink,
+    this.booking,
   });
 
   static Event fromJson(Map<dynamic, dynamic> json) {

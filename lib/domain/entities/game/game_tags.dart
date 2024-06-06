@@ -7,6 +7,7 @@ class GameTags {
   final Publisher author;
   final List<int> playersRange;
   final List<int> durationRange;
+  final Publisher publisher;
 
   const GameTags({
     required this.genres,
@@ -15,6 +16,7 @@ class GameTags {
     required this.complexity,
     required this.playersRange,
     required this.durationRange,
+    required this.publisher,
   });
 
   Map<String, dynamic> toJson() {
@@ -35,18 +37,5 @@ class GameTags {
       ["Кол-во игроков", playersRange],
       ["Длительность", durationRange],
     ];
-  }
-}
-
-class PlayersRange {
-  final int min;
-  final int max;
-
-  PlayersRange._create(this.min, this.max);
-
-  factory PlayersRange(int min, int max) {
-    if (min > max) {}
-
-    return PlayersRange._create(min, max);
   }
 }

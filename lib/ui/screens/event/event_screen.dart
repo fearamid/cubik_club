@@ -69,11 +69,11 @@ class _EventCover extends StatelessWidget {
           child: GestureDetector(
             onTap: () => Navigator.of(context).pop(),
             child: Container(
-              width: 55,
-              height: 55,
+              width: 50,
+              height: 50,
               decoration: BoxDecoration(
                 color: CCAppColors.lightBackground,
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(15),
               ),
               child: const Icon(
                 Iconsax.arrow_left_2_copy,
@@ -103,7 +103,9 @@ class _EventGamesList extends StatelessWidget {
           author: Publisher(id: 1, name: 'fsdf'),
           ageLimit: 18,
           playersRange: [2, 5],
-          durationRange: 20,
+          durationRange: [45, 60],
+          complexity: 0,
+          publisher: Publisher(id: 1, name: 'z'),
         ),
         rules: '',
       ),
@@ -116,7 +118,9 @@ class _EventGamesList extends StatelessWidget {
           author: Publisher(id: 1, name: 'fsdf'),
           ageLimit: 18,
           playersRange: [2, 5],
-          durationRange: 20,
+          durationRange: [45, 60],
+          complexity: 0,
+          publisher: Publisher(id: 1, name: 'z'),
         ),
         rules: '',
       ),
@@ -133,17 +137,32 @@ class _EventDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Section(
+    final event = context.read<EventScreenViewModel>().state.event;
+    final booking = event.booking ?? true;
+    return Section(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _Title(),
-          SizedBox(height: 2),
-          _DateTimeInformation(),
-          SizedBox(height: 5),
-          _Description(),
-          SizedBox(height: 12),
-          _BookingButton(),
+          Text(
+            event.title,
+            style: const TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
+              height: 1,
+            ),
+          ),
+          const SizedBox(height: 2),
+          const _DateTimeInformation(),
+          const SizedBox(height: 5),
+          Text(
+            event.description,
+            style: const TextStyle(
+              fontSize: 16,
+              height: 1.35,
+            ),
+          ),
+          const SizedBox(height: 12),
+          if (booking) const _BookingButton(),
         ],
       ),
     );
@@ -155,39 +174,14 @@ class _BookingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: context.read<EventScreenViewModel>().onBookingButtonPressed,
-      child: const Text('Забронировать'),
-    );
-  }
-}
-
-class _Title extends StatelessWidget {
-  const _Title();
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      context.read<EventScreenViewModel>().state.event.title,
-      style: const TextStyle(
-        fontSize: 22,
-        fontWeight: FontWeight.w700,
-        height: 1,
+    return OutlinedButton(
+      style: const ButtonStyle(
+        side: MaterialStatePropertyAll(BorderSide(color: CCAppColors.primary)),
       ),
-    );
-  }
-}
-
-class _Description extends StatelessWidget {
-  const _Description();
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      context.read<EventScreenViewModel>().state.event.description,
-      style: const TextStyle(
-        fontSize: 16,
-        height: 1.35,
+      onPressed: context.read<EventScreenViewModel>().onBookingButtonPressed,
+      child: const Text(
+        'Забронировать',
+        style: TextStyle(color: CCAppColors.primary),
       ),
     );
   }

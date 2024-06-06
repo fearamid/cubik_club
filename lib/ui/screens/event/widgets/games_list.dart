@@ -66,7 +66,9 @@ class GamesList extends StatelessWidget {
               author: Publisher(id: 1, name: 'fsdf'),
               ageLimit: 1,
               playersRange: [1, 2],
-              durationRange: 1,
+              durationRange: [],
+              complexity: 1,
+              publisher: Publisher(id: 1, name: 'Zaka Games'),
             ),
           );
         },
