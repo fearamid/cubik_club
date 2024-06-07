@@ -198,7 +198,7 @@ class ArticleThumbnail extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         // TODO: article screen
-        MainNavigation.toPostScreen(
+        MainNavigation.toEventcreen(
           context,
           event: Event(
             title: 'Заглушка',

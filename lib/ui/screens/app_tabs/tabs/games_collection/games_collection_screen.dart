@@ -18,7 +18,6 @@ class GamesCollectionScreen extends StatelessWidget {
       description: 'Крутая игра',
       tags: const GameTags(
         genres: ['стратегия'],
-        author: Publisher(id: 1, name: 'fsdf'),
         ageLimit: 16,
         playersRange: [2, 3],
         durationRange: [45, 60],
@@ -33,7 +32,6 @@ class GamesCollectionScreen extends StatelessWidget {
       description: 'Крутая игра',
       tags: const GameTags(
         genres: ['хоррор'],
-        author: Publisher(id: 1, name: 'fsdf'),
         ageLimit: 18,
         playersRange: [2, 3],
         durationRange: [45, 60],
@@ -48,7 +46,6 @@ class GamesCollectionScreen extends StatelessWidget {
       description: 'Крутая игра',
       tags: const GameTags(
         genres: ['команда'],
-        author: Publisher(id: 1, name: 'fsdf'),
         ageLimit: 12,
         playersRange: [2, 3],
         durationRange: [45, 60],
@@ -63,7 +60,6 @@ class GamesCollectionScreen extends StatelessWidget {
       description: 'Крутая игра',
       tags: const GameTags(
         genres: ['стратегия'],
-        author: Publisher(id: 1, name: 'fsdf'),
         ageLimit: 18,
         playersRange: [2, 3],
         durationRange: [45, 60],
@@ -78,7 +74,6 @@ class GamesCollectionScreen extends StatelessWidget {
       description: 'Крутая игра',
       tags: const GameTags(
         genres: ['стратегия'],
-        author: Publisher(id: 1, name: 'fsdf'),
         ageLimit: 12,
         playersRange: [2, 3],
         durationRange: [45, 60],
@@ -93,7 +88,6 @@ class GamesCollectionScreen extends StatelessWidget {
       description: 'Крутая игра',
       tags: const GameTags(
         genres: ['стратегия'],
-        author: Publisher(id: 1, name: 'fsdf'),
         ageLimit: 6,
         playersRange: [2, 3],
         durationRange: [45, 60],
@@ -108,7 +102,6 @@ class GamesCollectionScreen extends StatelessWidget {
       description: 'Крутая игра',
       tags: const GameTags(
         genres: ['стратегия'],
-        author: Publisher(id: 1, name: 'fsdf'),
         ageLimit: 16,
         playersRange: [2, 3],
         durationRange: [45, 60],

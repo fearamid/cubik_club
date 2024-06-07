@@ -4,14 +4,12 @@ class GameTags {
   final List<String> genres;
   final int ageLimit;
   final int complexity;
-  final Publisher author;
   final List<int> playersRange;
   final List<int> durationRange;
   final Publisher publisher;
 
   const GameTags({
     required this.genres,
-    required this.author,
     required this.ageLimit,
     required this.complexity,
     required this.playersRange,
@@ -19,20 +17,23 @@ class GameTags {
     required this.publisher,
   });
 
-  Map<String, dynamic> toJson() {
-    return {
-      "genres": genres,
-      "ageLimit": ageLimit,
-      "author": author,
-      "playersRange": playersRange,
-      "duration": durationRange,
-    };
+  factory GameTags.partiallyEmpty({
+    List<String>? genres,
+  }) {
+    return GameTags(
+      genres: genres ?? [],
+      ageLimit: 0,
+      complexity: 0,
+      playersRange: [],
+      durationRange: [],
+      publisher: Publisher.empty(),
+    );
   }
 
-  List<List<dynamic>> toList() {
+  List<List<dynamic>> toValueList() {
     return [
       ["Жанр", genres],
-      ["Автор", author],
+      ["Автор", publisher.name],
       ["Возраст", ageLimit],
       ["Кол-во игроков", playersRange],
       ["Длительность", durationRange],

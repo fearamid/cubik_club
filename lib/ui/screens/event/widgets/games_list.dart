@@ -1,8 +1,6 @@
 import 'package:cubik_club/domain/entities/game/game.dart';
-import 'package:cubik_club/domain/entities/game/publisher.dart';
+import 'package:cubik_club/ui/common/components/export/components.dart';
 import 'package:flutter/material.dart';
-
-import '../../../common/components/export/components.dart';
 
 class GamesList extends StatelessWidget {
   final List<Game> games;
@@ -24,15 +22,13 @@ class GamesList extends StatelessWidget {
         games[0].name,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
       ),
       const SizedBox(height: 3),
       TagsView(tags: games[0].tags),
       const SizedBox(height: 20),
       OutlinedButton(
-        onPressed: () {
-          onTap(games[0]);
-        },
+        onPressed: () => onTap(games[0]),
         child: const Text(
           'Подробнее',
           style: TextStyle(fontWeight: FontWeight.normal),
@@ -55,21 +51,10 @@ class GamesList extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         itemCount: games.length,
         itemBuilder: (_, index) {
-          final game = games[index];
           return LinkTile.withTags(
-            onPressed: () {
-              onTap(game);
-            },
-            title: game.name,
-            tags: const GameTags(
-              genres: ['genres'],
-              author: Publisher(id: 1, name: 'fsdf'),
-              ageLimit: 1,
-              playersRange: [1, 2],
-              durationRange: [],
-              complexity: 1,
-              publisher: Publisher(id: 1, name: 'Zaka Games'),
-            ),
+            onPressed: () => onTap(games[index]),
+            title: games[index].name,
+            tags: games[index].tags,
           );
         },
         separatorBuilder: (_, __) => const SizedBox(height: 20),

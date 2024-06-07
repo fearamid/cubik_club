@@ -17,7 +17,7 @@ abstract class Screens {
   static const profile = "/profile";
   static const gamesCollection = "/games_collection";
   static const settings = "/settings";
-  static const post = "/post";
+  static const event = "/event";
   static const qrCode = "/qr_code";
   static const folders = "/folders";
   static const game = "/game";
@@ -38,7 +38,7 @@ class MainNavigation {
         Screens.profile: (_) => _screenFactory.makeProfile(),
         Screens.gamesCollection: (_) => _screenFactory.makeGamesCollection(),
         Screens.settings: (_) => _screenFactory.makeSettings(),
-        Screens.post: (context) => _screenFactory.makePost(context),
+        Screens.event: (context) => _screenFactory.makeEvent(context),
         Screens.qrCode: (context) => _screenFactory.makeQrCode(context),
         Screens.folders: (_) => _screenFactory.makeFolders(),
         Screens.game: (context) => _screenFactory.makeGame(context),
@@ -53,9 +53,9 @@ class MainNavigation {
     }
   }
 
-  static Future<void> toPostScreen(BuildContext context,
+  static Future<void> toEventcreen(BuildContext context,
       {required Event event}) async {
-    await Navigator.of(context).pushNamed(Screens.post, arguments: event);
+    await Navigator.of(context).pushNamed(Screens.event, arguments: event);
   }
 
   static Future<void> toLoaderScreen(BuildContext context) async {

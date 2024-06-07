@@ -10,4 +10,8 @@ class Publisher {
     this.resourceLink,
     this.logoLink,
   });
+
+  factory Publisher.empty() {
+    return const Publisher(id: 0, name: '');
+  }
 }

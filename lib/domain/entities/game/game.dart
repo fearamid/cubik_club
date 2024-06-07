@@ -47,6 +47,21 @@ class Game implements IQrCodeAble {
     );
   }
 
+  factory Game.preview({
+    required int id,
+    required String name,
+    required List<String> genres,
+  }) {
+    return Game._create(
+      id: id,
+      name: name,
+      description: '',
+      tags: GameTags.partiallyEmpty(genres: genres),
+      rules: '',
+      coverLink: 'coverLink',
+    );
+  }
+
   @override
   String getQrValue() => 'board-game_$id';
 

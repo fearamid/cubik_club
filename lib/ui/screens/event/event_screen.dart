@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/domain/entities/game/game.dart';
-import 'package:cubik_club/domain/entities/game/publisher.dart';
 import 'package:cubik_club/ui/common/components/export/components.dart';
 import 'package:cubik_club/ui/screens/event/view_model/event_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/event/widgets/games_list.dart';
@@ -48,21 +47,44 @@ class _EventCover extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final coverLink =
-        context.read<EventScreenViewModel>().state.event.coverLink;
+    final imagesLinks =
+        context.read<EventScreenViewModel>().state.event.imagesLinks;
+    print('imagesLinks');
+    print(imagesLinks);
+
+    List<String> images = [
+      context.read<EventScreenViewModel>().state.event.coverLink
+    ];
+    if (imagesLinks != null) {
+      for (int i = 0; i < imagesLinks.length; i++) {
+        images.add(imagesLinks[i]);
+      }
+    }
+
+    List<CachedNetworkImage> imagesWidgets = List.generate(
+      images.length,
+      (index) => CachedNetworkImage(
+        imageUrl: images[index],
+        fit: BoxFit.cover,
+      ),
+    );
+
+    print(imagesWidgets.length);
+
     return Stack(
       alignment: Alignment.center,
       children: [
+        // Image
         AspectRatio(
           aspectRatio: 1,
           child: ClipRRect(
             borderRadius: const BorderRadius.all(Radius.circular(20)),
-            child: CachedNetworkImage(
-              imageUrl: coverLink,
-              fit: BoxFit.cover,
+            child: PageView(
+              children: imagesWidgets,
             ),
           ),
         ),
+        // Back Button
         Positioned(
           bottom: 20,
           left: 20,
@@ -93,38 +115,18 @@ class _EventGamesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Game> games = [
-      Game(
-        id: 123,
-        name: 'Монополия',
-        description: 'Описание игры',
-        tags: const GameTags(
-          genres: ['стратегия', 'хоррор'],
-          author: Publisher(id: 1, name: 'fsdf'),
-          ageLimit: 18,
-          playersRange: [2, 5],
-          durationRange: [45, 60],
-          complexity: 0,
-          publisher: Publisher(id: 1, name: 'z'),
+    final List<Game>? games =
+        context.read<EventScreenViewModel>().state.event.games;
+    if (games == null || games.isEmpty) {
+      return const Section(
+        child: Text(
+          'У этого мероприятия нет настольных игр',
+          style: TextStyle(
+            fontSize: 16,
+          ),
         ),
-        rules: '',
-      ),
-      Game(
-        id: 123,
-        name: 'Монополия',
-        description: 'Описание игры',
-        tags: const GameTags(
-          genres: ['стратегия', 'хоррор'],
-          author: Publisher(id: 1, name: 'fsdf'),
-          ageLimit: 18,
-          playersRange: [2, 5],
-          durationRange: [45, 60],
-          complexity: 0,
-          publisher: Publisher(id: 1, name: 'z'),
-        ),
-        rules: '',
-      ),
-    ];
+      );
+    }
     return GamesList(
       games: games,
       onTap: (Game game) {},
@@ -202,7 +204,7 @@ class _DateTimeInformation extends StatelessWidget {
             fontSize: 16,
           ),
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: 10),
         Container(
           width: 4,
           height: 4,
@@ -211,7 +213,7 @@ class _DateTimeInformation extends StatelessWidget {
             shape: BoxShape.circle,
           ),
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: 10),
         Text(
           CCFormatter.formatEventTimeRange(
             start: event.startDateTime,

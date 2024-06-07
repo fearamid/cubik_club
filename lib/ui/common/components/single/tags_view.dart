@@ -23,28 +23,30 @@ class TagsView extends StatelessWidget {
       tags: tags,
       spacing: spacing,
       widgetBuilder: (tags) {
-        final tagsList = tags.toList();
+        final tagsList = tags.toValueList();
 
         return ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: tagsList.length,
           itemBuilder: (_, index) {
-            final String tagName = _getTagNameByIndex(tagsList, index);
-            final String tagValue = _getTagValueByIndex(tagsList, index);
-
             return Row(
               children: [
                 Expanded(
                   child: Text(
-                    tagName,
+                    _getTagNameByIndex(tagsList, index),
                     style: const TextStyle(
                       fontSize: 16,
                       color: CCAppColors.secondary,
                     ),
                   ),
                 ),
-                Expanded(child: Text(tagValue)),
+                Expanded(
+                  child: Text(
+                    _getTagValueByIndex(tagsList, index),
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                ),
               ],
             );
           },
@@ -65,7 +67,7 @@ class TagsView extends StatelessWidget {
       tags: tags,
       spacing: spacing,
       widgetBuilder: (tags) {
-        final tagsList = tags.toList();
+        final tagsList = tags.toValueList();
         final String tag1 = _getTagValueByIndex(tagsList, tagsIndexes[0]);
         final String tag2 = _getTagValueByIndex(tagsList, tagsIndexes[1]);
         final String tag3 = _getTagValueByIndex(tagsList, tagsIndexes[2]);

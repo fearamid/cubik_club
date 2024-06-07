@@ -78,7 +78,7 @@ class ScreenFactory {
     return NavigationErrorScreen(errorText: errorText);
   }
 
-  Widget makePost(BuildContext context) {
+  Widget makeEvent(BuildContext context) {
     final event = ModalRoute.of(context)?.settings.arguments;
 
     if (event == null || event is! Event) {

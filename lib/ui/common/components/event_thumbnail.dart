@@ -17,7 +17,7 @@ class EventThumbnail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Section(
-      onTap: () => MainNavigation.toPostScreen(context, event: event),
+      onTap: () => MainNavigation.toEventcreen(context, event: event),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
