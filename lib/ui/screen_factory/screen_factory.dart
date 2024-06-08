@@ -15,8 +15,8 @@ import 'package:cubik_club/ui/screens/app_tabs/tabs/profile/profile_screen.dart'
 import 'package:cubik_club/ui/screens/app_tabs/tabs/profile/profile_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/folders/folders_screen.dart';
 import 'package:cubik_club/ui/screens/folders/folders_screen_view_model.dart';
-import 'package:cubik_club/ui/screens/game_screen/game_screen.dart';
-import 'package:cubik_club/ui/screens/game_screen/view_model/game_screen_view_model.dart';
+import 'package:cubik_club/ui/screens/game/game_screen.dart';
+import 'package:cubik_club/ui/screens/game/view_model/game_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/loader/loader_screen.dart';
 import 'package:cubik_club/ui/screens/loader/loader_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/login/login_screen.dart';

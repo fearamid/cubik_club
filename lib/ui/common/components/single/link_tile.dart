@@ -29,7 +29,9 @@ class LinkTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      customBorder:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
       onTap: () => onPressed(),
       child: Container(
         padding: const EdgeInsets.only(
@@ -62,8 +64,8 @@ class LinkTile extends StatelessWidget {
             ),
             const Icon(
               Iconsax.arrow_right_3_copy,
-              size: 35,
-              color: CCAppColors.secondary,
+              size: 30,
+              color: CCAppColors.lightHighlightBackground,
             ),
           ],
         ),

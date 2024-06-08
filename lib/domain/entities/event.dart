@@ -55,7 +55,7 @@ class Event implements IQrCodeAble {
       startDateTime: DateTime.parse('${json['tstz_range'][0]}'),
       endDateTime: DateTime.parse('${json['tstz_range'][1]}'),
       games: games,
-      // imagesLinks: imagesLinks,
+      imagesLinks: imagesLinks,
     );
   }
 

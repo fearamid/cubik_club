@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cubik_club/app.dart';
 import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/domain/entities/game/game.dart';
 import 'package:cubik_club/ui/common/components/export/components.dart';
@@ -24,6 +25,22 @@ class EventScreen extends StatelessWidget {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
+            SliverAppBar(
+              leading: IconButton(
+                icon: const Icon(Iconsax.arrow_left_2_copy),
+                iconSize: 35,
+                color: CCAppColors.secondary,
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20)),
+              ),
+              snap: true,
+              floating: true,
+              backgroundColor: CCAppColors.lightBackground,
+            ),
             SliverList(
               delegate: SliverChildListDelegate(
                 const [
@@ -49,9 +66,6 @@ class _EventCover extends StatelessWidget {
   Widget build(BuildContext context) {
     final imagesLinks =
         context.read<EventScreenViewModel>().state.event.imagesLinks;
-    print('imagesLinks');
-    print(imagesLinks);
-
     List<String> images = [
       context.read<EventScreenViewModel>().state.event.coverLink
     ];
@@ -69,43 +83,14 @@ class _EventCover extends StatelessWidget {
       ),
     );
 
-    print(imagesWidgets.length);
-
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        // Image
-        AspectRatio(
-          aspectRatio: 1,
-          child: ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
-            child: PageView(
-              children: imagesWidgets,
-            ),
-          ),
+    return AspectRatio(
+      aspectRatio: 1,
+      child: ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        child: PageView(
+          children: imagesWidgets,
         ),
-        // Back Button
-        Positioned(
-          bottom: 20,
-          left: 20,
-          child: GestureDetector(
-            onTap: () => Navigator.of(context).pop(),
-            child: Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                color: CCAppColors.lightBackground,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: const Icon(
-                Iconsax.arrow_left_2_copy,
-                size: 35,
-                color: CCAppColors.secondary,
-              ),
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

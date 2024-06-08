@@ -1,5 +1,5 @@
 import 'package:cubik_club/domain/entities/game/game.dart';
-import 'package:cubik_club/ui/screens/game_screen/widgets/widgets.dart';
+import 'package:cubik_club/ui/screens/game/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class GameScreen extends StatelessWidget {
