@@ -12,3 +12,4 @@ export '../single/search_input.dart';
 export '../single/section.dart';
 export '../single/tags_view.dart';
 export '../single/wide_button.dart';
+export '../custom_app_bar.dart';

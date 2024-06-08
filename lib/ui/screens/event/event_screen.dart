@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cubik_club/app.dart';
 import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/domain/entities/game/game.dart';
 import 'package:cubik_club/ui/common/components/export/components.dart';
@@ -25,22 +24,23 @@ class EventScreen extends StatelessWidget {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            SliverAppBar(
-              leading: IconButton(
-                icon: const Icon(Iconsax.arrow_left_2_copy),
-                iconSize: 35,
-                color: CCAppColors.secondary,
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20)),
-              ),
-              snap: true,
-              floating: true,
-              backgroundColor: CCAppColors.lightBackground,
-            ),
+            // SliverAppBar(
+            //   leading: IconButton(
+            //     icon: const Icon(Iconsax.arrow_left_2_copy),
+            //     iconSize: 35,
+            //     color: CCAppColors.secondary,
+            //     onPressed: () => Navigator.of(context).pop(),
+            //   ),
+            //   shape: const RoundedRectangleBorder(
+            //     borderRadius: BorderRadius.only(
+            //         bottomLeft: Radius.circular(20),
+            //         bottomRight: Radius.circular(20)),
+            //   ),
+            //   snap: true,
+            //   floating: true,
+            //   backgroundColor: CCAppColors.lightBackground,
+            // ),
+            const CustomAppBar(),
             SliverList(
               delegate: SliverChildListDelegate(
                 const [
@@ -114,7 +114,11 @@ class _EventGamesList extends StatelessWidget {
     }
     return GamesList(
       games: games,
-      onTap: (Game game) {},
+      onTap: (game) async {
+        await context
+            .read<EventScreenViewModel>()
+            .onGameTilePressed(context, game);
+      },
     );
   }
 }

@@ -1,4 +1,6 @@
 import 'package:cubik_club/domain/entities/event.dart';
+import 'package:cubik_club/domain/entities/game/game.dart';
+import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:flutter/material.dart';
 
 class _EventScreenViewModelState {
@@ -27,4 +29,8 @@ class EventScreenViewModel extends ChangeNotifier {
   }
 
   void onBookingButtonPressed() {}
+
+  Future<void> onGameTilePressed(BuildContext context, Game game) async {
+    await MainNavigation.toGameScreen(context, game: game);
+  }
 }
