@@ -42,7 +42,7 @@ class EventScreen extends StatelessWidget {
 }
 
 class _EventCover extends StatelessWidget {
-  const _EventCover({super.key});
+  const _EventCover();
 
   @override
   Widget build(BuildContext context) {

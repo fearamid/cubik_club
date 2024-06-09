@@ -124,13 +124,13 @@ class _PostsCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.read<MainScreenViewModel>();
-    final sliderPosts = context.watch<MainScreenViewModel>().state.sliderPosts;
+    final sliderPosts = context.read<MainScreenViewModel>().state.sliderPosts;
     final count = sliderPosts.length;
 
     return CustomSlider(
       count: count == 0 ? 1 : count,
       height: 360,
-      onPageChanged: (index) => model.onSliderPageChanged(index),
+      onPageChanged: model.onSliderPageChanged,
       itemBuilder: (_, index, __) {
         if (count == 0) {
           return Container(

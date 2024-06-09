@@ -1,4 +1,5 @@
 import 'package:cubik_club/domain/entities/game/game_tags.dart';
+import 'package:cubik_club/domain/entities/game/publisher.dart';
 import 'package:cubik_club/domain/entities/qr_code_data.dart';
 export './game_tags.dart';
 
@@ -59,6 +60,36 @@ class Game implements IQrCodeAble {
       tags: GameTags.partiallyEmpty(genres: genres),
       rules: '',
       coverLink: 'coverLink',
+    );
+  }
+
+  static Game fromJson(Map<dynamic, dynamic> json) {
+    List<String>? imagesLinks;
+    List? imagesList = json['images_links'] as List?;
+    if (imagesList != null) {
+      imagesLinks = [];
+      for (int i = 0; i < imagesList.length; i++) {
+        imagesLinks.add(imagesList[i] as String);
+      }
+    }
+
+    return Game._create(
+      id: json['id'],
+      name: json['name'],
+      description: json['description'],
+      tags: GameTags(
+        genres: json['genres'] ?? [],
+        ageLimit: json['age_limit'],
+        complexity: json['age_limit'],
+        playersRange: json['players_range'],
+        durationRange: json['duration_range'],
+        publisher: Publisher(id: json['publisher_id'], name: 'Publisher'),
+      ),
+      completeSet: json['complete_set'],
+      rules: json['rules'],
+      coverLink: json['cover_image_link'],
+      rulesFileLink: json['rules_file_link'],
+      imagesLinks: imagesLinks,
     );
   }
 

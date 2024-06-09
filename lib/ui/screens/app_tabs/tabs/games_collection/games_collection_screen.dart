@@ -1,12 +1,14 @@
 import 'package:cubik_club/domain/entities/game/game.dart';
 import 'package:cubik_club/domain/entities/game/publisher.dart';
 import 'package:cubik_club/ui/common/components/search_top_bar.dart';
+import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/view_model/games_collection_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/widgets/game_thumbnail.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/widgets/random_game_button.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/widgets/search_filters_button.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:cubik_club/utils/device/device_utility.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class GamesCollectionScreen extends StatelessWidget {
   const GamesCollectionScreen({super.key});
@@ -118,31 +120,72 @@ class GamesCollectionScreen extends StatelessWidget {
     final collectionItemHeight =
         (CCDeviceUtils.getScreenWidth(context) - 10) / 2 + 10 + 100;
 
-    return CustomScrollView(
+    return const CustomScrollView(
       slivers: [
-        const SliverAppBar(
-          titleSpacing: 0,
-          backgroundColor: CCAppColors.lightBackground,
-          toolbarHeight: 105,
-          pinned: true,
-          snap: true,
-          floating: true,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(35),
-              bottomRight: Radius.circular(35),
+        _SearchAppBar(),
+        _GamesCollectionList(),
+        // SliverGrid.builder(
+        //   itemCount: games.length,
+        //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        //     crossAxisCount: 2,
+        //     crossAxisSpacing: 10,
+        //     mainAxisSpacing: 10,
+        //     childAspectRatio: 1,
+        //     mainAxisExtent: collectionItemHeight,
+        //   ),
+        //   itemBuilder: (context, index) {
+        //     return GameThumbnail(
+        //       game: games[index],
+        //     );
+        //   },
+        // ),
+        SliverToBoxAdapter(
+            child: SizedBox(height: kBottomNavigationBarHeight + 45)),
+      ],
+    );
+  }
+}
+
+class _GamesCollectionList extends StatelessWidget {
+  const _GamesCollectionList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = context.read<GamesCollectionScreenViewModel>();
+    return FutureBuilder<Map<dynamic, dynamic>>(
+      future: viewModel.loadGamesCollection(),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+          case ConnectionState.active:
+            return const SliverToBoxAdapter(
+              child: Center(
+                child: Text('Загружаем данные...'),
+              ),
+            );
+          case ConnectionState.done:
+            break;
+          default:
+        }
+
+        if (snapshot.hasError) {
+          return SliverToBoxAdapter(
+            child: Center(
+              child: Text(snapshot.error.toString()),
             ),
-          ),
-          title: SearchTopBar(
-            actions: [
-              RandomGameButton(),
-              SizedBox(width: 7),
-              SearchFiltersButton(),
-            ],
-          ),
-        ),
-        SliverGrid.builder(
-          itemCount: games.length,
+          );
+        }
+
+        final games = (snapshot.data?['collection']);
+        // final games = List<String>.from(snapshot.data?['collection'] as List);
+        print(games.runtimeType);
+
+        // TODO: delete magic numbers
+        final collectionItemHeight =
+            (CCDeviceUtils.getScreenWidth(context) - 10) / 2 + 10 + 100;
+
+        return SliverGrid.builder(
+          itemCount: games?.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 10,
@@ -151,14 +194,40 @@ class GamesCollectionScreen extends StatelessWidget {
             mainAxisExtent: collectionItemHeight,
           ),
           itemBuilder: (context, index) {
-            return GameThumbnail(
-              game: games[index],
-            );
+            // final game = viewModel.parseGame(games?[index]);
+            return Text(games.toString());
+            // return GameThumbnail(game: game);
           },
+        );
+      },
+    );
+  }
+}
+
+class _SearchAppBar extends StatelessWidget {
+  const _SearchAppBar();
+
+  @override
+  Widget build(BuildContext context) {
+    return const SliverAppBar(
+      titleSpacing: 0,
+      backgroundColor: CCAppColors.lightBackground,
+      toolbarHeight: 105,
+      snap: true,
+      floating: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(25),
+          bottomRight: Radius.circular(25),
         ),
-        const SliverToBoxAdapter(
-            child: SizedBox(height: kBottomNavigationBarHeight + 45)),
-      ],
+      ),
+      title: SearchTopBar(
+        actions: [
+          RandomGameButton(),
+          SizedBox(width: 7),
+          SearchFiltersButton(),
+        ],
+      ),
     );
   }
 }

@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:cubik_club/domain/entities/game/game.dart';
+import 'package:cubik_club/domain/services/games_service.dart';
 import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +18,8 @@ class _GamesCollectionScreenViewModelState {
 class GamesCollectionScreenViewModel extends ChangeNotifier {
   var _state = _GamesCollectionScreenViewModelState();
   get state => _state;
+
+  final _gamesService = GamesService();
 
   void updateState({
     CollectionDisplayMode? displayMode,
@@ -33,6 +38,17 @@ class GamesCollectionScreenViewModel extends ChangeNotifier {
       context: context,
       builder: builder,
     );
+  }
+
+  Future<Map<dynamic, dynamic>> loadGamesCollection() async {
+    return _gamesService.getGamesCollection(page: 1);
+  }
+
+  Game parseGame(Map<dynamic, dynamic>? gameJson) {
+    if (gameJson == null) {
+      throw Error();
+    }
+    return Game.fromJson(gameJson);
   }
 
   void onGameThumbnailPressed(BuildContext context, {required Game game}) {
