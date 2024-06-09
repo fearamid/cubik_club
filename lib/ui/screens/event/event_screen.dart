@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/domain/entities/game/game.dart';
 import 'package:cubik_club/ui/common/components/export/components.dart';
@@ -7,7 +6,6 @@ import 'package:cubik_club/ui/screens/event/widgets/games_list.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:cubik_club/utils/formatters/formatter.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 
 class EventScreen extends StatelessWidget {
@@ -24,22 +22,6 @@ class EventScreen extends StatelessWidget {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            // SliverAppBar(
-            //   leading: IconButton(
-            //     icon: const Icon(Iconsax.arrow_left_2_copy),
-            //     iconSize: 35,
-            //     color: CCAppColors.secondary,
-            //     onPressed: () => Navigator.of(context).pop(),
-            //   ),
-            //   shape: const RoundedRectangleBorder(
-            //     borderRadius: BorderRadius.only(
-            //         bottomLeft: Radius.circular(20),
-            //         bottomRight: Radius.circular(20)),
-            //   ),
-            //   snap: true,
-            //   floating: true,
-            //   backgroundColor: CCAppColors.lightBackground,
-            // ),
             const CustomAppBar(),
             SliverList(
               delegate: SliverChildListDelegate(
@@ -60,37 +42,14 @@ class EventScreen extends StatelessWidget {
 }
 
 class _EventCover extends StatelessWidget {
-  const _EventCover();
+  const _EventCover({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final imagesLinks =
-        context.read<EventScreenViewModel>().state.event.imagesLinks;
-    List<String> images = [
-      context.read<EventScreenViewModel>().state.event.coverLink
-    ];
-    if (imagesLinks != null) {
-      for (int i = 0; i < imagesLinks.length; i++) {
-        images.add(imagesLinks[i]);
-      }
-    }
-
-    List<CachedNetworkImage> imagesWidgets = List.generate(
-      images.length,
-      (index) => CachedNetworkImage(
-        imageUrl: images[index],
-        fit: BoxFit.cover,
-      ),
-    );
-
-    return AspectRatio(
-      aspectRatio: 1,
-      child: ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(20)),
-        child: PageView(
-          children: imagesWidgets,
-        ),
-      ),
+    final event = context.read<EventScreenViewModel>().state.event;
+    return CachedImageCarousel(
+      coverLink: event.coverLink,
+      imagesLinks: event.imagesLinks,
     );
   }
 }
