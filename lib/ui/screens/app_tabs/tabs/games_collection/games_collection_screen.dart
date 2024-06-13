@@ -116,29 +116,10 @@ class GamesCollectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: delete magic numbers
-    final collectionItemHeight =
-        (CCDeviceUtils.getScreenWidth(context) - 10) / 2 + 10 + 100;
-
     return const CustomScrollView(
       slivers: [
         _SearchAppBar(),
         _GamesCollectionList(),
-        // SliverGrid.builder(
-        //   itemCount: games.length,
-        //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        //     crossAxisCount: 2,
-        //     crossAxisSpacing: 10,
-        //     mainAxisSpacing: 10,
-        //     childAspectRatio: 1,
-        //     mainAxisExtent: collectionItemHeight,
-        //   ),
-        //   itemBuilder: (context, index) {
-        //     return GameThumbnail(
-        //       game: games[index],
-        //     );
-        //   },
-        // ),
         SliverToBoxAdapter(
             child: SizedBox(height: kBottomNavigationBarHeight + 45)),
       ],
@@ -176,28 +157,21 @@ class _GamesCollectionList extends StatelessWidget {
           );
         }
 
-        final games = (snapshot.data?['collection']);
-        // final games = List<String>.from(snapshot.data?['collection'] as List);
-        print(games.runtimeType);
+        final games = viewModel.getGamesListFromData(snapshot.data);
 
-        // TODO: delete magic numbers
-        final collectionItemHeight =
-            (CCDeviceUtils.getScreenWidth(context) - 10) / 2 + 10 + 100;
+        const double spacing = 10;
+        final mainAxisExtent =
+            (CCDeviceUtils.getScreenWidth(context) - spacing) / 2 + 45;
 
         return SliverGrid.builder(
-          itemCount: games?.length,
+          itemCount: games.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            childAspectRatio: 1,
-            mainAxisExtent: collectionItemHeight,
+            crossAxisSpacing: spacing,
+            mainAxisSpacing: spacing,
+            mainAxisExtent: mainAxisExtent,
           ),
-          itemBuilder: (context, index) {
-            // final game = viewModel.parseGame(games?[index]);
-            return Text(games.toString());
-            // return GameThumbnail(game: game);
-          },
+          itemBuilder: (_, index) => GameThumbnail(game: games[index]),
         );
       },
     );

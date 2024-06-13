@@ -5,9 +5,11 @@ class GamesApiClient {
 
   final _apiClient = ApiClient();
 
-  Future<Map<dynamic, dynamic>> getGamesCollection({int page = 1}) async {
-    final response = await _apiClient.get(path: '/games/collection');
-    final games = (await ApiClient.getJson<Map<dynamic, dynamic>>(response));
-    return games;
+  Future<Map<dynamic, dynamic>> getGamesCollection(int page) async {
+    final response = await _apiClient.get(
+      path: '/games/collection',
+      queryParameters: {'page': '$page'},
+    );
+    return (await ApiClient.getJson<Map<dynamic, dynamic>>(response));
   }
 }

@@ -51,7 +51,18 @@ class GamesCollectionScreenViewModel extends ChangeNotifier {
     return Game.fromJson(gameJson);
   }
 
-  void onGameThumbnailPressed(BuildContext context, {required Game game}) {
+  List<Game> getGamesListFromData(Map? map) {
+    final collectionList = (map?["collection"] as List);
+
+    final games = List<Game>.generate(
+      collectionList.length,
+      (index) => parseGame(collectionList[index]),
+    );
+
+    return games;
+  }
+
+  void onGameThumbnailPressed(BuildContext context, Game game) {
     MainNavigation.toGameScreen(context, game: game);
   }
 

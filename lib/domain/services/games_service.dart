@@ -4,6 +4,6 @@ class GamesService {
   final _gamesApiClient = GamesApiClient();
 
   Future<Map<dynamic, dynamic>> getGamesCollection({int page = 1}) async {
-    return await _gamesApiClient.getGamesCollection(page: page);
+    return await _gamesApiClient.getGamesCollection(page);
   }
 }
