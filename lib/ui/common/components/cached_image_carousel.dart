@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:cubik_club/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class CachedImageCarousel extends StatefulWidget {
@@ -44,9 +45,7 @@ class _CachedImageCarouselState extends State<CachedImageCarousel> {
       (index) => CachedNetworkImage(
         imageUrl: imagesStack[index],
         fit: BoxFit.cover,
-        errorWidget: (context, url, error) {
-          return Image.asset(CCImages.calico);
-        },
+        errorWidget: (_, __, ___) => const Icon(Iconsax.aave_aave_copy),
       ),
     );
 

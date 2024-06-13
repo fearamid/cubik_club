@@ -81,29 +81,32 @@ class _GameDescription extends StatelessWidget {
 class _GameTagsList extends StatelessWidget {
   const _GameTagsList();
 
-  List<Widget> _createChildren(BuildContext context) {
-    final game = context.read<GameScreenViewModel>().state.game;
-    List<Widget> children = [
-      Text(
-        game.name,
-        style: const TextStyle(
-          fontSize: 22,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      const SizedBox(height: 3),
-      TagsView(tags: game.tags)
-    ];
-
-    return children;
-  }
-
   @override
   Widget build(BuildContext context) {
+    final game = context.read<GameScreenViewModel>().state.game;
     return Section(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: _createChildren(context),
+        children: [
+          Text(
+            game.name,
+            style: const TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 5),
+          TagsView(tags: game.tags),
+          const SizedBox(height: 20),
+          Row(
+            children: [
+              OutlinedButton(
+                onPressed: () {},
+                child: const Text('Правила'),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

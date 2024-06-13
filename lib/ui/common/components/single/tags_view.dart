@@ -44,7 +44,11 @@ class TagsView extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    tagsList[keys[index]].toString(),
+                    tagsList[keys[index]] is List
+                        ? (tagsList[keys[index]] as List)
+                            .join(' — ')
+                            .toCapitalized()
+                        : tagsList[keys[index]].toString(),
                     // _getTagValueByIndex(tagsList, index),
                     style: const TextStyle(fontSize: 16),
                   ),

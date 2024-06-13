@@ -29,10 +29,13 @@ class GameThumbnail extends StatelessWidget {
           const SizedBox(height: 15),
           Text(
             game.name,
-            style: const TextStyle(height: 1, overflow: TextOverflow.ellipsis),
+            style: const TextStyle(
+              height: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
             maxLines: 1,
           ),
-          const SizedBox(height: 10),
+          // const SizedBox(height: 10),
           // TagsList([
           //   tags.genres,
           //   tags.author,

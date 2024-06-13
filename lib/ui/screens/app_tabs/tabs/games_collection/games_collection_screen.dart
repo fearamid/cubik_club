@@ -161,7 +161,7 @@ class _GamesCollectionList extends StatelessWidget {
 
         const double spacing = 10;
         final mainAxisExtent =
-            (CCDeviceUtils.getScreenWidth(context) - spacing) / 2 + 45;
+            (CCDeviceUtils.getScreenWidth(context) - spacing) / 2 + 37;
 
         return SliverGrid.builder(
           itemCount: games.length,
