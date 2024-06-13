@@ -2,6 +2,7 @@ import 'package:cubik_club/ui/common/components/export/components.dart';
 import 'package:cubik_club/ui/screens/game/view_model/game_screen_view_model.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 
 class GameScreen extends StatelessWidget {
@@ -101,8 +102,30 @@ class _GameTagsList extends StatelessWidget {
           Row(
             children: [
               OutlinedButton(
-                onPressed: () {},
+                onPressed: () {
+                  context
+                      .read<GameScreenViewModel>()
+                      .onRulesButtonPressed(context);
+                },
                 child: const Text('Правила'),
+              ),
+              const Spacer(),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Iconsax.heart_copy,
+                  size: 40,
+                  color: CCAppColors.secondary,
+                ),
+              ),
+              const SizedBox(width: 10),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Iconsax.bookmark_copy,
+                  size: 40,
+                  color: CCAppColors.secondary,
+                ),
               ),
             ],
           ),
