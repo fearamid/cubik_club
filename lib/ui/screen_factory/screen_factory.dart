@@ -144,10 +144,8 @@ class ScreenFactory {
     }
 
     return ChangeNotifierProvider(
-      create: (_) => GameScreenViewModel(),
-      child: GameScreen(
-        game: game,
-      ),
+      create: (_) => GameScreenViewModel(game),
+      child: const GameScreen(),
     );
   }
 

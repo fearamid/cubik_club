@@ -80,7 +80,7 @@ class Game implements IQrCodeAble {
       tags: GameTags(
         genres: List.from(json['genres']),
         ageLimit: json['age_limit'],
-        complexity: json['age_limit'],
+        complexity: json['complexity'],
         playersRange: List.from(json['players_range']),
         durationRange: List.from(json['duration_range']),
         publisher: Publisher(id: json['publisher_id'], name: 'Publisher'),

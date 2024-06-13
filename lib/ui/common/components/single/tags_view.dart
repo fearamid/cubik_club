@@ -17,13 +17,14 @@ class TagsView extends StatelessWidget {
 
   factory TagsView({
     required GameTags tags,
-    double spacing = 8,
+    double spacing = 10,
   }) {
     return TagsView._build(
       tags: tags,
       spacing: spacing,
       widgetBuilder: (tags) {
-        final tagsList = tags.toValueList();
+        final tagsList = tags.toCyrillicMap();
+        final keys = tagsList.keys.toList();
 
         return ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
@@ -34,7 +35,7 @@ class TagsView extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    _getTagNameByIndex(tagsList, index),
+                    keys[index],
                     style: const TextStyle(
                       fontSize: 16,
                       color: CCAppColors.secondary,
@@ -43,16 +44,15 @@ class TagsView extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    _getTagValueByIndex(tagsList, index),
+                    tagsList[keys[index]].toString(),
+                    // _getTagValueByIndex(tagsList, index),
                     style: const TextStyle(fontSize: 16),
                   ),
                 ),
               ],
             );
           },
-          separatorBuilder: (_, __) {
-            return SizedBox(height: spacing);
-          },
+          separatorBuilder: (_, __) => SizedBox(height: spacing),
         );
       },
     );
@@ -82,10 +82,6 @@ class TagsView extends StatelessWidget {
     );
   }
 
-  static String _getTagNameByIndex(List list, int index) {
-    return list[index][0].toString().toCapitalized();
-  }
-
   static String _formatValueByTagName(String tagName, dynamic value) {
     switch (tagName.toLowerCase()) {
       case 'жанр':
@@ -109,7 +105,7 @@ class TagsView extends StatelessWidget {
   }
 
   static String _getTagValueByIndex(List list, int index) {
-    final String tagName = _getTagNameByIndex(list, index);
+    final String tagName = list[index];
     final value = list[index][1];
 
     return _formatValueByTagName(tagName, value);

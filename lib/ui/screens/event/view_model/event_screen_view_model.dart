@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/domain/entities/game/game.dart';
 import 'package:cubik_club/ui/navigation/main_navigation.dart';
@@ -12,7 +14,8 @@ class _EventScreenViewModelState {
 }
 
 class EventScreenViewModel extends ChangeNotifier {
-  var _state;
+  late _EventScreenViewModelState _state;
+
   _EventScreenViewModelState get state => _state;
 
   EventScreenViewModel(Event event) {

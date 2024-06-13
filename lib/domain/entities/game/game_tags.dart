@@ -30,6 +30,17 @@ class GameTags {
     );
   }
 
+  Map<String, dynamic> toCyrillicMap() {
+    return {
+      'Жанр': genres,
+      'Возраст': ageLimit,
+      'Сложность': complexity,
+      'Игроки': playersRange,
+      'Длительность': durationRange,
+      'Издатель': publisher.name,
+    };
+  }
+
   List<List<dynamic>> toValueList() {
     return [
       ["Жанр", genres],
