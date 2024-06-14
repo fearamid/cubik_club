@@ -111,20 +111,26 @@ class _GameTagsList extends StatelessWidget {
               ),
               const Spacer(),
               IconButton(
+                isSelected: true,
                 onPressed: () {},
                 icon: const Icon(
                   Iconsax.heart_copy,
-                  size: 40,
-                  color: CCAppColors.secondary,
+                  size: 35,
+                  color: CCAppColors.lightHighlightBackground,
+                ),
+                selectedIcon: const Icon(
+                  Iconsax.heart,
+                  size: 35,
+                  color: CCAppColors.accentRed,
                 ),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 13),
               IconButton(
                 onPressed: () {},
                 icon: const Icon(
-                  Iconsax.bookmark_copy,
-                  size: 40,
-                  color: CCAppColors.secondary,
+                  Iconsax.archive_minus_copy,
+                  size: 35,
+                  color: CCAppColors.lightHighlightBackground,
                 ),
               ),
             ],

@@ -1,6 +1,8 @@
 import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/domain/entities/game/game.dart';
 import 'package:cubik_club/domain/entities/qr_code_data.dart';
+import 'package:cubik_club/ui/screens/pdf_viewer/pdf_viewer_screen.dart';
+import 'package:cubik_club/ui/screens/pdf_viewer/view_model/pdf_viewer_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/registration/registration_screen.dart';
 import 'package:cubik_club/ui/screens/registration/registration_view_model.dart';
 import 'package:cubik_club/ui/screens/app_tabs/app_tabs.dart';
@@ -48,6 +50,20 @@ class ScreenFactory {
     return ChangeNotifierProvider(
       create: (_) => AppTabsViewModel(),
       child: const AppTabs(),
+    );
+  }
+
+  Widget makePDFViewer(BuildContext context) {
+    final pdfLink = ModalRoute.of(context)?.settings.arguments;
+
+    if (pdfLink == null || pdfLink is! String) {
+      return makeNavigationError(
+          'Не удалось получить информацию о правилах игры.');
+    }
+
+    return ChangeNotifierProvider(
+      create: (_) => PDFViewerScreenViewModel(pdfLink),
+      child: const PDFViewerScreen(),
     );
   }
 

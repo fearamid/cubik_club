@@ -21,6 +21,7 @@ abstract class Screens {
   static const qrCode = "/qr_code";
   static const folders = "/folders";
   static const game = "/game";
+  static const pdfViewer = "/pdf_viewer";
 }
 
 class MainNavigation {
@@ -42,6 +43,7 @@ class MainNavigation {
         Screens.qrCode: (context) => _screenFactory.makeQrCode(context),
         Screens.folders: (_) => _screenFactory.makeFolders(),
         Screens.game: (context) => _screenFactory.makeGame(context),
+        Screens.pdfViewer: (context) => _screenFactory.makePDFViewer(context),
       };
 
   Route<Object> onGenerateRoute(RouteSettings settings) {
@@ -56,6 +58,14 @@ class MainNavigation {
   static Future<void> toEventcreen(BuildContext context,
       {required Event event}) async {
     await Navigator.of(context).pushNamed(Screens.event, arguments: event);
+  }
+
+  static Future<void> toPDFViewercreen(
+    BuildContext context, {
+    String? pdfLink,
+  }) async {
+    await Navigator.of(context)
+        .pushNamed(Screens.pdfViewer, arguments: pdfLink);
   }
 
   static Future<void> toLoaderScreen(BuildContext context) async {

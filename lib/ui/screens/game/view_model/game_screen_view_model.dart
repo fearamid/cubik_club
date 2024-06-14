@@ -1,13 +1,15 @@
 import 'package:cubik_club/domain/entities/game/game.dart';
-import 'package:cubik_club/ui/common/components/export/components.dart';
+import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 
 class _GameScreenViewModelState {
   final Game game;
+  final bool liked;
 
   const _GameScreenViewModelState({
     required this.game,
+    this.liked = false,
   });
 }
 
@@ -20,32 +22,37 @@ class GameScreenViewModel extends ChangeNotifier {
   }
 
   void updateState({
-    String? field,
+    Game? game,
   }) {
     _state = _GameScreenViewModelState(
-      game: _state.game,
+      game: game ?? _state.game,
     );
     notifyListeners();
   }
 
-  void onRulesButtonPressed(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Padding(
-          padding: const EdgeInsets.all(15),
-          child: Section(
-            child: const PDF(
-              swipeHorizontal: true,
-              fitEachPage: true,
-            ).cachedFromUrl(
-              'https://www.learningcontainer.com/wp-content/uploads/2019/09/sample-pdf-file.pdf',
-              placeholder: (progress) => Center(child: Text('$progress %')),
-              errorWidget: (error) => Center(child: Text(error.toString())),
-            ),
-          ),
-        );
-      },
+  void onRulesButtonPressed(BuildContext context) async {
+    await MainNavigation.toPDFViewercreen(context,
+        pdfLink: state.game.rulesFileLink);
+  }
+}
+
+class PDFViewerCachedFromUrl extends StatelessWidget {
+  const PDFViewerCachedFromUrl({Key? key, required this.url}) : super(key: key);
+
+  final String url;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Правила игры'),
+      ),
+      body: const PDF().cachedFromUrl(
+        url,
+        placeholder: (double progress) => Center(child: Text('$progress %')),
+        errorWidget: (dynamic error) => Center(child: Text(error.toString())),
+        maxNrOfCacheObjects: 3,
+      ),
     );
   }
 }
