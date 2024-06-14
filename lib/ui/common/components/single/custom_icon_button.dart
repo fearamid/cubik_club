@@ -7,6 +7,8 @@ class CustomIconButton extends StatelessWidget {
   final double size;
   final EdgeInsets padding;
   final VoidCallback? onPressed;
+  final Widget? selectedIcon;
+  final bool isSelected;
 
   const CustomIconButton({
     super.key,
@@ -15,11 +17,14 @@ class CustomIconButton extends StatelessWidget {
     this.size = 35,
     this.padding = const EdgeInsets.all(10),
     this.onPressed,
+    this.selectedIcon,
+    this.isSelected = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      isSelected: isSelected,
       padding: padding,
       onPressed: onPressed,
       icon: Icon(
@@ -27,6 +32,7 @@ class CustomIconButton extends StatelessWidget {
         size: size,
         color: color,
       ),
+      selectedIcon: selectedIcon,
     );
   }
 }

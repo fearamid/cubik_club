@@ -74,7 +74,7 @@ class MainScreen extends StatelessWidget {
 }
 
 class _EventsList extends StatelessWidget {
-  const _EventsList({super.key});
+  const _EventsList();
 
   @override
   Widget build(BuildContext context) {

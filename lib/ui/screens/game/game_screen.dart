@@ -110,20 +110,7 @@ class _GameTagsList extends StatelessWidget {
                 child: const Text('Правила'),
               ),
               const Spacer(),
-              IconButton(
-                isSelected: true,
-                onPressed: () {},
-                icon: const Icon(
-                  Iconsax.heart_copy,
-                  size: 35,
-                  color: CCAppColors.lightHighlightBackground,
-                ),
-                selectedIcon: const Icon(
-                  Iconsax.heart,
-                  size: 35,
-                  color: CCAppColors.accentRed,
-                ),
-              ),
+              const _LikeButton(),
               const SizedBox(width: 13),
               IconButton(
                 onPressed: () {},
@@ -136,6 +123,41 @@ class _GameTagsList extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _LikeButton extends StatelessWidget {
+  const _LikeButton();
+
+  @override
+  Widget build(BuildContext context) {
+    final isLiked = context.watch<GameScreenViewModel>().state.like;
+    return IconButton(
+      onPressed: context.read<GameScreenViewModel>().onLikeButtonPressed,
+      highlightColor: isLiked ? null : CCAppColors.accentRed.withOpacity(0.5),
+      icon: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 200),
+        transitionBuilder: (child, anim) => FadeTransition(
+          opacity: child.key == const ValueKey('icon1')
+              ? Tween<double>(begin: 0.5, end: 1).animate(anim)
+              : Tween<double>(begin: 0.5, end: 1).animate(anim),
+          child: FadeTransition(opacity: anim, child: child),
+        ),
+        child: isLiked
+            ? const Icon(
+                key: ValueKey('icon1'),
+                Iconsax.heart,
+                color: CCAppColors.accentRed,
+                size: 35,
+              )
+            : const Icon(
+                key: ValueKey('icon2'),
+                Iconsax.heart_copy,
+                color: CCAppColors.lightHighlightBackground,
+                size: 35,
+              ),
       ),
     );
   }

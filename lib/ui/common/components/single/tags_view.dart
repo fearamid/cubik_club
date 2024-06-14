@@ -42,20 +42,9 @@ class TagsView extends StatelessWidget {
                     ),
                   ),
                 ),
-                // Expanded(
-                //   child: Text(
-                //     tagsList[keys[index]] is List
-                //         ? (tagsList[keys[index]] as List)
-                //             .join(' — ')
-                //             .toCapitalized()
-                //         : tagsList[keys[index]].toString(),
-                //     // _getTagValueByIndex(tagsList, index),
-                //     style: const TextStyle(fontSize: 16),
-                //   ),
-                // ),
                 Expanded(
                   child: Text(
-                    _formatTagValue(tagsList[keys[index]]),
+                    _formatTagValue(keys[index], tagsList[keys[index]]),
                     style: const TextStyle(fontSize: 16),
                   ),
                 ),
@@ -68,74 +57,68 @@ class TagsView extends StatelessWidget {
     );
   }
 
-  static String _formatTagValue(tag) {
-    if (tag is List) {
-      if (tag.isNotEmpty) {
-        if (tag is List<String>) {
-          return tag.join(', ').toCapitalized();
-        }
+  static String _formatGenre(List<String> value) {
+    return value.isNotEmpty ? value.join(', ').toCapitalized() : 'Нет';
+  }
 
-        return tag.join(' — ').toCapitalized();
-      }
-      return 'Нет';
-    } else {
-      if (tag.toString() == '') return 'Нет';
+  static String _formatPlayersRange(List<int> value) {
+    final min = value[0];
+    final max = value[1];
 
-      return tag.toString();
+    if (min == max) {
+      if (min >= 2 || min <= 4) return '$min человека';
+      return '$min человек';
+    }
+    return '${value.join('—')} человек';
+  }
+
+  static String _formatDurationRange(List<int> value) {
+    final min = value[0];
+    final max = value[1];
+
+    if (min == max) {
+      return '$min минут';
+    }
+    return '${value.join('—')} минут';
+  }
+
+  static String _formatTagValue(String key, dynamic value) {
+    switch (key) {
+      case 'Жанр':
+        return _formatGenre(value as List<String>);
+      case 'Возраст':
+        return '$value+';
+      case 'Сложность':
+        return '$value из 5';
+      case 'Игроки':
+        return _formatPlayersRange(value as List<int>);
+      case 'Длительность':
+        return _formatDurationRange(value as List<int>);
+      case 'Издатель':
+        return value.toString();
+      default:
+        return 'Нет';
     }
   }
 
   factory TagsView.shortWrap({
     required GameTags tags,
-    List<int> tagsIndexes = const [0, 4, 1],
     double spacing = 8,
   }) {
     return TagsView._build(
       tags: tags,
       spacing: spacing,
       widgetBuilder: (tags) {
-        final tagsList = tags.toValueList();
-        final String tag1 = _getTagValueByIndex(tagsList, tagsIndexes[0]);
-        final String tag2 = _getTagValueByIndex(tagsList, tagsIndexes[1]);
-        final String tag3 = _getTagValueByIndex(tagsList, tagsIndexes[2]);
+        final String genres = _formatTagValue('Жанр', tags.genres);
 
         return Text(
-          '$tag1 / $tag2 / $tag3',
+          genres,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: const TextStyle(color: CCAppColors.secondary, fontSize: 16),
         );
       },
     );
-  }
-
-  static String _formatValueByTagName(String tagName, dynamic value) {
-    switch (tagName.toLowerCase()) {
-      case 'жанр':
-        return (value as List<String>)
-            .map((e) => e.toString())
-            .toList()
-            .join(", ")
-            .toLowerCase();
-      case 'кол-во игроков':
-        if ((value as List<int>).length == 1) {
-          return '${(value as List<int>)[0]}';
-        }
-        return 'от ${value[0]} до ${value[1]}';
-      case 'длительность':
-        return '~ $value мин';
-      case 'возраст':
-        return '$value+';
-      default:
-        return value.toString().toCapitalized();
-    }
-  }
-
-  static String _getTagValueByIndex(List list, int index) {
-    final String tagName = list[index];
-    final value = list[index][1];
-
-    return _formatValueByTagName(tagName, value);
   }
 
   @override

@@ -30,12 +30,13 @@ class Event implements IQrCodeAble {
     if (gamesList != null) {
       games = [];
       for (int i = 0; i < gamesList.length; i++) {
-        games.add(Game.preview(
-          id: gamesList[i]['id'],
-          name: gamesList[i]['name'],
-          // TODO: getting genres from API
-          genres: ['ИСПРАВИТЬ', 'Жанр 1', "Жанр 2"],
-        ));
+        games.add(
+          Game.preview(
+            id: gamesList[i]['id'],
+            name: gamesList[i]['name'],
+            genres: gamesList[i]['genres'] ?? [],
+          ),
+        );
       }
     }
 
