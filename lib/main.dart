@@ -28,6 +28,7 @@ void main() async {
   initSystemUI();
   const app = App();
   runApp(app);
+  WidgetsFlutterBinding.ensureInitialized();
 }
 
 // TODO: fix hide toolbar from qr scanner

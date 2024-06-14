@@ -42,14 +42,20 @@ class TagsView extends StatelessWidget {
                     ),
                   ),
                 ),
+                // Expanded(
+                //   child: Text(
+                //     tagsList[keys[index]] is List
+                //         ? (tagsList[keys[index]] as List)
+                //             .join(' — ')
+                //             .toCapitalized()
+                //         : tagsList[keys[index]].toString(),
+                //     // _getTagValueByIndex(tagsList, index),
+                //     style: const TextStyle(fontSize: 16),
+                //   ),
+                // ),
                 Expanded(
                   child: Text(
-                    tagsList[keys[index]] is List
-                        ? (tagsList[keys[index]] as List)
-                            .join(' — ')
-                            .toCapitalized()
-                        : tagsList[keys[index]].toString(),
-                    // _getTagValueByIndex(tagsList, index),
+                    _formatTagValue(tagsList[keys[index]]),
                     style: const TextStyle(fontSize: 16),
                   ),
                 ),
@@ -60,6 +66,23 @@ class TagsView extends StatelessWidget {
         );
       },
     );
+  }
+
+  static String _formatTagValue(tag) {
+    if (tag is List) {
+      if (tag.isNotEmpty) {
+        if (tag is List<String>) {
+          return tag.join(', ').toCapitalized();
+        }
+
+        return tag.join(' — ').toCapitalized();
+      }
+      return 'Нет';
+    } else {
+      if (tag.toString() == '') return 'Нет';
+
+      return tag.toString();
+    }
   }
 
   factory TagsView.shortWrap({

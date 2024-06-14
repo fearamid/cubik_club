@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cubik_club/ui/common/components/export/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
@@ -63,10 +64,27 @@ class PDFViewerScreenViewModel extends ChangeNotifier {
     _state = _PDFViewerScreenViewModelState(filePath: filePath);
   }
 
-  void onDowloadButtonPressed() async {
-    final appDocimentDir = await getApplicationDocumentsDirectory();
-    final File file = File(state.filePath);
-    print('file');
-    print(file);
+  void onDowloadButtonPressed(BuildContext context) async {
+    // // final appDocumentDir = await getApplicationDocumentsDirectory();
+    // final directory = await getDownloadsDirectory();
+    // // const directory = '/storage/emulated/0/Dowload';
+    // File(state.filePath).copySync('${directory?.path}/rules.pdf');
+    // final file = File('${directory?.path}/rules.pdf');
+
+    // showDialog(
+    //   context: context,
+    //   builder: (BuildContext context) {
+    //     return Center(
+    //       child: Container(
+    //         color: Colors.white,
+    //         child: Text('Путь до файла: ${'${directory?.path}/rules.pdf'}'),
+    //       ),
+    //     );
+    //   },
+    // );
+
+    print(state.pdfLink);
+    // final flutterMediaDownloaderPlugin = MediaDownload();
+    // await flutterMediaDownloaderPlugin.downloadMedia(context, state.pdfLink);
   }
 }

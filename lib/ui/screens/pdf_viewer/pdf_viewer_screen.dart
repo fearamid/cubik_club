@@ -74,7 +74,7 @@ class _DowloadButton extends StatelessWidget {
     return CustomIconButton(
       icon: Iconsax.import_2_copy,
       size: 32,
-      onPressed: viewModel.onDowloadButtonPressed,
+      onPressed: () => viewModel.onDowloadButtonPressed(context),
     );
   }
 }

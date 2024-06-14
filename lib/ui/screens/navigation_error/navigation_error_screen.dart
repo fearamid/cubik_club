@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
 class NavigationErrorScreen extends StatelessWidget {
+  final bool title;
   final String? errorText;
   const NavigationErrorScreen({
     super.key,
     this.errorText,
+    this.title = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    String error = 'Произошла ошибка навигации.';
+    String error = title ? 'Произошла ошибка навигации.' : '';
     error += errorText == null ? '' : '\n$errorText';
 
     return Scaffold(

@@ -57,8 +57,7 @@ class ScreenFactory {
     final pdfLink = ModalRoute.of(context)?.settings.arguments;
 
     if (pdfLink == null || pdfLink is! String) {
-      return makeNavigationError(
-          'Не удалось получить информацию о правилах игры.');
+      return makeNavigationError('Файл правил не добавлен');
     }
 
     return ChangeNotifierProvider(
@@ -91,7 +90,7 @@ class ScreenFactory {
   }
 
   Widget makeNavigationError([String? errorText]) {
-    return NavigationErrorScreen(errorText: errorText);
+    return NavigationErrorScreen(errorText: errorText, title: false);
   }
 
   Widget makeEvent(BuildContext context) {

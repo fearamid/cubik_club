@@ -35,6 +35,8 @@ dependencies:
 
   provider: ^6.1.1
 
+  # flutter_media_downloader: ^1.0.5
+
 
 #---------------- ./ PACKAGES END -----------------#
 
