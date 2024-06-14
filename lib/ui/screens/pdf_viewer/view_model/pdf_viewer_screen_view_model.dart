@@ -4,6 +4,7 @@ import 'package:cubik_club/ui/common/components/export/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class _PDFViewerScreenViewModelState {
   final String pdfLink;
@@ -64,27 +65,75 @@ class PDFViewerScreenViewModel extends ChangeNotifier {
     _state = _PDFViewerScreenViewModelState(filePath: filePath);
   }
 
-  void onDowloadButtonPressed(BuildContext context) async {
-    // // final appDocumentDir = await getApplicationDocumentsDirectory();
-    // final directory = await getDownloadsDirectory();
-    // // const directory = '/storage/emulated/0/Dowload';
-    // File(state.filePath).copySync('${directory?.path}/rules.pdf');
-    // final file = File('${directory?.path}/rules.pdf');
+  // void onDowloadButtonPressed(BuildContext context) async {
+  //   bool dowloaded = await saveFile(state.pdfLink, 'rules', context);
 
-    // showDialog(
-    //   context: context,
-    //   builder: (BuildContext context) {
-    //     return Center(
-    //       child: Container(
-    //         color: Colors.white,
-    //         child: Text('Путь до файла: ${'${directory?.path}/rules.pdf'}'),
-    //       ),
-    //     );
-    //   },
-    // );
+  //   if (dowloaded) {
+  //     print('DOWLOADED');
+  //   } else {
+  //     print('PROBLEM');
+  //   }
+  // }
 
-    print(state.pdfLink);
-    // final flutterMediaDownloaderPlugin = MediaDownload();
-    // await flutterMediaDownloaderPlugin.downloadMedia(context, state.pdfLink);
-  }
+  // Future<bool> saveFile(
+  //     String url, String fileName, BuildContext context) async {
+  //   Directory directory;
+
+  //   try {
+  //     if (Platform.isAndroid) {
+  //       if (await _requestPermission(Permission.storage)) {
+  //         directory = (await getExternalStorageDirectory())!;
+
+  //         String newPath = '';
+  //         List<String> folders = directory.path.split('/');
+
+  //         for (int i = 1; i < folders.length; i++) {
+  //           String folder = folders[i];
+  //           if (folder != 'Android') {
+  //             newPath != "/" + folder;
+  //           } else {
+  //             break;
+  //           }
+
+  //           newPath = newPath + 'CubikClubApp';
+  //           directory = Directory(newPath);
+  //           print(directory.path);
+  //         }
+  //       } else {
+  //         return false;
+  //       }
+  //     } else {
+  //       directory = Directory('path');
+  //     }
+  //     if (!await directory.exists()) {
+  //       directory.create(recursive: true);
+  //     }
+  //     if (await directory.exists()) {
+  //       File saveFile = File('${directory.path}/$fileName');
+  //       showDialog(
+  //         context: context,
+  //         builder: (context) {
+  //           return Section(child: Text('${directory.path}/$fileName'));
+  //         },
+  //       );
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  //   return false;
+  // }
+
+  // Future<bool> _requestPermission(Permission permission) async {
+  //   if (await permission.isGranted) {
+  //     return true;
+  //   } else {
+  //     var result = await permission.request();
+
+  //     if (result == PermissionStatus.granted) {
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   }
+  // }
 }

@@ -26,10 +26,6 @@ class PDFViewerScreen extends StatelessWidget {
           color: CCAppColors.secondary,
           onPressed: () => Navigator.of(context).pop(),
         ),
-        actions: const [
-          _DowloadButton(),
-          SizedBox(width: 10),
-        ],
         toolbarHeight: 70,
         backgroundColor: CCAppColors.lightBackground,
         shape: const RoundedRectangleBorder(
@@ -65,19 +61,19 @@ class PDFViewerScreen extends StatelessWidget {
   }
 }
 
-class _DowloadButton extends StatelessWidget {
-  const _DowloadButton();
+// class _DowloadButton extends StatelessWidget {
+//   const _DowloadButton();
 
-  @override
-  Widget build(BuildContext context) {
-    final viewModel = context.read<PDFViewerScreenViewModel>();
-    return CustomIconButton(
-      icon: Iconsax.import_2_copy,
-      size: 32,
-      onPressed: () => viewModel.onDowloadButtonPressed(context),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     final viewModel = context.read<PDFViewerScreenViewModel>();
+//     return CustomIconButton(
+//       icon: Iconsax.import_2_copy,
+//       size: 32,
+//       onPressed: () => viewModel.onDowloadButtonPressed(context),
+//     );
+//   }
+// }
 
 class _PageCounter extends StatelessWidget {
   const _PageCounter();
