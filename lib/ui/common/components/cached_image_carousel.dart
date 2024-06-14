@@ -31,21 +31,29 @@ class CachedImageCarousel extends StatefulWidget {
 class _CachedImageCarouselState extends State<CachedImageCarousel> {
   final controller = PageController();
 
+  final errorWidget = const Icon(Iconsax.aave_aave_copy);
+
   @override
   Widget build(BuildContext context) {
-    List<String> imagesStack = [widget.coverLink];
+    List<String> imagesLinksList = [];
+
+    if (Uri.tryParse(widget.coverLink)?.isAbsolute ?? false) {
+      imagesLinksList.add(widget.coverLink);
+    }
     if (widget.imagesLinks != null) {
       for (var link in widget.imagesLinks!) {
-        imagesStack.add(link);
+        if (Uri.tryParse(link)?.isAbsolute ?? false) {
+          imagesLinksList.add(link);
+        }
       }
     }
 
     List<CachedNetworkImage> imagesWidgets = List.generate(
-      imagesStack.length,
+      imagesLinksList.length,
       (index) => CachedNetworkImage(
-        imageUrl: imagesStack[index],
+        imageUrl: imagesLinksList[index],
         fit: BoxFit.cover,
-        errorWidget: (_, __, ___) => const Icon(Iconsax.aave_aave_copy),
+        errorWidget: (_, __, ___) => errorWidget,
       ),
     );
 
@@ -58,15 +66,17 @@ class _CachedImageCarouselState extends State<CachedImageCarousel> {
             child: PageView(
               controller: controller,
               onPageChanged: widget.onImageChanged,
-              children: imagesWidgets,
+              children: imagesWidgets.isNotEmpty
+                  ? imagesWidgets
+                  : [Center(child: errorWidget)],
             ),
           ),
         ),
-        if (imagesStack.length != 1)
+        if (imagesLinksList.length > 1)
           SizedBox(
             height: widget.spacing,
           ),
-        if (imagesStack.length != 1)
+        if (imagesLinksList.length > 1)
           SmoothPageIndicator(
             effect: WormEffect(
               dotColor: CCAppColors.lightHighlightBackground,
@@ -76,7 +86,7 @@ class _CachedImageCarouselState extends State<CachedImageCarousel> {
               spacing: widget.dotsSpacing,
             ),
             controller: controller,
-            count: imagesStack.length,
+            count: imagesLinksList.length,
           )
       ],
     );

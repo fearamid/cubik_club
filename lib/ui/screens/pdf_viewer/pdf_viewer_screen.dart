@@ -1,3 +1,4 @@
+import 'package:cubik_club/ui/common/components/export/components.dart';
 import 'package:cubik_club/ui/screens/pdf_viewer/view_model/pdf_viewer_screen_view_model.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,11 @@ class PDFViewerScreen extends StatelessWidget {
           color: CCAppColors.secondary,
           onPressed: () => Navigator.of(context).pop(),
         ),
-        // actions: actions,
+        actions: const [
+          _DowloadButton(),
+          SizedBox(width: 10),
+        ],
+        toolbarHeight: 70,
         backgroundColor: CCAppColors.lightBackground,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -44,6 +49,7 @@ class PDFViewerScreen extends StatelessWidget {
               onPageChanged: viewModel.onPdfPageChanged,
             ).cachedFromUrl(
               state.pdfLink,
+              whenDone: viewModel.whenDone,
               placeholder: (double progress) =>
                   Center(child: Text('$progress %')),
               errorWidget: (dynamic error) =>
@@ -55,6 +61,20 @@ class PDFViewerScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _DowloadButton extends StatelessWidget {
+  const _DowloadButton();
+
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = context.read<PDFViewerScreenViewModel>();
+    return CustomIconButton(
+      icon: Iconsax.import_2_copy,
+      size: 32,
+      onPressed: viewModel.onDowloadButtonPressed,
     );
   }
 }

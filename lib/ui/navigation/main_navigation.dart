@@ -62,7 +62,7 @@ class MainNavigation {
 
   static Future<void> toPDFViewercreen(
     BuildContext context, {
-    String? pdfLink,
+    required String? pdfLink,
   }) async {
     await Navigator.of(context)
         .pushNamed(Screens.pdfViewer, arguments: pdfLink);
