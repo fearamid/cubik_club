@@ -8,13 +8,16 @@ import 'package:table_calendar/table_calendar.dart';
 
 class EventCalendar extends StatefulWidget {
   final OnDaySelected onDaySelected;
-
+  final DateTime focusedDay;
   final List Function(DateTime day) eventLoader;
+  final void Function(DateTime focusedDay) onPageChanged;
 
   const EventCalendar({
     super.key,
     required this.onDaySelected,
     required this.eventLoader,
+    required this.focusedDay,
+    required this.onPageChanged,
   });
 
   @override
@@ -22,7 +25,7 @@ class EventCalendar extends StatefulWidget {
 }
 
 class _EventCalendarState extends State<EventCalendar> {
-  DateTime _focusedDay = DateTime.now();
+  late DateTime _focusedDay;
   late DateTime _selectedDay;
 
   final _styles = const _CalendarStyles();
@@ -30,8 +33,9 @@ class _EventCalendarState extends State<EventCalendar> {
   @override
   void initState() {
     super.initState();
+
+    _focusedDay = widget.focusedDay;
     _selectedDay = _focusedDay;
-    print(_selectedDay);
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
@@ -50,6 +54,7 @@ class _EventCalendarState extends State<EventCalendar> {
       paddingHorizontal: 10,
       paddingVertical: 17,
       child: TableCalendar(
+        onPageChanged: widget.onPageChanged,
         focusedDay: _focusedDay,
         onDaySelected: _onDaySelected,
         selectedDayPredicate: (day) => isSameDay(day, _selectedDay),
@@ -81,6 +86,89 @@ class _EventCalendarState extends State<EventCalendar> {
     );
   }
 }
+
+// class EventCalendar extends StatefulWidget {
+//   final OnDaySelected onDaySelected;
+//   // final DateTime selectedDay;
+//   final DateTime focusedDay;
+
+//   final List Function(DateTime day) eventLoader;
+
+//   const EventCalendar({
+//     super.key,
+//     required this.onDaySelected,
+//     required this.eventLoader,
+//     // required this.selectedDay,
+//     required this.focusedDay,
+//   });
+
+//   @override
+//   State<EventCalendar> createState() => _EventCalendarState();
+// }
+
+// class _EventCalendarState extends State<EventCalendar> {
+//   // DateTime _focusedDay = DateTime.now();
+//   late DateTime _focusedDay;
+//   late DateTime _selectedDay;
+
+//   final _styles = const _CalendarStyles();
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _focusedDay = widget.focusedDay;
+//     _selectedDay = _focusedDay;
+//     print('INIT CALENDAR WIDGET');
+//   }
+
+//   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+//     if (!isSameDay(_selectedDay, selectedDay)) {
+//       print('SET STATE CALENDAR WIDGET');
+//       setState(() {
+//         _selectedDay = selectedDay;
+//         _focusedDay = focusedDay;
+//       });
+//     }
+//     widget.onDaySelected(selectedDay, focusedDay);
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Section(
+//       paddingHorizontal: 10,
+//       paddingVertical: 17,
+//       child: TableCalendar(
+//         focusedDay: _focusedDay,
+//         onDaySelected: _onDaySelected,
+//         selectedDayPredicate: (day) => isSameDay(day, _selectedDay),
+//         locale: 'ru',
+//         firstDay: DateTime.utc(2022),
+//         lastDay: DateTime.utc(2030),
+//         calendarBuilders: CalendarBuilders(
+//           singleMarkerBuilder: (context, date, event) {
+//             return Container(
+//               width: 6,
+//               height: 6,
+//               margin: const EdgeInsets.symmetric(horizontal: 2),
+//               decoration: BoxDecoration(
+//                 shape: BoxShape.circle,
+//                 color:
+//                     date == _selectedDay ? Colors.white : CCAppColors.primary,
+//               ), //Change color
+//             );
+//           },
+//         ),
+//         headerStyle: _styles.headerStyle,
+//         calendarStyle: _styles.calendarStyle,
+//         daysOfWeekStyle: _styles.daysOfWeekStyle,
+//         daysOfWeekHeight: 45,
+//         rowHeight: 55,
+//         startingDayOfWeek: StartingDayOfWeek.monday,
+//         eventLoader: widget.eventLoader,
+//       ),
+//     );
+//   }
+// }
 
 class _CalendarStyles {
   final BoxDecoration itemDecoration = const BoxDecoration(

@@ -9,9 +9,11 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class EventThumbnail extends StatelessWidget {
   final Event event;
+  final bool preview;
   const EventThumbnail({
     super.key,
     required this.event,
+    this.preview = false,
   });
 
   @override
@@ -66,16 +68,17 @@ class EventThumbnail extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           // Description
-          Text(
-            event.description,
-            maxLines: 5,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              color: CCAppColors.lightTextPrimary,
-              fontSize: 16,
-              height: 1.35,
+          if (preview)
+            Text(
+              event.description,
+              maxLines: 5,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                color: CCAppColors.lightTextPrimary,
+                fontSize: 16,
+                height: 1.35,
+              ),
             ),
-          ),
           const SizedBox(height: 12),
           // Image
           AspectRatio(

@@ -2,6 +2,7 @@ import 'package:cubik_club/domain/entities/game/game.dart';
 import 'package:cubik_club/domain/entities/qr_code_data.dart';
 
 class Event implements IQrCodeAble {
+  final int id;
   final DateTime startDateTime;
   final DateTime endDateTime;
   final String title;
@@ -10,10 +11,9 @@ class Event implements IQrCodeAble {
   final List<String>? imagesLinks;
   final bool? booking;
   final List<Game>? games;
-  // final DateTime dateTime;
-  // final List<BoardGame> gamesList;
 
   const Event({
+    required this.id,
     required this.startDateTime,
     required this.endDateTime,
     required this.title,
@@ -23,6 +23,23 @@ class Event implements IQrCodeAble {
     this.booking,
     this.games,
   });
+
+  static Event calendarPreview({
+    required int id,
+    required String coverLink,
+    required DateTime startDateTime,
+    required DateTime endDateTime,
+    required String title,
+  }) {
+    return Event(
+      id: id,
+      startDateTime: startDateTime,
+      endDateTime: endDateTime,
+      title: title,
+      coverLink: coverLink,
+      description: '',
+    );
+  }
 
   static Event fromJson(Map<dynamic, dynamic> json) {
     List<Game>? games;
@@ -50,6 +67,7 @@ class Event implements IQrCodeAble {
     }
 
     return Event(
+      id: json['id'],
       title: '${json['title']}',
       description: '${json['description']}',
       coverLink: '${json['cover_link']}',

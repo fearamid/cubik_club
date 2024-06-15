@@ -201,6 +201,7 @@ class ArticleThumbnail extends StatelessWidget {
         MainNavigation.toEventcreen(
           context,
           event: Event(
+            id: 0,
             title: 'Заглушка',
             description: 'Сделать новый класс под guide',
             coverLink: '',

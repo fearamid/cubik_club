@@ -1,94 +1,118 @@
 import 'package:cubik_club/domain/entities/event.dart';
+import 'package:cubik_club/domain/services/calendar_service.dart';
+import 'package:cubik_club/utils/extensions/date_only_compare.dart';
 import 'package:flutter/material.dart';
 
 class _CalendarScreenViewModelState {
-  final DateTime? selectedDay;
+  final DateTime selectedDay;
+  final DateTime focusedDay;
   final int currentEventIndex;
+  final Map<DateTime, List<Event>> events;
 
   _CalendarScreenViewModelState({
-    this.selectedDay,
+    required this.focusedDay,
+    required this.selectedDay,
+    this.events = const {},
     this.currentEventIndex = 0,
   });
 }
 
 class CalendarScreenViewModel extends ChangeNotifier {
-  var _state = _CalendarScreenViewModelState(selectedDay: DateTime.now());
-  get state => _state;
+  late _CalendarScreenViewModelState _state;
+  _CalendarScreenViewModelState get state => _state;
 
-  Map<DateTime, List<Event>> events = {
-    DateTime.utc(2024, 4, 7): [
-      Event(
-        title: 'Томатная атака',
-        description:
-            'Устраиваем ковбойский вечер. Если вы готовы грабить караваны, стрелять с двух рук и носить шляпу, то ждем вас. Ждем вас!',
-        coverLink: '',
-        startDateTime: DateTime.now(),
-        endDateTime: DateTime.now(),
-      ),
-    ],
-    DateTime.utc(2024, 4, 15): [
-      Event(
-        title: 'Сырное лобби',
-        description:
-            'Устраиваем ковбойский вечер. Если вы готовы грабить караваны, стрелять с двух рук и носить шляпу, то ждем вас. Ждем вас!',
-        coverLink: '',
-        startDateTime: DateTime.now(),
-        endDateTime: DateTime.now(),
-      ),
-      Event(
-        title: 'Мышеловка',
-        description:
-            'Если вы готовы грабить караваны, стрелять с двух рук и носить шляпу, то ждем вас.',
-        coverLink: '',
-        startDateTime: DateTime.now(),
-        endDateTime: DateTime.now(),
-      ),
-      Event(
-        title: 'Чеддер пати',
-        description:
-            'Устраиваем ковбойский вечер. Если вы готовы грабить караваны, стрелять с двух рук и носить шляпу, то ждем вас. Ждем вас!',
-        coverLink: '',
-        startDateTime: DateTime.now(),
-        endDateTime: DateTime.now(),
-      ),
-    ],
-    DateTime.utc(2024, 4, 20): [
-      Event(
-        title: 'Встреча ковбоев',
-        description:
-            'Устраиваем ковбойский вечер. Если вы готовы грабить караваны, стрелять с двух рук и носить шляпу, то ждем вас. Ждем вас!',
-        coverLink: '',
-        startDateTime: DateTime.now(),
-        endDateTime: DateTime.now(),
-      )
-    ],
-  };
+  CalendarScreenViewModel() {
+    _state = _CalendarScreenViewModelState(
+      selectedDay: DateTime.now(),
+      focusedDay: DateTime.now(),
+    );
+  }
+
+  final _calendarService = CalendarService();
 
   void updateState({
     DateTime? selectedDay,
     DateTime? focusedDay,
     int? currentEventIndex,
+    Map<DateTime, List<Event>>? events,
   }) {
     _state = _CalendarScreenViewModelState(
       selectedDay: selectedDay ?? _state.selectedDay,
       currentEventIndex: currentEventIndex ?? _state.currentEventIndex,
+      focusedDay: focusedDay ?? _state.focusedDay,
+      events: events ?? _state.events,
     );
     notifyListeners();
   }
 
+  Future<List<Map<dynamic, dynamic>>> loadCalendarEvents() async {
+    return _calendarService.getCalendarEvents(state.focusedDay);
+  }
+
+  Future<void> onPageChanged(DateTime focusedDay) async {
+    updateState(focusedDay: focusedDay);
+  }
+
   void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-    updateState(selectedDay: selectedDay);
+    _state = _CalendarScreenViewModelState(
+      selectedDay: selectedDay,
+      focusedDay: focusedDay,
+    );
+    // notifyListeners();
   }
 
-  List<Event> eventsBuilder(DateTime day) {
-    return events[day] ?? [];
+  List<Event> eventLoader(DateTime day) {
+    List<Event>? events;
+    _state.events.forEach((key, value) {
+      if (key.isSameDate(day)) {
+        events = _state.events[key];
+      }
+    });
+
+    return events ?? [];
   }
 
-  List<Event>? getCurrentDateEventsList(DateTime date) {
-    if (events.containsKey(date)) {
-      return events[date];
+  Event parseEvent(Map<dynamic, dynamic>? json) {
+    if (json == null) {
+      throw Error();
     }
-    return null;
+
+    return Event.calendarPreview(
+        id: json['id'],
+        coverLink: json['cover_link'],
+        startDateTime: DateTime.parse('${json['tstz_range'][0]}'),
+        endDateTime: DateTime.parse('${json['tstz_range'][1]}'),
+        title: json['title']);
+  }
+
+  void addEventsMap(List<Map<dynamic, dynamic>> eventsList) {
+    try {
+      Map<DateTime, List<Event>> markersMap = {};
+      for (var elem in eventsList) {
+        final event = parseEvent(elem);
+
+        markersMap[event.startDateTime] = [event];
+      }
+
+      _state = _CalendarScreenViewModelState(
+        focusedDay: _state.focusedDay,
+        selectedDay: _state.selectedDay,
+        events: markersMap,
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  List<Event>? getCurrentDateEventsList(DateTime selectedDay) {
+    List<Event>? events = [];
+    state.events.forEach((key, value) {
+      if (key.isSameDate(selectedDay)) {
+        events.addAll(value);
+      }
+    });
+
+    return events;
   }
 
   void onCurrentEventChange(int index) {

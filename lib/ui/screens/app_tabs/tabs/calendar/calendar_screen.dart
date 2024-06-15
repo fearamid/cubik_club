@@ -14,26 +14,84 @@ class CalendarScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.read<CalendarScreenViewModel>();
-    final selectedDay =
-        context.watch<CalendarScreenViewModel>().state.selectedDay;
+
+    final focusedDay =
+        context.watch<CalendarScreenViewModel>().state.focusedDay;
 
     return CustomScrollView(
       slivers: [
-        SliverList(
-          delegate: SliverChildListDelegate(
-            [
-              const SizedBox(height: kToolbarHeight),
-              EventCalendar(
-                onDaySelected: viewModel.onDaySelected,
-                eventLoader: viewModel.eventsBuilder,
+        FutureBuilder<List<Map<dynamic, dynamic>>>(
+          future: viewModel.loadCalendarEvents(),
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+              case ConnectionState.active:
+                return SliverList(
+                  delegate: SliverChildListDelegate(
+                    [
+                      EventCalendar(
+                        key: const ValueKey('loadingCalendar'),
+                        onDaySelected: (selected, focused) {},
+                        eventLoader: (day) => [],
+                        focusedDay: focusedDay,
+                        onPageChanged: (focused) {},
+                      ),
+                      const SizedBox(height: 15),
+                      const CurrentDateInformation(),
+                      const SizedBox(height: kBottomNavigationBarHeight + 60)
+                    ],
+                  ),
+                );
+
+              case ConnectionState.done:
+                break;
+              default:
+            }
+
+            if (!snapshot.hasData) {
+              return SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    EventCalendar(
+                      onPageChanged: viewModel.onPageChanged,
+                      onDaySelected: viewModel.onDaySelected,
+                      eventLoader: viewModel.eventLoader,
+                      focusedDay: focusedDay,
+                    ),
+                    const SizedBox(height: 15),
+                    const CurrentDateInformation(),
+                    const SizedBox(height: kBottomNavigationBarHeight + 60)
+                  ],
+                ),
+              );
+            }
+
+            if (snapshot.hasError) {
+              return const SliverToBoxAdapter(
+                child: Center(
+                  child: Text('Ошибка загрузки данных...'),
+                ),
+              );
+            }
+
+            viewModel.addEventsMap(snapshot.data!);
+
+            return SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  EventCalendar(
+                    onPageChanged: viewModel.onPageChanged,
+                    focusedDay: focusedDay,
+                    onDaySelected: viewModel.onDaySelected,
+                    eventLoader: viewModel.eventLoader,
+                  ),
+                  const SizedBox(height: 15),
+                  const CurrentDateInformation(),
+                  const SizedBox(height: kBottomNavigationBarHeight + 60)
+                ],
               ),
-              const SizedBox(height: 15),
-              CurrentDateInformation(
-                events: viewModel.getCurrentDateEventsList(selectedDay),
-              ),
-              const SizedBox(height: kBottomNavigationBarHeight + 60)
-            ],
-          ),
+            );
+          },
         ),
       ],
     );
@@ -41,19 +99,20 @@ class CalendarScreen extends StatelessWidget {
 }
 
 class CurrentDateInformation extends StatelessWidget {
-  final List<Event>? events;
-
   const CurrentDateInformation({
     super.key,
-    this.events,
   });
 
   @override
   Widget build(BuildContext context) {
+    final selectedDay =
+        context.watch<CalendarScreenViewModel>().state.selectedDay;
     final currentEventIndex =
         context.watch<CalendarScreenViewModel>().state.currentEventIndex + 1;
 
     final model = context.read<CalendarScreenViewModel>();
+
+    final List<Event>? events = model.getCurrentDateEventsList(selectedDay);
 
     if (events == null) {
       return const Section(
@@ -65,8 +124,18 @@ class CurrentDateInformation extends StatelessWidget {
           ),
         ),
       );
-    } else if (events!.length == 1) {
-      return EventThumbnail(event: events!.first);
+    } else if (events.length == 1) {
+      return EventThumbnail(event: events.first);
+    } else if (events.isEmpty) {
+      return const Section(
+        child: Text(
+          'В этот день мероприятия нет.',
+          style: TextStyle(
+            fontSize: 18,
+            color: CCAppColors.lightTextPrimary,
+          ),
+        ),
+      );
     } else {
       final List<Widget> widgetsList = [];
 
