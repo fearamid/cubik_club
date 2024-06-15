@@ -58,7 +58,7 @@ class CalendarScreenViewModel extends ChangeNotifier {
       selectedDay: selectedDay,
       focusedDay: focusedDay,
     );
-    // notifyListeners();
+    notifyListeners();
   }
 
   List<Event> eventLoader(DateTime day) {
