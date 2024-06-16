@@ -81,28 +81,29 @@ class EventThumbnail extends StatelessWidget {
             ),
           const SizedBox(height: 12),
           // Image
-          AspectRatio(
-            aspectRatio: 1,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: CachedNetworkImage(
-                imageUrl: event.coverLink,
-                placeholder: (context, url) => const Center(
-                  child: CircularProgressIndicator(
-                    strokeAlign: BorderSide.strokeAlignInside,
-                    color: CCAppColors.secondary,
-                    strokeWidth: 1,
+          if (Uri.tryParse(event.coverLink) == null)
+            AspectRatio(
+              aspectRatio: 1,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: CachedNetworkImage(
+                  imageUrl: event.coverLink,
+                  placeholder: (context, url) => const Center(
+                    child: CircularProgressIndicator(
+                      strokeAlign: BorderSide.strokeAlignInside,
+                      color: CCAppColors.secondary,
+                      strokeWidth: 1,
+                    ),
                   ),
+                  errorWidget: (context, url, error) => const Icon(
+                    Iconsax.gallery_copy,
+                    size: 45,
+                    color: CCAppColors.lightHighlightBackground,
+                  ),
+                  fit: BoxFit.cover,
                 ),
-                errorWidget: (context, url, error) => const Icon(
-                  Iconsax.gallery_copy,
-                  size: 45,
-                  color: CCAppColors.lightHighlightBackground,
-                ),
-                fit: BoxFit.cover,
               ),
             ),
-          ),
         ],
       ),
     );

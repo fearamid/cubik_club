@@ -54,11 +54,7 @@ class CalendarScreenViewModel extends ChangeNotifier {
   }
 
   void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-    _state = _CalendarScreenViewModelState(
-      selectedDay: selectedDay,
-      focusedDay: focusedDay,
-    );
-    notifyListeners();
+    updateState(selectedDay: selectedDay);
   }
 
   List<Event> eventLoader(DateTime day) {
@@ -91,7 +87,11 @@ class CalendarScreenViewModel extends ChangeNotifier {
       for (var elem in eventsList) {
         final event = parseEvent(elem);
 
-        markersMap[event.startDateTime] = [event];
+        if (markersMap[event.startDateTime] == null) {
+          markersMap[event.startDateTime] = [event];
+        } else {
+          markersMap[event.startDateTime]?.add(event);
+        }
       }
 
       _state = _CalendarScreenViewModelState(

@@ -8,16 +8,13 @@ import 'package:table_calendar/table_calendar.dart';
 
 class EventCalendar extends StatefulWidget {
   final OnDaySelected onDaySelected;
-  final DateTime focusedDay;
+
   final List Function(DateTime day) eventLoader;
-  final void Function(DateTime focusedDay) onPageChanged;
 
   const EventCalendar({
     super.key,
     required this.onDaySelected,
     required this.eventLoader,
-    required this.focusedDay,
-    required this.onPageChanged,
   });
 
   @override
@@ -34,7 +31,7 @@ class _EventCalendarState extends State<EventCalendar> {
   void initState() {
     super.initState();
 
-    _focusedDay = widget.focusedDay;
+    _focusedDay = DateTime.now();
     _selectedDay = _focusedDay;
   }
 
@@ -54,8 +51,8 @@ class _EventCalendarState extends State<EventCalendar> {
       paddingHorizontal: 10,
       paddingVertical: 17,
       child: TableCalendar(
-        onPageChanged: widget.onPageChanged,
         focusedDay: _focusedDay,
+        eventLoader: widget.eventLoader,
         onDaySelected: _onDaySelected,
         selectedDayPredicate: (day) => isSameDay(day, _selectedDay),
         locale: 'ru',
@@ -71,7 +68,7 @@ class _EventCalendarState extends State<EventCalendar> {
                 shape: BoxShape.circle,
                 color:
                     date == _selectedDay ? Colors.white : CCAppColors.primary,
-              ), //Change color
+              ),
             );
           },
         ),
@@ -81,7 +78,6 @@ class _EventCalendarState extends State<EventCalendar> {
         daysOfWeekHeight: 45,
         rowHeight: 55,
         startingDayOfWeek: StartingDayOfWeek.monday,
-        eventLoader: widget.eventLoader,
       ),
     );
   }

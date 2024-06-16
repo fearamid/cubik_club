@@ -15,85 +15,66 @@ class CalendarScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = context.read<CalendarScreenViewModel>();
 
-    final focusedDay =
-        context.watch<CalendarScreenViewModel>().state.focusedDay;
-
-    return CustomScrollView(
-      slivers: [
-        FutureBuilder<List<Map<dynamic, dynamic>>>(
-          future: viewModel.loadCalendarEvents(),
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.waiting:
-              case ConnectionState.active:
-                return SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      EventCalendar(
-                        key: const ValueKey('loadingCalendar'),
-                        onDaySelected: (selected, focused) {},
-                        eventLoader: (day) => [],
-                        focusedDay: focusedDay,
-                        onPageChanged: (focused) {},
-                      ),
-                      const SizedBox(height: 15),
-                      const CurrentDateInformation(),
-                      const SizedBox(height: kBottomNavigationBarHeight + 60)
-                    ],
-                  ),
-                );
-
-              case ConnectionState.done:
-                break;
-              default:
-            }
-
-            if (!snapshot.hasData) {
-              return SliverList(
-                delegate: SliverChildListDelegate(
-                  [
-                    EventCalendar(
-                      onPageChanged: viewModel.onPageChanged,
-                      onDaySelected: viewModel.onDaySelected,
-                      eventLoader: viewModel.eventLoader,
-                      focusedDay: focusedDay,
+    return SingleChildScrollView(
+      child: FutureBuilder<List<Map<dynamic, dynamic>>>(
+        future: viewModel.loadCalendarEvents(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+            case ConnectionState.active:
+              return const Column(
+                children: [
+                  SizedBox(
+                    height: 400,
+                    child: Center(
+                      child: CircularProgressIndicator(),
                     ),
-                    const SizedBox(height: 15),
-                    const CurrentDateInformation(),
-                    const SizedBox(height: kBottomNavigationBarHeight + 60)
-                  ],
-                ),
-              );
-            }
-
-            if (snapshot.hasError) {
-              return const SliverToBoxAdapter(
-                child: Center(
-                  child: Text('Ошибка загрузки данных...'),
-                ),
-              );
-            }
-
-            viewModel.addEventsMap(snapshot.data!);
-
-            return SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  EventCalendar(
-                    onPageChanged: viewModel.onPageChanged,
-                    focusedDay: focusedDay,
-                    onDaySelected: viewModel.onDaySelected,
-                    eventLoader: viewModel.eventLoader,
                   ),
-                  const SizedBox(height: 15),
-                  const CurrentDateInformation(),
-                  const SizedBox(height: kBottomNavigationBarHeight + 60)
                 ],
+              );
+
+            case ConnectionState.done:
+              break;
+            default:
+          }
+
+          if (!snapshot.hasData) {
+            return Column(
+              children: [
+                EventCalendar(
+                  onDaySelected: viewModel.onDaySelected,
+                  eventLoader: viewModel.eventLoader,
+                ),
+                const SizedBox(height: 15),
+                const CurrentDateInformation(),
+                const SizedBox(height: kBottomNavigationBarHeight + 60)
+              ],
+            );
+          }
+
+          if (snapshot.hasError) {
+            return const SliverToBoxAdapter(
+              child: Center(
+                child: Text('Ошибка загрузки данных...'),
               ),
             );
-          },
-        ),
-      ],
+          }
+
+          viewModel.addEventsMap(snapshot.data!);
+
+          return Column(
+            children: [
+              EventCalendar(
+                onDaySelected: viewModel.onDaySelected,
+                eventLoader: viewModel.eventLoader,
+              ),
+              const SizedBox(height: 15),
+              const CurrentDateInformation(),
+              const SizedBox(height: kBottomNavigationBarHeight + 60)
+            ],
+          );
+        },
+      ),
     );
   }
 }
@@ -139,9 +120,9 @@ class CurrentDateInformation extends StatelessWidget {
     } else {
       final List<Widget> widgetsList = [];
 
-      for (int i = 0; i < events!.length; i++) {
+      for (int i = 0; i < events.length; i++) {
         widgetsList.add(
-          EventThumbnail(event: events![i]),
+          EventThumbnail(event: events[i]),
         );
       }
 
