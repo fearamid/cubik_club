@@ -10,16 +10,25 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 class EventThumbnail extends StatelessWidget {
   final Event event;
   final bool preview;
+  final Function(int id)? onTap;
   const EventThumbnail({
     super.key,
     required this.event,
     this.preview = false,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
+    final isValidUrl = Uri.tryParse(event.coverLink)?.isAbsolute ?? false;
     return Section(
-      onTap: () => MainNavigation.toEventcreen(context, event: event),
+      onTap: () {
+        if (onTap != null) {
+          onTap!(event.id);
+        } else {
+          MainNavigation.toEventcreen(context, event: event);
+        }
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -66,9 +75,9 @@ class EventThumbnail extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 5),
+          if (!preview) const SizedBox(height: 5),
           // Description
-          if (preview)
+          if (!preview)
             Text(
               event.description,
               maxLines: 5,
@@ -79,31 +88,41 @@ class EventThumbnail extends StatelessWidget {
                 height: 1.35,
               ),
             ),
-          const SizedBox(height: 12),
+          if (isValidUrl) const SizedBox(height: 12),
           // Image
-          if (Uri.tryParse(event.coverLink) == null)
-            AspectRatio(
-              aspectRatio: 1,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: CachedNetworkImage(
-                  imageUrl: event.coverLink,
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(
-                      strokeAlign: BorderSide.strokeAlignInside,
-                      color: CCAppColors.secondary,
-                      strokeWidth: 1,
+          isValidUrl
+              ? AspectRatio(
+                  aspectRatio: 1,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: CachedNetworkImage(
+                      imageUrl: event.coverLink,
+                      placeholder: (context, url) => const Center(
+                        child: CircularProgressIndicator(
+                          strokeAlign: BorderSide.strokeAlignInside,
+                          color: CCAppColors.secondary,
+                          strokeWidth: 1,
+                        ),
+                      ),
+                      errorWidget: (context, url, error) => const Icon(
+                        Iconsax.gallery_copy,
+                        size: 45,
+                        color: CCAppColors.lightHighlightBackground,
+                      ),
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  errorWidget: (context, url, error) => const Icon(
-                    Iconsax.gallery_copy,
-                    size: 45,
-                    color: CCAppColors.lightHighlightBackground,
+                )
+              : const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 50, horizontal: 20),
+                  child: Center(
+                    child: Icon(
+                      Iconsax.gallery_copy,
+                      size: 45,
+                      color: CCAppColors.lightHighlightBackground,
+                    ),
                   ),
-                  fit: BoxFit.cover,
                 ),
-              ),
-            ),
         ],
       ),
     );

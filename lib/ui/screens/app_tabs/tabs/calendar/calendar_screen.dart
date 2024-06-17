@@ -6,6 +6,7 @@ import 'package:cubik_club/ui/screens/app_tabs/tabs/calendar/widgets/event_calen
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 
 class CalendarScreen extends StatelessWidget {
@@ -106,7 +107,13 @@ class CurrentDateInformation extends StatelessWidget {
         ),
       );
     } else if (events.length == 1) {
-      return EventThumbnail(event: events.first);
+      return EventThumbnail(
+        event: events.first,
+        preview: true,
+        onTap: (id) async {
+          await model.onCurrentEventTap(context, id);
+        },
+      );
     } else if (events.isEmpty) {
       return const Section(
         child: Text(
@@ -122,35 +129,38 @@ class CurrentDateInformation extends StatelessWidget {
 
       for (int i = 0; i < events.length; i++) {
         widgetsList.add(
-          EventThumbnail(event: events[i]),
+          EventThumbnail(
+            event: events[i],
+            preview: true,
+            onTap: (id) async {
+              await model.onCurrentEventTap(context, id);
+            },
+          ),
         );
       }
 
-      return Stack(
+      const double iconSize = 23;
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ExpandablePageView(
-            onPageChanged: model.onCurrentEventChange,
-            children: widgetsList,
-          ),
-          Positioned(
-            bottom: 10,
-            right: 10,
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
-              decoration: BoxDecoration(
-                color: CCAppColors.lightBackground,
-                borderRadius: BorderRadius.circular(
-                  20,
-                ),
-              ),
-              child: Text(
-                '$currentEventIndex / ${events!.length}',
-                style: const TextStyle(
-                  color: CCAppColors.lightTextPrimary,
-                  fontSize: 16,
-                ),
-              ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                currentEventIndex == events.length
+                    ? const Icon(Iconsax.arrow_left_2_copy, size: iconSize)
+                    : const SizedBox(width: iconSize),
+                Text('$currentEventIndex / ${events.length}'),
+                currentEventIndex != events.length
+                    ? const Icon(Iconsax.arrow_right_3_copy, size: iconSize)
+                    : const SizedBox(width: iconSize),
+              ],
             ),
+          ),
+          ExpandablePageView(
+            onPageChanged: model.onCurrentEventChanged,
+            children: widgetsList,
           ),
         ],
       );

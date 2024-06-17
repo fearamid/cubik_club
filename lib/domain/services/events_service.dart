@@ -6,4 +6,9 @@ class EventsService {
   Future<List<Map<dynamic, dynamic>>> getRelevantEvents() async {
     return await _eventsApiClient.getRelevantEvents();
   }
+
+  Future<List<Map<dynamic, dynamic>>> getEventsListFromIds(
+      List<int> idList) async {
+    return await _eventsApiClient.getEventsListFromIds(idList);
+  }
 }
