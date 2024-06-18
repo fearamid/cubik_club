@@ -108,6 +108,7 @@ class MainScreenViewModel extends ChangeNotifier {
   void onFiltersPressed() {}
 
   Future<void> onRefreshPage() async {
+    searchController.clear();
     updateState(
       searchString: '',
       currentTabsCategory: TabsCategoryType.announcements,

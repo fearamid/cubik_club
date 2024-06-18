@@ -9,9 +9,13 @@ class EventsApiClient {
 
   Future<List<Map<dynamic, dynamic>>> getRelevantEvents(
       String searchQuery) async {
+    // print(base64.encode(utf8.encode(searchQuery)).toString());
+
     final response = await _apiClient.get(
       path: '/events/relevant',
-      queryParameters: {'search': base64.decode(searchQuery).toString()},
+      queryParameters: {
+        'search': base64.encode(utf8.encode(searchQuery)).toString()
+      },
     );
 
     final events = (await ApiClient.getJson<List<dynamic>>(response))
@@ -25,7 +29,9 @@ class EventsApiClient {
       String searchQuery) async {
     final response = await _apiClient.get(
       path: '/events/reports',
-      queryParameters: {'search': base64.decode(searchQuery).toString()},
+      queryParameters: {
+        'search': base64.encode(utf8.encode(searchQuery)).toString()
+      },
     );
 
     final events = (await ApiClient.getJson<List<dynamic>>(response))
