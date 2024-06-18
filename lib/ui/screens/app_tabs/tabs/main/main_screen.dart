@@ -7,7 +7,6 @@ import 'package:cubik_club/ui/screens/app_tabs/tabs/main/main_screen_view_model.
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:cubik_club/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -74,21 +73,24 @@ class _SearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.read<MainScreenViewModel>();
     return CustomAppBar(
       popButton: false,
-      height: 85,
+      height: 105,
       actions: [
         Flexible(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(
+              left: 20,
+              right: 20,
+              top: 20,
+              bottom: 20,
+            ),
             child: Row(
               children: [
                 SearchInput(
-                  onSubmitted: (value) {
-                    if (value.isNotEmpty) {
-                      print(value);
-                    }
-                  },
+                  controller: viewModel.searchController,
+                  onSubmitted: viewModel.onSearchSubmitted,
                 ),
                 const SizedBox(width: 20),
                 const CoinsIndicator(value: 112),
@@ -106,10 +108,10 @@ class _SearchBar extends StatelessWidget {
 class _FeedList extends StatelessWidget {
   const _FeedList();
 
-  FutureBuilder createEventsList(BuildContext context) {
+  FutureBuilder createEventsList(BuildContext context, String searchString) {
     final viewModel = context.read<MainScreenViewModel>();
     return FutureBuilder<List<Map<dynamic, dynamic>>>(
-      future: viewModel.loadRelevantEvents(),
+      future: viewModel.loadRelevantEvents(searchString),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
@@ -127,7 +129,7 @@ class _FeedList extends StatelessWidget {
         if (snapshot.hasError) {
           return const SliverToBoxAdapter(
             child: Center(
-              child: Text('Ошибка загрузки данных...'),
+              child: Text('Не найдено'),
             ),
           );
         }
@@ -146,10 +148,10 @@ class _FeedList extends StatelessWidget {
     );
   }
 
-  FutureBuilder createReportsList(BuildContext context) {
+  FutureBuilder createReportsList(BuildContext context, String searchString) {
     final viewModel = context.read<MainScreenViewModel>();
     return FutureBuilder<List<Map<dynamic, dynamic>>>(
-      future: viewModel.loadEventsReports(),
+      future: viewModel.loadEventsReports(searchString),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
@@ -167,12 +169,11 @@ class _FeedList extends StatelessWidget {
         if (snapshot.hasError) {
           return const SliverToBoxAdapter(
             child: Center(
-              child: Text('Ошибка загрузки данных...'),
+              child: Text('Не найдено'),
             ),
           );
         }
         final eventsReports = snapshot.data;
-        print(eventsReports);
 
         return SliverList.separated(
           itemCount: eventsReports?.length,
@@ -191,12 +192,15 @@ class _FeedList extends StatelessWidget {
   Widget build(BuildContext context) {
     final categoryType =
         context.watch<MainScreenViewModel>().state.currentTabsCategory;
+    final searchString =
+        context.watch<MainScreenViewModel>().state.searchString;
 
+    print('CALL');
     switch (categoryType) {
       case TabsCategoryType.announcements:
-        return createEventsList(context);
+        return createEventsList(context, searchString);
       case TabsCategoryType.reports:
-        return createReportsList(context);
+        return createReportsList(context, searchString);
       case TabsCategoryType.other:
         return SliverToBoxAdapter(child: Text('Другое'));
       default:
