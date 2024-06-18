@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/domain/services/calendar_service.dart';
 import 'package:cubik_club/domain/services/events_service.dart';
@@ -136,7 +134,7 @@ class CalendarScreenViewModel extends ChangeNotifier {
       events.add(event);
     }
     if (events.isNotEmpty) {
-      MainNavigation.toEventcreen(context, event: events.first);
+      MainNavigation.toEventScreen(context, event: events.first);
     }
   }
 

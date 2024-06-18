@@ -1,5 +1,3 @@
-import 'package:cubik_club/domain/entities/game/game.dart';
-import 'package:cubik_club/domain/entities/game/publisher.dart';
 import 'package:cubik_club/ui/common/components/search_top_bar.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/view_model/games_collection_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/widgets/game_thumbnail.dart';
@@ -12,107 +10,6 @@ import 'package:provider/provider.dart';
 
 class GamesCollectionScreen extends StatelessWidget {
   const GamesCollectionScreen({super.key});
-
-  static List<Game> games = [
-    Game(
-      id: 1,
-      name: 'Монополия',
-      description: 'Крутая игра',
-      tags: const GameTags(
-        genres: ['стратегия'],
-        ageLimit: 16,
-        playersRange: [2, 3],
-        durationRange: [45, 60],
-        complexity: 0,
-        publisher: Publisher(id: 1, name: 'z'),
-      ),
-      rules: '',
-    ),
-    Game(
-      id: 2,
-      name: 'Дуополия',
-      description: 'Крутая игра',
-      tags: const GameTags(
-        genres: ['хоррор'],
-        ageLimit: 18,
-        playersRange: [2, 3],
-        durationRange: [45, 60],
-        complexity: 0,
-        publisher: Publisher(id: 1, name: 'z'),
-      ),
-      rules: '',
-    ),
-    Game(
-      id: 3,
-      name: 'Роскошь Дуэль',
-      description: 'Крутая игра',
-      tags: const GameTags(
-        genres: ['команда'],
-        ageLimit: 12,
-        playersRange: [2, 3],
-        durationRange: [45, 60],
-        complexity: 0,
-        publisher: Publisher(id: 1, name: 'z'),
-      ),
-      rules: '',
-    ),
-    Game(
-      id: 4,
-      name: 'Игра',
-      description: 'Крутая игра',
-      tags: const GameTags(
-        genres: ['стратегия'],
-        ageLimit: 18,
-        playersRange: [2, 3],
-        durationRange: [45, 60],
-        complexity: 0,
-        publisher: Publisher(id: 1, name: 'z'),
-      ),
-      rules: '',
-    ),
-    Game(
-      id: 5,
-      name: 'Inspo',
-      description: 'Крутая игра',
-      tags: const GameTags(
-        genres: ['стратегия'],
-        ageLimit: 12,
-        playersRange: [2, 3],
-        durationRange: [45, 60],
-        complexity: 0,
-        publisher: Publisher(id: 1, name: 'z'),
-      ),
-      rules: '',
-    ),
-    Game(
-      id: 6,
-      name: 'Кубикс',
-      description: 'Крутая игра',
-      tags: const GameTags(
-        genres: ['стратегия'],
-        ageLimit: 6,
-        playersRange: [2, 3],
-        durationRange: [45, 60],
-        complexity: 0,
-        publisher: Publisher(id: 1, name: 'z'),
-      ),
-      rules: '',
-    ),
-    Game(
-      id: 7,
-      name: 'Викинги',
-      description: 'Крутая игра',
-      tags: const GameTags(
-        genres: ['стратегия'],
-        ageLimit: 16,
-        playersRange: [2, 3],
-        durationRange: [45, 60],
-        complexity: 0,
-        publisher: Publisher(id: 1, name: 'z'),
-      ),
-      rules: '',
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +25,7 @@ class GamesCollectionScreen extends StatelessWidget {
 }
 
 class _GamesCollectionList extends StatelessWidget {
-  const _GamesCollectionList({super.key});
+  const _GamesCollectionList();
 
   @override
   Widget build(BuildContext context) {

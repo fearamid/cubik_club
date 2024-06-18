@@ -1,4 +1,5 @@
 import 'package:cubik_club/domain/entities/event.dart';
+import 'package:cubik_club/domain/entities/event_report.dart';
 import 'package:cubik_club/domain/entities/game/game.dart';
 import 'package:cubik_club/domain/entities/qr_code_data.dart';
 import 'package:cubik_club/ui/screen_factory/screen_factory.dart';
@@ -18,6 +19,7 @@ abstract class Screens {
   static const gamesCollection = "/games_collection";
   static const settings = "/settings";
   static const event = "/event";
+  static const eventReport = "/event_report";
   static const qrCode = "/qr_code";
   static const folders = "/folders";
   static const game = "/game";
@@ -44,6 +46,8 @@ class MainNavigation {
         Screens.folders: (_) => _screenFactory.makeFolders(),
         Screens.game: (context) => _screenFactory.makeGame(context),
         Screens.pdfViewer: (context) => _screenFactory.makePDFViewer(context),
+        Screens.eventReport: (context) =>
+            _screenFactory.makeEventReport(context)
       };
 
   Route<Object> onGenerateRoute(RouteSettings settings) {
@@ -55,9 +59,15 @@ class MainNavigation {
     }
   }
 
-  static Future<void> toEventcreen(BuildContext context,
+  static Future<void> toEventScreen(BuildContext context,
       {required Event event}) async {
     await Navigator.of(context).pushNamed(Screens.event, arguments: event);
+  }
+
+  static Future<void> toEventReportScreen(BuildContext context,
+      {required EventReport report}) async {
+    await Navigator.of(context)
+        .pushNamed(Screens.eventReport, arguments: report);
   }
 
   static Future<void> toPDFViewercreen(

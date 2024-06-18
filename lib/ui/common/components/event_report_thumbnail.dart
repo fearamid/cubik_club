@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cubik_club/domain/entities/event.dart';
+import 'package:cubik_club/domain/entities/event_report.dart';
 import 'package:cubik_club/ui/common/components/single/section.dart';
 import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
@@ -7,26 +7,27 @@ import 'package:cubik_club/utils/formatters/formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
-class EventThumbnail extends StatelessWidget {
-  final Event event;
+class EventReportThumbnail extends StatelessWidget {
+  final EventReport report;
   final bool preview;
   final Function(int id)? onTap;
-  const EventThumbnail({
+
+  const EventReportThumbnail({
     super.key,
-    required this.event,
+    required this.report,
     this.preview = false,
     this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    final isValidUrl = Uri.tryParse(event.coverLink)?.isAbsolute ?? false;
+    final isValidUrl = Uri.tryParse(report.coverLink)?.isAbsolute ?? false;
     return Section(
       onTap: () {
         if (onTap != null) {
-          onTap!(event.id);
+          onTap!(report.id);
         } else {
-          MainNavigation.toEventScreen(context, event: event);
+          MainNavigation.toEventReportScreen(context, report: report);
         }
       },
       child: Column(
@@ -34,7 +35,7 @@ class EventThumbnail extends StatelessWidget {
         children: [
           // Title
           Text(
-            event.title,
+            report.event.title,
             style: const TextStyle(
               color: CCAppColors.lightTextPrimary,
               fontSize: 22,
@@ -47,7 +48,7 @@ class EventThumbnail extends StatelessWidget {
           Row(
             children: [
               Text(
-                CCFormatter.formatEventDate(event.startDateTime),
+                CCFormatter.formatEventDate(report.event.startDateTime),
                 style: const TextStyle(
                   color: CCAppColors.lightTextSecodary,
                   fontSize: 16,
@@ -65,8 +66,8 @@ class EventThumbnail extends StatelessWidget {
               const SizedBox(width: 8),
               Text(
                 CCFormatter.formatEventTimeRange(
-                  start: event.startDateTime,
-                  end: event.endDateTime,
+                  start: report.event.startDateTime,
+                  end: report.event.endDateTime,
                 ),
                 style: const TextStyle(
                   color: CCAppColors.lightTextSecodary,
@@ -79,7 +80,7 @@ class EventThumbnail extends StatelessWidget {
           // Description
           if (!preview)
             Text(
-              event.description,
+              report.event.description,
               maxLines: 5,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
@@ -96,7 +97,7 @@ class EventThumbnail extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: CachedNetworkImage(
-                      imageUrl: event.coverLink,
+                      imageUrl: report.coverLink,
                       placeholder: (context, url) => const Center(
                         child: CircularProgressIndicator(
                           strokeAlign: BorderSide.strokeAlignInside,

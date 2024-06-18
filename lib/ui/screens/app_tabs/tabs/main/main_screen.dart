@@ -1,4 +1,5 @@
 import 'package:cubik_club/domain/entities/article.dart';
+import 'package:cubik_club/ui/common/components/event_report_thumbnail.dart';
 import 'package:cubik_club/ui/common/components/export/components.dart';
 import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/ui/navigation/main_navigation.dart';
@@ -148,7 +149,7 @@ class _FeedList extends StatelessWidget {
   FutureBuilder createReportsList(BuildContext context) {
     final viewModel = context.read<MainScreenViewModel>();
     return FutureBuilder<List<Map<dynamic, dynamic>>>(
-      future: viewModel.loadRelevantEvents(),
+      future: viewModel.loadEventsReports(),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
@@ -170,14 +171,15 @@ class _FeedList extends StatelessWidget {
             ),
           );
         }
-        final events = snapshot.data;
+        final eventsReports = snapshot.data;
+        print(eventsReports);
 
         return SliverList.separated(
-          itemCount: events?.length,
+          itemCount: eventsReports?.length,
           itemBuilder: (context, index) {
-            final event = viewModel.parseEvent(events?[index]);
+            final report = viewModel.parseEventReport(eventsReports?[index]);
 
-            return EventThumbnail(event: event);
+            return EventReportThumbnail(report: report);
           },
           separatorBuilder: (context, index) => const SizedBox(height: 20),
         );
@@ -283,7 +285,7 @@ class ArticleThumbnail extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         // TODO: article screen
-        MainNavigation.toEventcreen(
+        MainNavigation.toEventScreen(
           context,
           event: Event(
             id: 0,

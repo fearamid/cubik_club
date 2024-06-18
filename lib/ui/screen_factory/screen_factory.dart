@@ -1,6 +1,9 @@
 import 'package:cubik_club/domain/entities/event.dart';
+import 'package:cubik_club/domain/entities/event_report.dart';
 import 'package:cubik_club/domain/entities/game/game.dart';
 import 'package:cubik_club/domain/entities/qr_code_data.dart';
+import 'package:cubik_club/ui/screens/event_report/event_report_screen.dart';
+import 'package:cubik_club/ui/screens/event_report/event_report_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/pdf_viewer/pdf_viewer_screen.dart';
 import 'package:cubik_club/ui/screens/pdf_viewer/view_model/pdf_viewer_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/registration/registration_screen.dart';
@@ -91,6 +94,22 @@ class ScreenFactory {
 
   Widget makeNavigationError([String? errorText]) {
     return NavigationErrorScreen(errorText: errorText, title: false);
+  }
+
+  Widget makeEventReport(BuildContext context) {
+    final report = ModalRoute.of(context)?.settings.arguments;
+
+    if (report == null || report is! EventReport) {
+      return makeNavigationError(
+          'Не удалось получить информацию о мероприятии.');
+    }
+
+    return ChangeNotifierProvider(
+      create: (_) => EventReportScreenViewModel(),
+      child: EventReportScreen(
+        report: report,
+      ),
+    );
   }
 
   Widget makeEvent(BuildContext context) {
