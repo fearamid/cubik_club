@@ -3,9 +3,11 @@ import 'package:cubik_club/domain/entities/game/game.dart';
 import 'package:cubik_club/ui/common/components/export/components.dart';
 import 'package:cubik_club/ui/screens/event/view_model/event_screen_view_model.dart';
 import 'package:cubik_club/ui/screens/event/widgets/games_list.dart';
+import 'package:cubik_club/ui/screens/event_report/event_report_screen_view_model.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:cubik_club/utils/formatters/formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 
 class EventReportScreen extends StatelessWidget {
@@ -22,15 +24,20 @@ class EventReportScreen extends StatelessWidget {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            const CustomAppBar(),
+            const CustomAppBar(
+              actions: [
+                _ToggleScreenViewButton(),
+                SizedBox(width: 10),
+              ],
+            ),
             SliverList(
               delegate: SliverChildListDelegate(
                 const [
-                  _EventCover(),
+                  _SwitchableCover(),
                   SizedBox(height: 20),
-                  _EventDescription(),
+                  _SwitchableData(),
                   SizedBox(height: 20),
-                  _EventGamesList()
+                  // _EventGamesList()
                 ],
               ),
             ),
@@ -41,54 +48,68 @@ class EventReportScreen extends StatelessWidget {
   }
 }
 
-class _EventCover extends StatelessWidget {
-  const _EventCover();
+class _ToggleScreenViewButton extends StatelessWidget {
+  const _ToggleScreenViewButton();
 
   @override
   Widget build(BuildContext context) {
-    final event = context.read<EventScreenViewModel>().state.event;
+    return CustomIconButton(
+      icon: Iconsax.arrow_swap_horizontal_copy,
+      onPressed: context
+          .read<EventReportScreenViewModel>()
+          .onToggleScreenViewButtonPressed,
+    );
+  }
+}
+
+class _SwitchableCover extends StatelessWidget {
+  const _SwitchableCover();
+
+  @override
+  Widget build(BuildContext context) {
+    final report = context.read<EventReportScreenViewModel>().state.report;
     return CachedImageCarousel(
-      coverLink: event.coverLink,
-      imagesLinks: event.imagesLinks,
+      coverLink: report.event.coverLink,
+      imagesLinks: report.event.imagesLinks,
     );
   }
 }
 
-class _EventGamesList extends StatelessWidget {
-  const _EventGamesList();
+// class _EventGamesList extends StatelessWidget {
+//   const _EventGamesList();
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final List<Game>? games =
+//         context.read<EventScreenViewModel>().state.event.games;
+//     if (games == null || games.isEmpty) {
+//       return const Section(
+//         child: Text(
+//           'У этого мероприятия нет настольных игр',
+//           style: TextStyle(
+//             fontSize: 16,
+//           ),
+//         ),
+//       );
+//     }
+//     return GamesList(
+//       games: games,
+//       onTap: (game) async {
+//         await context
+//             .read<EventScreenViewModel>()
+//             .onGameTilePressed(context, game);
+//       },
+//     );
+//   }
+// }
+
+class _SwitchableData extends StatelessWidget {
+  const _SwitchableData();
 
   @override
   Widget build(BuildContext context) {
-    final List<Game>? games =
-        context.read<EventScreenViewModel>().state.event.games;
-    if (games == null || games.isEmpty) {
-      return const Section(
-        child: Text(
-          'У этого мероприятия нет настольных игр',
-          style: TextStyle(
-            fontSize: 16,
-          ),
-        ),
-      );
-    }
-    return GamesList(
-      games: games,
-      onTap: (game) async {
-        await context
-            .read<EventScreenViewModel>()
-            .onGameTilePressed(context, game);
-      },
-    );
-  }
-}
+    final event = context.read<EventReportScreenViewModel>().state.report.event;
 
-class _EventDescription extends StatelessWidget {
-  const _EventDescription();
-
-  @override
-  Widget build(BuildContext context) {
-    final event = context.read<EventScreenViewModel>().state.event;
-    final booking = event.booking ?? true;
     return Section(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,37 +133,36 @@ class _EventDescription extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          if (booking) const _BookingButton(),
         ],
       ),
     );
   }
 }
 
-class _BookingButton extends StatelessWidget {
-  const _BookingButton();
+// class _BookingButton extends StatelessWidget {
+//   const _BookingButton();
 
-  @override
-  Widget build(BuildContext context) {
-    return OutlinedButton(
-      style: const ButtonStyle(
-        side: MaterialStatePropertyAll(BorderSide(color: CCAppColors.primary)),
-      ),
-      onPressed: context.read<EventScreenViewModel>().onBookingButtonPressed,
-      child: const Text(
-        'Забронировать',
-        style: TextStyle(color: CCAppColors.primary),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return OutlinedButton(
+//       style: const ButtonStyle(
+//         side: MaterialStatePropertyAll(BorderSide(color: CCAppColors.primary)),
+//       ),
+//       onPressed: context.read<EventScreenViewModel>().onBookingButtonPressed,
+//       child: const Text(
+//         'Забронировать',
+//         style: TextStyle(color: CCAppColors.primary),
+//       ),
+//     );
+//   }
+// }
 
 class _DateTimeInformation extends StatelessWidget {
   const _DateTimeInformation();
 
   @override
   Widget build(BuildContext context) {
-    final event = context.read<EventScreenViewModel>().state.event;
+    final event = context.read<EventReportScreenViewModel>().state.report.event;
     return Row(
       children: [
         Text(

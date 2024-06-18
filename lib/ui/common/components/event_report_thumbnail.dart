@@ -21,7 +21,8 @@ class EventReportThumbnail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isValidUrl = Uri.tryParse(report.coverLink)?.isAbsolute ?? false;
+    final isValidUrl =
+        Uri.tryParse(report.event.coverLink)?.isAbsolute ?? false;
     return Section(
       onTap: () {
         if (onTap != null) {
@@ -33,87 +34,15 @@ class EventReportThumbnail extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Title
-          Text(
-            report.event.title,
-            style: const TextStyle(
-              color: CCAppColors.lightTextPrimary,
-              fontSize: 22,
-              fontWeight: FontWeight.w700,
-              height: 1,
-            ),
-          ),
+          _Title(report),
           const SizedBox(height: 2),
-          // DateTime Range
-          Row(
-            children: [
-              Text(
-                CCFormatter.formatEventDate(report.event.startDateTime),
-                style: const TextStyle(
-                  color: CCAppColors.lightTextSecodary,
-                  fontSize: 16,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Container(
-                width: 4,
-                height: 4,
-                decoration: const BoxDecoration(
-                  color: CCAppColors.lightHighlightBackground,
-                  shape: BoxShape.circle,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                CCFormatter.formatEventTimeRange(
-                  start: report.event.startDateTime,
-                  end: report.event.endDateTime,
-                ),
-                style: const TextStyle(
-                  color: CCAppColors.lightTextSecodary,
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          ),
+          _DateTimeRange(report),
           if (!preview) const SizedBox(height: 5),
-          // Description
-          if (!preview)
-            Text(
-              report.event.description,
-              maxLines: 5,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                color: CCAppColors.lightTextPrimary,
-                fontSize: 16,
-                height: 1.35,
-              ),
-            ),
+          if (!preview) _Text(report),
           if (isValidUrl) const SizedBox(height: 12),
           // Image
           isValidUrl
-              ? AspectRatio(
-                  aspectRatio: 1,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: CachedNetworkImage(
-                      imageUrl: report.coverLink,
-                      placeholder: (context, url) => const Center(
-                        child: CircularProgressIndicator(
-                          strokeAlign: BorderSide.strokeAlignInside,
-                          color: CCAppColors.secondary,
-                          strokeWidth: 1,
-                        ),
-                      ),
-                      errorWidget: (context, url, error) => const Icon(
-                        Iconsax.gallery_copy,
-                        size: 45,
-                        color: CCAppColors.lightHighlightBackground,
-                      ),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                )
+              ? _Cover(report)
               : const Padding(
                   padding: EdgeInsets.symmetric(vertical: 50, horizontal: 20),
                   child: Center(
@@ -126,6 +55,113 @@ class EventReportThumbnail extends StatelessWidget {
                 ),
         ],
       ),
+    );
+  }
+}
+
+class _Cover extends StatelessWidget {
+  final EventReport report;
+  const _Cover(this.report);
+
+  @override
+  Widget build(BuildContext context) {
+    return AspectRatio(
+      aspectRatio: 1,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: CachedNetworkImage(
+          imageUrl: report.event.coverLink,
+          placeholder: (context, url) => const Center(
+            child: CircularProgressIndicator(
+              strokeAlign: BorderSide.strokeAlignInside,
+              color: CCAppColors.secondary,
+              strokeWidth: 1,
+            ),
+          ),
+          errorWidget: (context, url, error) => const Icon(
+            Iconsax.gallery_copy,
+            size: 45,
+            color: CCAppColors.lightHighlightBackground,
+          ),
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+}
+
+class _Text extends StatelessWidget {
+  final EventReport report;
+  const _Text(this.report);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      report.text,
+      maxLines: 5,
+      overflow: TextOverflow.ellipsis,
+      style: const TextStyle(
+        color: CCAppColors.lightTextPrimary,
+        fontSize: 16,
+        height: 1.35,
+      ),
+    );
+  }
+}
+
+class _Title extends StatelessWidget {
+  final EventReport report;
+  const _Title(this.report);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      report.event.title,
+      style: const TextStyle(
+        fontSize: 22,
+        fontWeight: FontWeight.w700,
+        height: 1,
+      ),
+    );
+  }
+}
+
+class _DateTimeRange extends StatelessWidget {
+  final EventReport report;
+  const _DateTimeRange(this.report);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text(
+          CCFormatter.formatEventDate(report.event.startDateTime),
+          style: const TextStyle(
+            color: CCAppColors.lightTextSecodary,
+            fontSize: 16,
+          ),
+        ),
+        const SizedBox(width: 8),
+        Container(
+          width: 4,
+          height: 4,
+          decoration: const BoxDecoration(
+            color: CCAppColors.lightHighlightBackground,
+            shape: BoxShape.circle,
+          ),
+        ),
+        const SizedBox(width: 8),
+        Text(
+          CCFormatter.formatEventTimeRange(
+            start: report.event.startDateTime,
+            end: report.event.endDateTime,
+          ),
+          style: const TextStyle(
+            color: CCAppColors.lightTextSecodary,
+            fontSize: 16,
+          ),
+        ),
+      ],
     );
   }
 }

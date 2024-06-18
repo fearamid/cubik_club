@@ -6,8 +6,8 @@ class EventReport {
   final String text;
   final List<String>? imagesLinks;
   final String coverLink;
-  final List<int> participants;
-  final List<int> winners;
+  final List<int>? participants;
+  final List<int>? winners;
 
   EventReport({
     required this.id,
@@ -21,8 +21,8 @@ class EventReport {
 
   static EventReport fromJson(Map<dynamic, dynamic> json) {
     return EventReport(
-      id: json['id'],
-      coverLink: '${json['cover_link']}',
+      id: json['report_id'],
+      coverLink: '${json['report_cover_link']}',
       imagesLinks: json['report_images'],
       event: Event.fromJson(json),
       text: json['text'],

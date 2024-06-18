@@ -105,7 +105,7 @@ class ScreenFactory {
     }
 
     return ChangeNotifierProvider(
-      create: (_) => EventReportScreenViewModel(),
+      create: (_) => EventReportScreenViewModel(report),
       child: EventReportScreen(
         report: report,
       ),
