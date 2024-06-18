@@ -21,8 +21,7 @@ class EventReportThumbnail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isValidUrl =
-        Uri.tryParse(report.event.coverLink)?.isAbsolute ?? false;
+    final isValidUrl = Uri.tryParse(report.coverLink)?.isAbsolute ?? false;
     return Section(
       onTap: () {
         if (onTap != null) {
@@ -70,7 +69,7 @@ class _Cover extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: CachedNetworkImage(
-          imageUrl: report.event.coverLink,
+          imageUrl: report.coverLink,
           placeholder: (context, url) => const Center(
             child: CircularProgressIndicator(
               strokeAlign: BorderSide.strokeAlignInside,

@@ -7,7 +7,7 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 class LinkTile extends StatelessWidget {
   final VoidCallback onPressed;
   final String title;
-  final Widget description;
+  final Widget? description;
   const LinkTile({
     super.key,
     required this.onPressed,
@@ -58,7 +58,6 @@ class LinkTile extends StatelessWidget {
                     title,
                     style: const TextStyle(fontSize: 20),
                   ),
-                  description
                 ],
               ),
             ),

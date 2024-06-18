@@ -4,16 +4,22 @@ import 'package:flutter/material.dart';
 
 class GamesList extends StatelessWidget {
   final List<Game> games;
+  final bool report;
   final void Function(Game game) onTap;
 
   const GamesList({
     super.key,
     required this.games,
     required this.onTap,
+    this.report = false,
   });
 
   List<Widget> _noGamesEvent() {
-    return const [Text('У мероприятия нет игр')];
+    return [
+      report
+          ? const Text('У мероприятия не было игр')
+          : const Text('У мероприятия нет игр'),
+    ];
   }
 
   List<Widget> _oneGameEvent() {
@@ -39,12 +45,17 @@ class GamesList extends StatelessWidget {
 
   List<Widget> _multipleGamesEvent() {
     return [
-      const Text(
-        'Играем в эти настолки',
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-      ),
+      report
+          ? const Text(
+              'Играли в эти настолки',
+              maxLines: 1,
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            )
+          : const Text(
+              'Играем в эти настолки',
+              maxLines: 1,
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
       const SizedBox(height: 10),
       ListView.separated(
         shrinkWrap: true,
@@ -68,7 +79,7 @@ class GamesList extends StatelessWidget {
     if (games.isEmpty) {
       children.addAll(_noGamesEvent());
     } else if (games.length == 1) {
-      children.addAll(_oneGameEvent());
+      children.addAll(_multipleGamesEvent());
     } else {
       children.addAll(_multipleGamesEvent());
     }

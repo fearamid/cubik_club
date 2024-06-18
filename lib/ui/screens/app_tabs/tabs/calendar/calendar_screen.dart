@@ -149,11 +149,19 @@ class CurrentDateInformation extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 currentEventIndex == events.length
-                    ? const Icon(Iconsax.arrow_left_2_copy, size: iconSize)
+                    ? const Icon(
+                        Iconsax.arrow_left_2_copy,
+                        size: iconSize,
+                        color: CCAppColors.lightHighlightBackground,
+                      )
                     : const SizedBox(width: iconSize),
                 Text('$currentEventIndex / ${events.length}'),
                 currentEventIndex != events.length
-                    ? const Icon(Iconsax.arrow_right_3_copy, size: iconSize)
+                    ? const Icon(
+                        Iconsax.arrow_right_3_copy,
+                        size: iconSize,
+                        color: CCAppColors.lightHighlightBackground,
+                      )
                     : const SizedBox(width: iconSize),
               ],
             ),

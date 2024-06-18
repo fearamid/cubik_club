@@ -18,24 +18,35 @@ class _EventReportScreenViewModelState {
 
 class EventReportScreenViewModel extends ChangeNotifier {
   late _EventReportScreenViewModelState _state;
-
   _EventReportScreenViewModelState get state => _state;
 
   EventReportScreenViewModel(EventReport report) {
     _state = _EventReportScreenViewModelState(report: report);
   }
 
+  final textController = PageController();
+  final coverController = PageController();
+
   void updateState({
     bool? isReportView,
+    bool notify = true,
   }) {
     _state = _EventReportScreenViewModelState(
       report: _state.report,
       isReportView: isReportView ?? _state.isReportView,
     );
-    notifyListeners();
+    if (notify) {
+      notifyListeners();
+    }
   }
 
-  void onToggleScreenViewButtonPressed() {}
+  void onToggleScreenViewButtonPressed() {
+    updateState(isReportView: !_state.isReportView, notify: false);
+    textController.animateToPage(_state.isReportView ? 0 : 1,
+        duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+    coverController.animateToPage(_state.isReportView ? 0 : 1,
+        duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+  }
 
   Future<void> onGameTilePressed(BuildContext context, Game game) async {
     await MainNavigation.toGameScreen(context, game: game);

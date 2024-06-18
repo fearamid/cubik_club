@@ -31,7 +31,11 @@ class CachedImageCarousel extends StatefulWidget {
 class _CachedImageCarouselState extends State<CachedImageCarousel> {
   final controller = PageController();
 
-  final errorWidget = const Icon(Iconsax.aave_aave_copy);
+  final errorWidget = const Icon(
+    Iconsax.gallery_copy,
+    color: CCAppColors.lightHighlightBackground,
+    size: 45,
+  );
 
   @override
   Widget build(BuildContext context) {
