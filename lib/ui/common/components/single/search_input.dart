@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 
 class SearchInput extends StatelessWidget {
-  const SearchInput({super.key});
+  final ValueChanged<String>? onSubmitted;
+  const SearchInput({
+    super.key,
+    this.onSubmitted,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const Expanded(
+    return Expanded(
       child: TextField(
+        onSubmitted: onSubmitted,
         textInputAction: TextInputAction.search,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           hintText: 'Поиск',
           hintStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
         ),

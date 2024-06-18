@@ -6,6 +6,7 @@ import 'package:cubik_club/ui/screens/app_tabs/tabs/main/main_screen_view_model.
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:cubik_club/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -22,16 +23,10 @@ class MainScreen extends StatelessWidget {
       onRefresh: viewModel.onRefreshPage,
       child: CustomScrollView(
         slivers: [
+          const _SearchBar(),
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                const SearchTopBar(
-                  actions: [
-                    CoinsIndicator(value: 112),
-                    SizedBox(width: 7),
-                    _QRCodeScanner(),
-                  ],
-                ),
                 const _PostsCarousel(),
                 const SizedBox(height: 20),
                 const _ArticlesSlider(
@@ -64,7 +59,7 @@ class MainScreen extends StatelessWidget {
               ],
             ),
           ),
-          const _EventsList(),
+          const _FeedList(),
           const SliverToBoxAdapter(
               child: SizedBox(height: kBottomNavigationBarHeight + 60)),
         ],
@@ -73,11 +68,44 @@ class MainScreen extends StatelessWidget {
   }
 }
 
-class _EventsList extends StatelessWidget {
-  const _EventsList();
+class _SearchBar extends StatelessWidget {
+  const _SearchBar();
 
   @override
   Widget build(BuildContext context) {
+    return CustomAppBar(
+      popButton: false,
+      height: 85,
+      actions: [
+        Flexible(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                SearchInput(
+                  onSubmitted: (value) {
+                    if (value.isNotEmpty) {
+                      print(value);
+                    }
+                  },
+                ),
+                const SizedBox(width: 20),
+                const CoinsIndicator(value: 112),
+                const SizedBox(width: 7),
+                const _QRCodeScanner(),
+              ],
+            ),
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class _FeedList extends StatelessWidget {
+  const _FeedList();
+
+  FutureBuilder createEventsList(BuildContext context) {
     final viewModel = context.read<MainScreenViewModel>();
     return FutureBuilder<List<Map<dynamic, dynamic>>>(
       future: viewModel.loadRelevantEvents(),
@@ -115,6 +143,63 @@ class _EventsList extends StatelessWidget {
         );
       },
     );
+  }
+
+  FutureBuilder createReportsList(BuildContext context) {
+    final viewModel = context.read<MainScreenViewModel>();
+    return FutureBuilder<List<Map<dynamic, dynamic>>>(
+      future: viewModel.loadRelevantEvents(),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+          case ConnectionState.active:
+            return const SliverToBoxAdapter(
+              child: Center(
+                child: Text('Загружаем данные...'),
+              ),
+            );
+          case ConnectionState.done:
+            break;
+          default:
+        }
+
+        if (snapshot.hasError) {
+          return const SliverToBoxAdapter(
+            child: Center(
+              child: Text('Ошибка загрузки данных...'),
+            ),
+          );
+        }
+        final events = snapshot.data;
+
+        return SliverList.separated(
+          itemCount: events?.length,
+          itemBuilder: (context, index) {
+            final event = viewModel.parseEvent(events?[index]);
+
+            return EventThumbnail(event: event);
+          },
+          separatorBuilder: (context, index) => const SizedBox(height: 20),
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final categoryType =
+        context.watch<MainScreenViewModel>().state.currentTabsCategory;
+
+    switch (categoryType) {
+      case TabsCategoryType.announcements:
+        return createEventsList(context);
+      case TabsCategoryType.reports:
+        return createReportsList(context);
+      case TabsCategoryType.other:
+        return SliverToBoxAdapter(child: Text('Другое'));
+      default:
+        return SliverToBoxAdapter(child: Text('Ошибка'));
+    }
   }
 }
 
