@@ -15,4 +15,9 @@ class GamesService {
   Future<Map<dynamic, dynamic>> getRandomGame() async {
     return await _gamesApiClient.getRandomGame();
   }
+
+  Future<List<Map<dynamic, dynamic>>> getGamesListByIds(
+      List<int> idList) async {
+    return await _gamesApiClient.getGamesListByIds(idList);
+  }
 }

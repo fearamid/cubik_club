@@ -40,6 +40,7 @@ class QrScannerScreen extends StatelessWidget {
         ],
       ),
       body: MobileScanner(
+        startDelay: true,
         fit: BoxFit.cover,
         controller: viewModel.cameraController,
         onDetect: (capture) =>

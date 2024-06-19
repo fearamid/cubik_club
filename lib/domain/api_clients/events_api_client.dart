@@ -43,9 +43,9 @@ class EventsApiClient {
 
   Future<List<Map<dynamic, dynamic>>> getEventsListFromIds(
       List<int> idList) async {
-    final response = await _apiClient.get(
-      path: '/events',
-    );
+    final response = await _apiClient.get(path: '/events', queryParameters: {
+      'ids': idList.join(','),
+    });
 
     final events = (await ApiClient.getJson<List<dynamic>>(response))
         .map((e) => Map.from(e))

@@ -60,8 +60,13 @@ class MainNavigation {
   }
 
   static Future<void> toEventScreen(BuildContext context,
-      {required Event event}) async {
-    await Navigator.of(context).pushNamed(Screens.event, arguments: event);
+      {required Event event, bool replacement = false}) async {
+    if (replacement) {
+      await Navigator.of(context)
+          .pushReplacementNamed(Screens.event, arguments: event);
+    } else {
+      await Navigator.of(context).pushNamed(Screens.event, arguments: event);
+    }
   }
 
   static Future<void> toEventReportScreen(BuildContext context,
@@ -112,8 +117,13 @@ class MainNavigation {
   }
 
   static Future<void> toGameScreen(BuildContext context,
-      {required Game game}) async {
-    await Navigator.of(context).pushNamed(Screens.game, arguments: game);
+      {required Game game, bool replacement = false}) async {
+    if (replacement) {
+      await Navigator.of(context)
+          .pushReplacementNamed(Screens.game, arguments: game);
+    } else {
+      await Navigator.of(context).pushNamed(Screens.game, arguments: game);
+    }
   }
 }
 

@@ -126,7 +126,6 @@ class CalendarScreenViewModel extends ChangeNotifier {
   }
 
   Future<void> onCurrentEventTap(BuildContext context, int currentId) async {
-    print('API');
     final jsonList = await _eventsService.getEventsListFromIds([currentId]);
     final List<Event> events = [];
     for (var elem in jsonList) {
@@ -134,7 +133,7 @@ class CalendarScreenViewModel extends ChangeNotifier {
       events.add(event);
     }
     if (events.isNotEmpty) {
-      MainNavigation.toEventScreen(context, event: events.first);
+      await MainNavigation.toEventScreen(context, event: events.first);
     }
   }
 

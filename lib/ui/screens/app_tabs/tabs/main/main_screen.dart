@@ -390,15 +390,15 @@ class _PostCategoryTabBarState extends State<_PostCategoryTabBar>
                   tabs: const [
                     Tab(text: 'Анонсы'),
                     Tab(text: 'Отчеты'),
-                    Tab(text: 'Другое'),
+                    Tab(text: 'Посты'),
                   ],
                 ),
               ),
-              const SizedBox(width: 5),
-              CustomIconButton(
-                icon: Iconsax.candle_2_copy,
-                onPressed: model.onFiltersPressed,
-              )
+              // const SizedBox(width: 5),
+              // CustomIconButton(
+              //   icon: Iconsax.candle_2_copy,
+              //   onPressed: model.onFiltersPressed,
+              // )
             ],
           ),
         ),

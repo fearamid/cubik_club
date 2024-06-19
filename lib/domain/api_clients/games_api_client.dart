@@ -41,7 +41,9 @@ class GamesApiClient {
       List<int> idList) async {
     final response = await _apiClient.get(
       path: '/games',
-      queryParameters: {'ids': idList},
+      queryParameters: {
+        'ids': idList.join(',').toString(),
+      },
     );
 
     final games = (await ApiClient.getJson<List<dynamic>>(response))
