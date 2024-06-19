@@ -126,14 +126,13 @@ class CalendarScreenViewModel extends ChangeNotifier {
   }
 
   Future<void> onCurrentEventTap(BuildContext context, int currentId) async {
-    final jsonList = await _eventsService.getEventsListFromIds([currentId]);
-    final List<Event> events = [];
-    for (var elem in jsonList) {
-      final event = Event.fromJson(elem);
-      events.add(event);
-    }
-    if (events.isNotEmpty) {
-      await MainNavigation.toEventScreen(context, event: events.first);
+    try {
+      final json = await _eventsService.getEventsListFromIds([currentId]);
+      final event = Event.fromJson(json[0]);
+
+      await MainNavigation.toEventScreen(context, event: event);
+    } catch (e) {
+      return;
     }
   }
 

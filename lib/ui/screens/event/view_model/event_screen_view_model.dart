@@ -2,6 +2,7 @@
 
 import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/domain/entities/game/game.dart';
+import 'package:cubik_club/domain/services/games_service.dart';
 import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,13 @@ class EventScreenViewModel extends ChangeNotifier {
     _state = _EventScreenViewModelState(event: event);
   }
 
+  Game parseGame(Map<dynamic, dynamic>? gameJson) {
+    if (gameJson == null) {
+      throw Error();
+    }
+    return Game.fromJson(gameJson);
+  }
+
   void updateState({
     String? field,
   }) {
@@ -34,6 +42,12 @@ class EventScreenViewModel extends ChangeNotifier {
   void onBookingButtonPressed() {}
 
   Future<void> onGameTilePressed(BuildContext context, Game game) async {
-    await MainNavigation.toGameScreen(context, game: game);
+    try {
+      final json = await GamesService().getGamesListByIds([game.id]);
+      final fullGame = parseGame(json[0]);
+      await MainNavigation.toGameScreen(context, game: fullGame);
+    } catch (e) {
+      return;
+    }
   }
 }
