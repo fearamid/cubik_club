@@ -230,11 +230,13 @@ class _RandomGameThumbnail extends StatelessWidget {
 
 class _FiltersList extends StatefulWidget {
   final Function(GameCollectionFilters) onApply;
+  final VoidCallback onClear;
   final GameCollectionFilters filters;
 
   const _FiltersList({
     required this.onApply,
     required this.filters,
+    required this.onClear,
   });
 
   @override
@@ -313,7 +315,7 @@ class _FiltersListState extends State<_FiltersList> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: widget.onClear,
                 style: const ButtonStyle(
                   padding: MaterialStatePropertyAll(
                     EdgeInsets.symmetric(vertical: 17, horizontal: 25),
@@ -519,6 +521,7 @@ class _SearchFiltersButton extends StatelessWidget {
             return _FiltersList(
               onApply: model.onFiltersApplyButtonPressed,
               filters: filters,
+              onClear: model.onFiltersClearButtonPressed,
             );
           },
         );

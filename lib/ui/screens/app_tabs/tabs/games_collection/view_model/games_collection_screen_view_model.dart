@@ -150,5 +150,13 @@ class GamesCollectionScreenViewModel extends ChangeNotifier {
     );
   }
 
-  void onFiltersClearButtonPressed() {}
+  void onFiltersClearButtonPressed() {
+    const newFilters = GameCollectionFilters();
+    updateState(
+      ageLimitFilter: newFilters.ageLimitFilter,
+      complexityLimitFilter: newFilters.complexityLimitFilter,
+      durationRangeFilter: newFilters.durationRangeFilter,
+      playersRangeFilter: newFilters.playersRangeFilter,
+    );
+  }
 }
