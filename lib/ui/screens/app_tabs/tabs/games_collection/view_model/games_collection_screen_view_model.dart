@@ -96,7 +96,8 @@ class GamesCollectionScreenViewModel extends ChangeNotifier {
     required String searhQuery,
     required GameCollectionFilters filters,
   }) async {
-    return _gamesService.getGamesCollection(page: 1, searchQuery: searhQuery);
+    return _gamesService.getGamesCollection(
+        page: 1, searchQuery: searhQuery, filters: filters);
   }
 
   Game parseGame(Map<dynamic, dynamic>? gameJson) {
