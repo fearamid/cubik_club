@@ -1,3 +1,4 @@
+import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class CCBottomSheetTheme {
@@ -5,18 +6,21 @@ class CCBottomSheetTheme {
 
   static const BottomSheetThemeData lightTheme = BottomSheetThemeData(
     showDragHandle: true,
-    backgroundColor: Colors.white,
-    modalBackgroundColor: Colors.white,
+    backgroundColor: CCAppColors.lightBackground,
+    modalBackgroundColor: CCAppColors.lightBackground,
+    surfaceTintColor: CCAppColors.lightBackground,
     shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    ),
   );
 
   static const BottomSheetThemeData darkTheme = BottomSheetThemeData(
     showDragHandle: true,
-    backgroundColor: Colors.black,
-    modalBackgroundColor: Colors.black,
+    backgroundColor: CCAppColors.darkBackground,
+    modalBackgroundColor: CCAppColors.darkBackground,
     constraints: BoxConstraints(minWidth: double.infinity),
     shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    ),
   );
 }

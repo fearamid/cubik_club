@@ -42,6 +42,7 @@ class GamesCollectionScreenViewModel extends ChangeNotifier {
     await showModalBottomSheet(
       context: context,
       builder: builder,
+      isScrollControlled: true,
     );
   }
 
@@ -83,11 +84,14 @@ class GamesCollectionScreenViewModel extends ChangeNotifier {
     }
   }
 
-  void onSearchFiltersButtonPressed() {}
-
-  void onDropDownFiltersChanged(int? index) {}
-
-  void onCollectionViewModeButtonPressed(CollectionDisplayMode mode) {
-    updateState(displayMode: mode);
+  Future<void> onSearchFiltersButtonPressed(
+    BuildContext context, {
+    required WidgetBuilder builder,
+  }) async {
+    await showModalBottomSheet(
+      context: context,
+      builder: builder,
+      isScrollControlled: true,
+    );
   }
 }

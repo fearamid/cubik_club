@@ -14,3 +14,5 @@ export '../single/tags_view.dart';
 export '../single/wide_button.dart';
 export '../custom_app_bar.dart';
 export '../cached_image_carousel.dart';
+export '../single/numeric_step_input.dart';
+export '../single/dynamic_range_slider.dart';

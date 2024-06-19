@@ -7,12 +7,14 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 class GameThumbnail extends StatelessWidget {
   final void Function(Game game)? onTap;
   final int nameMaxLines;
+  final double fontSize;
 
   const GameThumbnail({
     super.key,
     required this.game,
     this.onTap,
     this.nameMaxLines = 1,
+    this.fontSize = 18,
   });
 
   final Game game;
@@ -34,9 +36,10 @@ class GameThumbnail extends StatelessWidget {
           const SizedBox(height: 15),
           Text(
             game.name,
-            style: const TextStyle(
+            style: TextStyle(
               height: 1,
               overflow: TextOverflow.ellipsis,
+              fontSize: fontSize,
             ),
             maxLines: nameMaxLines,
           ),

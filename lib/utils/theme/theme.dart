@@ -38,6 +38,9 @@ class CCAppTheme {
     dialogTheme: CCDialogTheme.lightTheme,
     snackBarTheme: CCSnackBarTheme.lightTheme,
     switchTheme: CCSwitchTheme.lightTheme,
+    sliderTheme: SliderThemeData(
+      overlayShape: SliderComponentShape.noOverlay,
+    ),
   );
 
   static ThemeData darkTheme = ThemeData(
@@ -61,5 +64,8 @@ class CCAppTheme {
     snackBarTheme: CCSnackBarTheme.darkTheme,
     dialogTheme: CCDialogTheme.darkTheme,
     switchTheme: CCSwitchTheme.darkTheme,
+    sliderTheme: SliderThemeData(
+      overlayShape: SliderComponentShape.noOverlay,
+    ),
   );
 }
