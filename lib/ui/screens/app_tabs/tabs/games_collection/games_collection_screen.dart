@@ -5,10 +5,7 @@ import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/view_model/
 import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/widgets/game_thumbnail.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:cubik_club/utils/device/device_utility.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:http/http.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -34,10 +31,16 @@ class _GamesCollectionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.read<GamesCollectionScreenViewModel>();
-    final searchQuery =
-        context.watch<GamesCollectionScreenViewModel>().state.searchString;
+    final state = context.watch<GamesCollectionScreenViewModel>().state;
+
+    final searchQuery = state.searchString;
+    final filters = state.filters;
+
     return FutureBuilder<Map<dynamic, dynamic>>(
-      future: viewModel.loadGamesCollection(searchQuery),
+      future: viewModel.loadGamesCollection(
+        searhQuery: searchQuery,
+        filters: filters,
+      ),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
@@ -225,8 +228,27 @@ class _RandomGameThumbnail extends StatelessWidget {
   }
 }
 
-class _FiltersList extends StatelessWidget {
-  const _FiltersList();
+class _FiltersList extends StatefulWidget {
+  final Function(GameCollectionFilters) onApply;
+  final GameCollectionFilters filters;
+
+  const _FiltersList({
+    required this.onApply,
+    required this.filters,
+  });
+
+  @override
+  State<_FiltersList> createState() => _FiltersListState();
+}
+
+class _FiltersListState extends State<_FiltersList> {
+  late GameCollectionFilters updatedFilters;
+
+  @override
+  void initState() {
+    super.initState();
+    updatedFilters = widget.filters;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -240,21 +262,52 @@ class _FiltersList extends StatelessWidget {
             style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 10),
-          const _AgeLimit(),
+          _AgeLimit(
+            widget.filters.ageLimitFilter,
+            (value) {
+              updatedFilters = updatedFilters.copyWith(ageLimitFilter: value);
+            },
+          ),
           const Divider(
             color: CCAppColors.lightSectionBackground,
             thickness: 1,
             height: 30,
           ),
-          const _Complexity(),
+          _Complexity(
+            widget.filters.complexityLimitFilter,
+            (value) {
+              updatedFilters =
+                  updatedFilters.copyWith(complexityLimitFilter: value);
+            },
+          ),
           const Divider(
             color: CCAppColors.lightSectionBackground,
             thickness: 1,
             height: 30,
           ),
-          _PlayersRangeSlider((values) {}),
+          _PlayersRangeSlider(
+            (values) {
+              updatedFilters = updatedFilters.copyWith(
+                playersRangeFilter: [
+                  values.start.toInt(),
+                  values.end.toInt(),
+                ],
+              );
+            },
+            widget.filters.playersRangeFilter,
+          ),
           const SizedBox(height: 35),
-          _DurationRangeSlider((values) {}),
+          _DurationRangeSlider(
+            (values) {
+              updatedFilters = updatedFilters.copyWith(
+                durationRangeFilter: [
+                  values.start.toInt(),
+                  values.end.toInt(),
+                ],
+              );
+            },
+            widget.filters.durationRangeFilter,
+          ),
           const SizedBox(height: 50),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -273,7 +326,9 @@ class _FiltersList extends StatelessWidget {
               ),
               const SizedBox(width: 20),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  widget.onApply(updatedFilters);
+                },
                 child: const Text('Применить'),
               ),
             ],
@@ -285,7 +340,9 @@ class _FiltersList extends StatelessWidget {
 }
 
 class _Complexity extends StatelessWidget {
-  const _Complexity();
+  final int complexity;
+  final ValueChanged<int> onChanged;
+  const _Complexity(this.complexity, this.onChanged);
 
   @override
   Widget build(BuildContext context) {
@@ -294,9 +351,10 @@ class _Complexity extends StatelessWidget {
       children: [
         const Text('Сложность', style: TextStyle(fontSize: 18)),
         NumericStepButton(
+          value: complexity,
           minValue: 1,
           maxValue: 5,
-          onChanged: (value) {},
+          onChanged: onChanged,
         ),
       ],
     );
@@ -304,7 +362,9 @@ class _Complexity extends StatelessWidget {
 }
 
 class _AgeLimit extends StatelessWidget {
-  const _AgeLimit();
+  final ValueChanged<int> onChanged;
+  final int ageLimit;
+  const _AgeLimit(this.ageLimit, this.onChanged);
 
   @override
   Widget build(BuildContext context) {
@@ -313,9 +373,10 @@ class _AgeLimit extends StatelessWidget {
       children: [
         const Text('Возраст', style: TextStyle(fontSize: 18)),
         NumericStepButton(
+          value: ageLimit,
           minValue: 0,
           maxValue: 18,
-          onChanged: (value) {},
+          onChanged: onChanged,
         ),
       ],
     );
@@ -323,8 +384,9 @@ class _AgeLimit extends StatelessWidget {
 }
 
 class _PlayersRangeSlider extends StatefulWidget {
-  final ValueChanged<List<int>> onChanged;
-  const _PlayersRangeSlider(this.onChanged);
+  final ValueChanged<RangeValues> onChanged;
+  final List<int> playersRange;
+  const _PlayersRangeSlider(this.onChanged, this.playersRange);
 
   @override
   State<_PlayersRangeSlider> createState() => _PlayersRangeSliderState();
@@ -332,7 +394,14 @@ class _PlayersRangeSlider extends StatefulWidget {
 
 class _PlayersRangeSliderState extends State<_PlayersRangeSlider> {
   int min = 2;
-  int max = 6;
+  int max = 12;
+
+  @override
+  void initState() {
+    super.initState();
+    min = widget.playersRange[0];
+    max = widget.playersRange[1];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -360,12 +429,13 @@ class _PlayersRangeSliderState extends State<_PlayersRangeSlider> {
           max: 12,
           onChanged: (RangeValues rangeValues) {
             setState(() {
-              min = rangeValues.start.floor();
-              max = rangeValues.end.ceil();
+              min = rangeValues.start.toInt();
+              max = rangeValues.end.toInt();
             });
-            widget.onChanged([min, max]);
+            widget.onChanged(rangeValues);
           },
-          values: const RangeValues(2, 6),
+          values: RangeValues(widget.playersRange[0].toDouble(),
+              widget.playersRange[1].toDouble()),
         ),
       ],
     );
@@ -373,8 +443,9 @@ class _PlayersRangeSliderState extends State<_PlayersRangeSlider> {
 }
 
 class _DurationRangeSlider extends StatefulWidget {
-  final ValueChanged<List<int>> onChanged;
-  const _DurationRangeSlider(this.onChanged);
+  final ValueChanged<RangeValues> onChanged;
+  final List<int> durationRangeFilter;
+  const _DurationRangeSlider(this.onChanged, this.durationRangeFilter);
 
   @override
   State<_DurationRangeSlider> createState() => _DurationRangeSliderState();
@@ -383,6 +454,13 @@ class _DurationRangeSlider extends StatefulWidget {
 class _DurationRangeSliderState extends State<_DurationRangeSlider> {
   int min = 1;
   int max = 400;
+
+  @override
+  void initState() {
+    super.initState();
+    min = widget.durationRangeFilter[0];
+    max = widget.durationRangeFilter[1];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -410,12 +488,13 @@ class _DurationRangeSliderState extends State<_DurationRangeSlider> {
           max: 400,
           onChanged: (RangeValues rangeValues) {
             setState(() {
-              min = rangeValues.start.floor();
-              max = rangeValues.end.ceil();
+              min = rangeValues.start.toInt();
+              max = rangeValues.end.toInt();
             });
-            widget.onChanged([min, max]);
+            widget.onChanged(rangeValues);
           },
-          values: const RangeValues(1, 100),
+          values: RangeValues(widget.durationRangeFilter[0].toDouble(),
+              widget.durationRangeFilter[1].toDouble()),
         ),
       ],
     );
@@ -428,13 +507,19 @@ class _SearchFiltersButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.read<GamesCollectionScreenViewModel>();
+
+    final filters =
+        context.watch<GamesCollectionScreenViewModel>().state.filters;
     return CustomIconButton(
       icon: Iconsax.candle_2_copy,
       onPressed: () async {
         model.onSearchFiltersButtonPressed(
           context,
           builder: (BuildContext context) {
-            return const _FiltersList();
+            return _FiltersList(
+              onApply: model.onFiltersApplyButtonPressed,
+              filters: filters,
+            );
           },
         );
       },

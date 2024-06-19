@@ -1,19 +1,50 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+
 import 'package:cubik_club/domain/entities/game/game.dart';
 import 'package:cubik_club/domain/services/games_service.dart';
 import 'package:cubik_club/ui/navigation/main_navigation.dart';
-import 'package:cubik_club/utils/constants/colors.dart';
-import 'package:cubik_club/utils/device/device_utility.dart';
-import 'package:flutter/material.dart';
 
 enum CollectionDisplayMode { list, grid }
+
+class GameCollectionFilters {
+  final int ageLimitFilter;
+  final int complexityLimitFilter;
+  final List<int> playersRangeFilter;
+  final List<int> durationRangeFilter;
+
+  const GameCollectionFilters({
+    this.ageLimitFilter = 0,
+    this.complexityLimitFilter = 1,
+    this.playersRangeFilter = const [2, 12],
+    this.durationRangeFilter = const [1, 400],
+  });
+
+  GameCollectionFilters copyWith({
+    int? ageLimitFilter,
+    int? complexityLimitFilter,
+    List<int>? playersRangeFilter,
+    List<int>? durationRangeFilter,
+  }) {
+    return GameCollectionFilters(
+      ageLimitFilter: ageLimitFilter ?? this.ageLimitFilter,
+      complexityLimitFilter:
+          complexityLimitFilter ?? this.complexityLimitFilter,
+      playersRangeFilter: playersRangeFilter ?? this.playersRangeFilter,
+      durationRangeFilter: durationRangeFilter ?? this.durationRangeFilter,
+    );
+  }
+}
 
 class _GamesCollectionScreenViewModelState {
   final CollectionDisplayMode displayMode;
   final String searchString;
+  final GameCollectionFilters filters;
 
   _GamesCollectionScreenViewModelState({
     this.displayMode = CollectionDisplayMode.list,
     this.searchString = '',
+    this.filters = const GameCollectionFilters(),
   });
 }
 
@@ -25,12 +56,23 @@ class GamesCollectionScreenViewModel extends ChangeNotifier {
   final searchController = TextEditingController();
 
   void updateState({
-    CollectionDisplayMode? displayMode,
     String? searchString,
+    int? ageLimitFilter,
+    int? complexityLimitFilter,
+    List<int>? durationRangeFilter,
+    List<int>? playersRangeFilter,
   }) {
     _state = _GamesCollectionScreenViewModelState(
-      displayMode: displayMode ?? _state.displayMode,
       searchString: searchString ?? _state.searchString,
+      filters: GameCollectionFilters(
+        ageLimitFilter: ageLimitFilter ?? _state.filters.ageLimitFilter,
+        complexityLimitFilter:
+            complexityLimitFilter ?? _state.filters.complexityLimitFilter,
+        durationRangeFilter:
+            durationRangeFilter ?? _state.filters.durationRangeFilter,
+        playersRangeFilter:
+            playersRangeFilter ?? _state.filters.playersRangeFilter,
+      ),
     );
     notifyListeners();
   }
@@ -50,7 +92,10 @@ class GamesCollectionScreenViewModel extends ChangeNotifier {
     return _gamesService.getRandomGame();
   }
 
-  Future<Map<dynamic, dynamic>> loadGamesCollection(String searhQuery) async {
+  Future<Map<dynamic, dynamic>> loadGamesCollection({
+    required String searhQuery,
+    required GameCollectionFilters filters,
+  }) async {
     return _gamesService.getGamesCollection(page: 1, searchQuery: searhQuery);
   }
 
@@ -94,4 +139,15 @@ class GamesCollectionScreenViewModel extends ChangeNotifier {
       isScrollControlled: true,
     );
   }
+
+  void onFiltersApplyButtonPressed(GameCollectionFilters filters) {
+    updateState(
+      ageLimitFilter: filters.ageLimitFilter,
+      complexityLimitFilter: filters.complexityLimitFilter,
+      durationRangeFilter: filters.durationRangeFilter,
+      playersRangeFilter: filters.playersRangeFilter,
+    );
+  }
+
+  void onFiltersClearButtonPressed() {}
 }
