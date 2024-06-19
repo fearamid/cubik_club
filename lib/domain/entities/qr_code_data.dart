@@ -15,7 +15,7 @@ class QrCodeData {
   });
 
   static fromEntity<T extends IQrCodeAble>(T entity) {
-    final String value = entity.getQrPrefix() + ':' + entity.getQrValue();
+    final String value = '${entity.getQrPrefix()}:${entity.getQrValue()}:';
     return QrCodeData(data: value, title: entity.getQrTitle());
   }
 }

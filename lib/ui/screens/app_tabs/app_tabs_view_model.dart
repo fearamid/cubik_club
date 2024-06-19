@@ -21,7 +21,7 @@ class AppTabsViewModel extends ChangeNotifier {
   get state => _state;
 
   final List<Widget> bottomNavigationScreens = [
-    const Center(child: Text('Помощник')),
+    // const Center(child: Text('Помощник')),
     ScreenFactory().makeCalendar(),
     ScreenFactory().makeMain(),
     ScreenFactory().makeGamesCollection(),

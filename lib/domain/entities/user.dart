@@ -80,7 +80,7 @@ class User implements IQrCodeAble {
   }
 
   @override
-  String getQrValue() => login;
+  String getQrValue() => id.toString();
 
   @override
   String getQrTitle() => 'Пользователь';

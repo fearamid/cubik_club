@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cubik_club/domain/entities/article.dart';
 import 'package:cubik_club/ui/common/components/event_report_thumbnail.dart';
 import 'package:cubik_club/ui/common/components/export/components.dart';
@@ -27,33 +28,33 @@ class MainScreen extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                const _PostsCarousel(),
-                const SizedBox(height: 20),
-                const _ArticlesSlider(
-                  guides: [
-                    Article(
-                      image: CCImages.tomato,
-                      title: 'Как нас найти?',
-                      text: 'Мы по адресу...',
-                    ),
-                    Article(
-                      image: CCImages.cowboy,
-                      title: 'Как нас найти?',
-                      text: 'Мы по адресу...',
-                    ),
-                    Article(
-                      image: CCImages.tomato,
-                      title: 'Как нас найти?',
-                      text: 'Мы по адресу...',
-                    ),
-                    Article(
-                      image: CCImages.cowboy,
-                      title: 'Как нас найти?',
-                      text: 'Мы по адресу...',
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 45),
+                // const _PromotionsCarousel(),
+                // const SizedBox(height: 20),
+                // // const _ArticlesSlider(
+                //   guides: [
+                //     Article(
+                //       image: CCImages.tomato,
+                //       title: 'Как нас найти?',
+                //       text: 'Мы по адресу...',
+                //     ),
+                //     Article(
+                //       image: CCImages.cowboy,
+                //       title: 'Как нас найти?',
+                //       text: 'Мы по адресу...',
+                //     ),
+                //     Article(
+                //       image: CCImages.tomato,
+                //       title: 'Как нас найти?',
+                //       text: 'Мы по адресу...',
+                //     ),
+                //     Article(
+                //       image: CCImages.cowboy,
+                //       title: 'Как нас найти?',
+                //       text: 'Мы по адресу...',
+                //     ),
+                //   ],
+                // ),
+                // const SizedBox(height: 45),
                 const _PostCategoryTabBar(),
                 const SizedBox(height: 20),
               ],
@@ -93,8 +94,8 @@ class _SearchBar extends StatelessWidget {
                   onSubmitted: viewModel.onSearchSubmitted,
                 ),
                 const SizedBox(width: 20),
-                const CoinsIndicator(value: 112),
-                const SizedBox(width: 7),
+                // const CoinsIndicator(value: 112),
+                // const SizedBox(width: 7),
                 const _QRCodeScanner(),
               ],
             ),
@@ -195,7 +196,6 @@ class _FeedList extends StatelessWidget {
     final searchString =
         context.watch<MainScreenViewModel>().state.searchString;
 
-    print('CALL');
     switch (categoryType) {
       case TabsCategoryType.announcements:
         return createEventsList(context, searchString);
@@ -209,19 +209,23 @@ class _FeedList extends StatelessWidget {
   }
 }
 
-class _PostsCarousel extends StatelessWidget {
-  const _PostsCarousel();
+class _PromotionsCarousel extends StatelessWidget {
+  const _PromotionsCarousel();
 
   @override
   Widget build(BuildContext context) {
     final model = context.read<MainScreenViewModel>();
-    final sliderPosts = context.read<MainScreenViewModel>().state.sliderPosts;
-    final count = sliderPosts.length;
+    // final sliderPosts = context.read<MainScreenViewModel>().state.sliderPosts;
+    // final count = sliderPosts.length;
+
+    const count = 3;
+    final List<String> links = [];
 
     return CustomSlider(
-      count: count == 0 ? 1 : count,
+      count: count,
       height: 360,
-      onPageChanged: model.onSliderPageChanged,
+      onPageChanged: (int) {},
+      // onPageChanged: model.onSliderPageChanged,
       itemBuilder: (_, index, __) {
         if (count == 0) {
           return Container(
@@ -235,13 +239,11 @@ class _PostsCarousel extends StatelessWidget {
         }
 
         return GestureDetector(
-          onTap: () => model.onSliderPagePressed(index),
+          // onTap: () => model.onSliderPagePressed(index),
           child: ClipRRect(
             borderRadius: const BorderRadius.all(Radius.circular(20)),
-            child: Image.asset(
-              CCImages.cowboy,
-              width: double.infinity,
-              fit: BoxFit.cover,
+            child: CachedNetworkImage(
+              imageUrl: '',
             ),
           ),
         );
@@ -250,31 +252,31 @@ class _PostsCarousel extends StatelessWidget {
   }
 }
 
-class _ArticlesSlider extends StatelessWidget {
-  const _ArticlesSlider({
-    required this.guides,
-  });
+// class _ArticlesSlider extends StatelessWidget {
+//   const _ArticlesSlider({
+//     required this.guides,
+//   });
 
-  final List<Article> guides;
+//   final List<Article> guides;
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 170,
-      child: ListView.separated(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        itemCount: guides.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return ArticleThumbnail(
-            guide: guides[index],
-          );
-        },
-        separatorBuilder: (context, index) => const SizedBox(width: 10),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return SizedBox(
+//       height: 170,
+//       child: ListView.separated(
+//         padding: const EdgeInsets.symmetric(horizontal: 20),
+//         itemCount: guides.length,
+//         scrollDirection: Axis.horizontal,
+//         itemBuilder: (context, index) {
+//           return ArticleThumbnail(
+//             guide: guides[index],
+//           );
+//         },
+//         separatorBuilder: (context, index) => const SizedBox(width: 10),
+//       ),
+//     );
+//   }
+// }
 
 class ArticleThumbnail extends StatelessWidget {
   const ArticleThumbnail({

@@ -94,10 +94,10 @@ class _NextButton extends StatelessWidget {
     return Positioned(
       bottom: CCDeviceUtils.getBottomNavigationBarHeight(),
       right: 20,
-      child: ElevatedButton(
+      child: TextButton(
         onPressed: () =>
             context.read<OnboardingScreenViewModel>().nextPage(context),
-        style: ElevatedButton.styleFrom(
+        style: TextButton.styleFrom(
           shape: const CircleBorder(),
           padding: const EdgeInsets.all(15),
         ),

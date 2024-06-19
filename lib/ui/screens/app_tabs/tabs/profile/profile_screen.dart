@@ -1,4 +1,5 @@
 import 'package:cubik_club/domain/entities/user.dart';
+import 'package:cubik_club/domain/services/auth/auth_service.dart';
 import 'package:cubik_club/ui/common/components/single/coins_indicator.dart';
 import 'package:cubik_club/ui/common/components/single/custom_icon_button.dart';
 import 'package:cubik_club/ui/common/components/single/section.dart';
@@ -46,12 +47,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     delegate: SliverChildListDelegate(
                       const [
                         _ProfileHeader(),
-                        _UserResources(),
-                        _UserAchievements(),
-                        _BookingInformation(),
-                        SizedBox(height: 20),
-                        _ClubInformation(),
-                        SizedBox(height: kBottomNavigationBarHeight + 45)
+                        // _UserResources(),
+                        // _UserAchievements(),
+                        // _BookingInformation(),
+                        // SizedBox(height: 20),
+                        // _ClubInformation(),
+                        // SizedBox(height: kBottomNavigationBarHeight + 45)
                       ],
                     ),
                   ),
@@ -67,14 +68,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
               slivers: [
                 SliverList(
                   delegate: SliverChildListDelegate(
-                    const [
+                    [
                       _ProfileHeader(),
-                      _UserResources(),
-                      _UserAchievements(),
-                      _BookingInformation(),
                       SizedBox(height: 20),
-                      _ClubInformation(),
-                      SizedBox(height: kBottomNavigationBarHeight + 45)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            final _authService = AuthService();
+                            _authService.logout();
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                '/login', (route) => false);
+                          },
+                          child: const Text('Выйти'),
+                        ),
+                      ),
+                      // _UserResources(),
+                      // _UserAchievements(),
+                      // _BookingInformation(),
+                      // SizedBox(height: 20),
+                      // _ClubInformation(),
+                      // SizedBox(height: kBottomNavigationBarHeight + 45)
                     ],
                   ),
                 ),
@@ -104,7 +118,7 @@ class _ProfileHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _UserInformation(),
-          SizedBox(width: 20),
+          // SizedBox(width: 20),
           _ActionsBar(),
         ],
       ),

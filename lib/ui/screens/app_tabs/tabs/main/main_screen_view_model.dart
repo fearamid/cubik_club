@@ -1,6 +1,8 @@
 import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/domain/entities/event_report.dart';
+import 'package:cubik_club/domain/entities/promotion.dart';
 import 'package:cubik_club/domain/services/events_service.dart';
+import 'package:cubik_club/domain/services/promotions_service.dart';
 import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:flutter/material.dart';
 
@@ -66,6 +68,10 @@ class MainScreenViewModel extends ChangeNotifier {
     }
     return Event.fromJson(eventJson);
   }
+
+  // List<Promotion> getPromotionsList() async{
+  //   final service = PromotionsService();
+  // }
 
   EventReport parseEventReport(Map<dynamic, dynamic>? eventJson) {
     if (eventJson == null) {

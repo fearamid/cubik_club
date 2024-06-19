@@ -56,15 +56,15 @@ class _AppBottomNavigation extends StatelessWidget {
         onTap: viewModel.onBottomNavigationBarTap,
         fixedColor: CCAppColors.primary,
         items: [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Iconsax.grid_4_copy,
-              size: iconSize,
-              color: CCAppColors.lightHighlightBackground,
-            ),
-            activeIcon: Icon(Iconsax.grid_4, size: iconSize),
-            label: 'Помощник',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(
+          //     Iconsax.grid_4_copy,
+          //     size: iconSize,
+          //     color: CCAppColors.lightHighlightBackground,
+          //   ),
+          //   activeIcon: Icon(Iconsax.grid_4, size: iconSize),
+          //   label: 'Помощник',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(
               Iconsax.clock_copy,
