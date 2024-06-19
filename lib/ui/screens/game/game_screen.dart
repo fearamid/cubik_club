@@ -23,6 +23,8 @@ class GameScreen extends StatelessWidget {
                   _GameTagsList(),
                   SizedBox(height: 20),
                   _GameDescription(),
+                  SizedBox(height: 20),
+                  _GameRules()
                 ],
               ),
             ),
@@ -68,6 +70,39 @@ class _GameDescription extends StatelessWidget {
           const SizedBox(height: 7),
           Text(
             game.description,
+            style: const TextStyle(
+              fontSize: 16,
+              height: 1.35,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _GameRules extends StatelessWidget {
+  const _GameRules();
+
+  @override
+  Widget build(BuildContext context) {
+    final game = context.read<GameScreenViewModel>().state.game;
+    return Section(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Правила',
+            style: TextStyle(
+              color: CCAppColors.lightTextPrimary,
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
+              height: 1,
+            ),
+          ),
+          const SizedBox(height: 7),
+          Text(
+            game.rules,
             style: const TextStyle(
               fontSize: 16,
               height: 1.35,

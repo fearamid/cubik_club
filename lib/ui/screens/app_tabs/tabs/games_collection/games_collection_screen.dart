@@ -322,7 +322,7 @@ class _FiltersListState extends State<_FiltersList> {
                   ),
                 ),
                 child: const Text(
-                  'Очистить',
+                  'Сбросить',
                   style: TextStyle(fontSize: 18),
                 ),
               ),
@@ -519,9 +519,10 @@ class _SearchFiltersButton extends StatelessWidget {
           context,
           builder: (BuildContext context) {
             return _FiltersList(
-              onApply: model.onFiltersApplyButtonPressed,
+              onApply: (filters) =>
+                  model.onFiltersApplyButtonPressed(filters, context),
               filters: filters,
-              onClear: model.onFiltersClearButtonPressed,
+              onClear: () => model.onFiltersClearButtonPressed(context),
             );
           },
         );

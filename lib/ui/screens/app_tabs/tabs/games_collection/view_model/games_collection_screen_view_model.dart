@@ -141,22 +141,34 @@ class GamesCollectionScreenViewModel extends ChangeNotifier {
     );
   }
 
-  void onFiltersApplyButtonPressed(GameCollectionFilters filters) {
-    updateState(
-      ageLimitFilter: filters.ageLimitFilter,
-      complexityLimitFilter: filters.complexityLimitFilter,
-      durationRangeFilter: filters.durationRangeFilter,
-      playersRangeFilter: filters.playersRangeFilter,
-    );
+  void onFiltersApplyButtonPressed(
+      GameCollectionFilters filters, BuildContext context) {
+    if (filters != _state.filters) {
+      updateState(
+        ageLimitFilter: filters.ageLimitFilter,
+        complexityLimitFilter: filters.complexityLimitFilter,
+        durationRangeFilter: filters.durationRangeFilter,
+        playersRangeFilter: filters.playersRangeFilter,
+      );
+    }
+
+    if (Navigator.canPop(context)) {
+      Navigator.pop(context);
+    }
   }
 
-  void onFiltersClearButtonPressed() {
+  void onFiltersClearButtonPressed(BuildContext context) {
     const newFilters = GameCollectionFilters();
+
     updateState(
       ageLimitFilter: newFilters.ageLimitFilter,
       complexityLimitFilter: newFilters.complexityLimitFilter,
       durationRangeFilter: newFilters.durationRangeFilter,
       playersRangeFilter: newFilters.playersRangeFilter,
     );
+
+    if (Navigator.canPop(context)) {
+      Navigator.pop(context);
+    }
   }
 }
