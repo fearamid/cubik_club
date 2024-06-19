@@ -12,6 +12,6 @@ class Publisher {
   });
 
   factory Publisher.empty() {
-    return const Publisher(id: 0, name: '');
+    return const Publisher(id: 0, name: 'Пусто');
   }
 }

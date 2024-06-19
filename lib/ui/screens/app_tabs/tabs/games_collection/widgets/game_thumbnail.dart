@@ -1,27 +1,32 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cubik_club/domain/entities/game/game.dart';
 import 'package:cubik_club/ui/common/components/single/section.dart';
-import 'package:cubik_club/ui/screens/app_tabs/tabs/games_collection/games_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-import 'package:provider/provider.dart';
 
 class GameThumbnail extends StatelessWidget {
+  final void Function(Game game)? onTap;
+  final int nameMaxLines;
+
   const GameThumbnail({
     super.key,
     required this.game,
+    this.onTap,
+    this.nameMaxLines = 1,
   });
 
   final Game game;
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<GamesCollectionScreenViewModel>();
-
     return Section(
       paddingHorizontal: 15,
       paddingVertical: 15,
-      onTap: () => model.onGameThumbnailPressed(context, game),
+      onTap: () {
+        if (onTap != null) {
+          onTap!(game);
+        }
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -33,15 +38,8 @@ class GameThumbnail extends StatelessWidget {
               height: 1,
               overflow: TextOverflow.ellipsis,
             ),
-            maxLines: 1,
+            maxLines: nameMaxLines,
           ),
-          // const SizedBox(height: 10),
-          // TagsList([
-          //   tags.genres,
-          //   tags.author,
-          //   '${tags.duration} мин',
-          //   '${tags.ageLimit}+'
-          // ]),
         ],
       ),
     );

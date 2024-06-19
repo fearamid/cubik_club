@@ -24,8 +24,8 @@ class GameTags {
       genres: genres ?? [],
       ageLimit: 0,
       complexity: 0,
-      playersRange: [],
-      durationRange: [],
+      playersRange: [0, 0],
+      durationRange: [0, 0],
       publisher: Publisher.empty(),
     );
   }

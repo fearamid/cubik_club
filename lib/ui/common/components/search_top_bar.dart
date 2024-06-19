@@ -2,6 +2,8 @@ import 'package:cubik_club/ui/common/components/single/search_input.dart';
 import 'package:flutter/material.dart';
 
 class SearchTopBar extends StatelessWidget {
+  final TextEditingController? searchController;
+  final ValueChanged<String>? onSubmitted;
   final double spacing;
   final List<Widget>? actions;
 
@@ -9,11 +11,16 @@ class SearchTopBar extends StatelessWidget {
     super.key,
     this.spacing = 25,
     this.actions,
+    this.searchController,
+    this.onSubmitted,
   });
 
   List<Widget> _createChildren() {
     List<Widget> list = [
-      const SearchInput(),
+      SearchInput(
+        onSubmitted: onSubmitted,
+        controller: searchController,
+      ),
     ];
 
     if (actions != null) {

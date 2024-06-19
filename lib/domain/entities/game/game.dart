@@ -56,9 +56,9 @@ class Game implements IQrCodeAble {
     return Game._create(
       id: id,
       name: name,
-      description: '',
+      description: 'Пусто',
       tags: GameTags.partiallyEmpty(genres: genres),
-      rules: '',
+      rules: 'Пусто',
       coverLink: 'coverLink',
     );
   }
