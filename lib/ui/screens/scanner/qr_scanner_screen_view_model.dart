@@ -34,6 +34,7 @@ class CCQrCode {
 }
 
 class QrScannerScreenViewModel extends ChangeNotifier {
+  bool isScannedValid = false;
   final _cameraController = MobileScannerController(
     facing: CameraFacing.back,
     torchEnabled: false,
@@ -104,11 +105,11 @@ class QrScannerScreenViewModel extends ChangeNotifier {
     final CCQrCode? qrCode = validateQrCode(barcodes.first.rawValue ?? '');
 
     if (qrCode != null) {
+      isScannedValid = true;
       showDialog(
         context: context,
         builder: (context) {
           return Dialog(
-            // title: Text(qrCode.getPrefix()),
             child: FutureBuilder(
               future: loadEntityFromId(qrCode),
               builder: (context, snapshot) {
@@ -144,9 +145,9 @@ class QrScannerScreenViewModel extends ChangeNotifier {
                           ),
                           EventThumbnail(
                             event: entity as Event,
-                            onTap: (event) {
+                            onTap: (event) async {
                               Navigator.of(context).pop();
-                              MainNavigation.toEventScreen(context,
+                              await MainNavigation.toEventScreen(context,
                                   event: entity as Event, replacement: true);
                             },
                           ),
@@ -168,9 +169,9 @@ class QrScannerScreenViewModel extends ChangeNotifier {
                           const SizedBox(height: 15),
                           GameThumbnail(
                             game: entity as Game,
-                            onTap: (game) {
+                            onTap: (game) async {
                               Navigator.of(context).pop();
-                              MainNavigation.toGameScreen(context,
+                              await MainNavigation.toGameScreen(context,
                                   game: game, replacement: true);
                             },
                           ),

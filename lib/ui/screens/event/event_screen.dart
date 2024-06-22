@@ -111,8 +111,8 @@ class _EventDescription extends StatelessWidget {
               height: 1.35,
             ),
           ),
-          const SizedBox(height: 12),
-          if (booking) const _BookingButton(),
+          // const SizedBox(height: 12),
+          // if (booking) const _BookingButton(),
         ],
       ),
     );

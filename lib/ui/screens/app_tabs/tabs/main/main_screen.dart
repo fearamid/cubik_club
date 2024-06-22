@@ -348,17 +348,17 @@ class _PostCategoryTabBar extends StatefulWidget {
 
 class _PostCategoryTabBarState extends State<_PostCategoryTabBar>
     with TickerProviderStateMixin {
-  TabController? _tabController;
+  late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
   void dispose() {
-    _tabController?.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -375,7 +375,9 @@ class _PostCategoryTabBarState extends State<_PostCategoryTabBar>
             children: [
               Flexible(
                 child: TabBar(
-                  onTap: model.onTabPressed,
+                  onTap: (value) {
+                    model.onTabPressed(value);
+                  },
                   controller: _tabController,
                   dividerHeight: 0,
                   labelPadding: EdgeInsets.zero,
@@ -392,7 +394,7 @@ class _PostCategoryTabBarState extends State<_PostCategoryTabBar>
                   tabs: const [
                     Tab(text: 'Анонсы'),
                     Tab(text: 'Отчеты'),
-                    Tab(text: 'Посты'),
+                    // Tab(text: 'Посты'),
                   ],
                 ),
               ),

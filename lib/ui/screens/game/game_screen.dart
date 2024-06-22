@@ -145,16 +145,16 @@ class _GameTagsList extends StatelessWidget {
                 child: const Text('Правила'),
               ),
               const Spacer(),
-              const _LikeButton(),
-              const SizedBox(width: 13),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Iconsax.archive_minus_copy,
-                  size: 35,
-                  color: CCAppColors.lightHighlightBackground,
-                ),
-              ),
+              // const _LikeButton(),
+              // const SizedBox(width: 13),
+              // IconButton(
+              //   onPressed: () {},
+              //   icon: const Icon(
+              //     Iconsax.archive_minus_copy,
+              //     size: 35,
+              //     color: CCAppColors.lightHighlightBackground,
+              //   ),
+              // ),
             ],
           ),
         ],

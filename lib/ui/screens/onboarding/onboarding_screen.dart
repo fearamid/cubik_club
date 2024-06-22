@@ -44,7 +44,7 @@ class OnboardingScreen extends StatelessWidget {
             ),
 
             // Skip Button
-            const _SkipButton(),
+            // const _SkipButton(),
 
             // Dot Navigation
             const _DotNavigation(),
@@ -67,7 +67,7 @@ class _DotNavigation extends StatelessWidget {
     final viewModel = context.read<OnboardingScreenViewModel>();
 
     return Positioned(
-      bottom: CCDeviceUtils.getBottomNavigationBarHeight() + 25,
+      bottom: 10,
       left: 30,
       child: SmoothPageIndicator(
         effect: WormEffect(
@@ -92,14 +92,14 @@ class _NextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: CCDeviceUtils.getBottomNavigationBarHeight(),
+      bottom: 10,
       right: 20,
-      child: TextButton(
+      child: ElevatedButton(
         onPressed: () =>
             context.read<OnboardingScreenViewModel>().nextPage(context),
-        style: TextButton.styleFrom(
+        style: ElevatedButton.styleFrom(
           shape: const CircleBorder(),
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.all(10),
         ),
         child: const Icon(
           Iconsax.arrow_right_3_copy,

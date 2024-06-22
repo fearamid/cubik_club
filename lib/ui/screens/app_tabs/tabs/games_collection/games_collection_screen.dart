@@ -56,9 +56,9 @@ class _GamesCollectionList extends StatelessWidget {
         }
 
         if (snapshot.hasError) {
-          return SliverToBoxAdapter(
+          return const SliverToBoxAdapter(
             child: Center(
-              child: Text(snapshot.error.toString()),
+              child: Text('Ошибка загрузки данных...'),
             ),
           );
         }

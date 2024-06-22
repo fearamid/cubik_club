@@ -119,7 +119,7 @@ class _ProfileHeader extends StatelessWidget {
         children: [
           _UserInformation(),
           // SizedBox(width: 20),
-          _ActionsBar(),
+          // _ActionsBar(),
         ],
       ),
     );

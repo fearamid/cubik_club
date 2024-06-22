@@ -8,7 +8,6 @@ import 'package:cubik_club/utils/constants/colors.dart';
 import 'package:cubik_club/utils/formatters/formatter.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -71,7 +70,6 @@ class _SwitchableCover extends StatelessWidget {
   Widget build(BuildContext context) {
     final report = context.read<EventReportScreenViewModel>().state.report;
     return ExpandablePageView(
-      // physics: const NeverScrollableScrollPhysics(),
       controller: context.read<EventReportScreenViewModel>().coverController,
       children: [
         CachedImageCarousel(
