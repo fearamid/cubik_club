@@ -45,7 +45,10 @@ class EventScreenViewModel extends ChangeNotifier {
     try {
       final json = await GamesService().getGamesListByIds([game.id]);
       final fullGame = parseGame(json[0]);
-      await MainNavigation.toGameScreen(context, game: fullGame);
+      print(json);
+      if (context.mounted) {
+        await MainNavigation.toGameScreen(context, game: fullGame);
+      }
     } catch (e) {
       return;
     }

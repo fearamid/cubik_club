@@ -3,6 +3,7 @@
 import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/domain/entities/event_report.dart';
 import 'package:cubik_club/domain/entities/game/game.dart';
+import 'package:cubik_club/domain/services/games_service.dart';
 import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:flutter/material.dart';
 
@@ -48,7 +49,27 @@ class EventReportScreenViewModel extends ChangeNotifier {
         duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
   }
 
-  Future<void> onGameTilePressed(BuildContext context, Game game) async {
-    await MainNavigation.toGameScreen(context, game: game);
+  Game parseGame(Map<dynamic, dynamic>? gameJson) {
+    if (gameJson == null) {
+      throw Error();
+    }
+    return Game.fromJson(gameJson);
   }
+
+  Future<void> onGameTilePressed(BuildContext context, Game game) async {
+    try {
+      final json = await GamesService().getGamesListByIds([game.id]);
+      final fullGame = parseGame(json[0]);
+      print(json);
+      if (context.mounted) {
+        await MainNavigation.toGameScreen(context, game: fullGame);
+      }
+    } catch (e) {
+      return;
+    }
+  }
+
+  // Future<void> onGameTilePressed(BuildContext context, Game game) async {
+  //   await MainNavigation.toGameScreen(context, game: game);
+  // }
 }

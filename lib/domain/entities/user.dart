@@ -56,8 +56,6 @@ class User implements IQrCodeAble {
   }
 
   static User fromJson(Map<String, dynamic> userJson) {
-    print('CONVERT GENDER');
-    print(User.genderFromChar(userJson['gender']));
     return User(
       id: userJson['id'],
       name: userJson['name'],

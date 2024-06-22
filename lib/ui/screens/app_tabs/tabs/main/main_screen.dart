@@ -6,7 +6,6 @@ import 'package:cubik_club/domain/entities/event.dart';
 import 'package:cubik_club/ui/navigation/main_navigation.dart';
 import 'package:cubik_club/ui/screens/app_tabs/tabs/main/main_screen_view_model.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
-import 'package:cubik_club/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:provider/provider.dart';
@@ -202,9 +201,9 @@ class _FeedList extends StatelessWidget {
       case TabsCategoryType.reports:
         return createReportsList(context, searchString);
       case TabsCategoryType.other:
-        return SliverToBoxAdapter(child: Text('Другое'));
+        return const SliverToBoxAdapter(child: Text('Другое'));
       default:
-        return SliverToBoxAdapter(child: Text('Ошибка'));
+        return const SliverToBoxAdapter(child: Text('Ошибка'));
     }
   }
 }
@@ -224,7 +223,7 @@ class _PromotionsCarousel extends StatelessWidget {
     return CustomSlider(
       count: count,
       height: 360,
-      onPageChanged: (int) {},
+      onPageChanged: (page) {},
       // onPageChanged: model.onSliderPageChanged,
       itemBuilder: (_, index, __) {
         if (count == 0) {

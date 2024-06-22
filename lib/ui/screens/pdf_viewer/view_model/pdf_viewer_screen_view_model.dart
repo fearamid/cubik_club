@@ -1,10 +1,5 @@
-import 'dart:io';
-
-import 'package:cubik_club/ui/common/components/export/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class _PDFViewerScreenViewModelState {
   final String pdfLink;

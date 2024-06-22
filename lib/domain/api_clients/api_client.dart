@@ -23,7 +23,6 @@ class ApiClient {
     );
 
     final request = await _client.getUrl(url);
-    print(request.uri);
 
     headers?.forEach((header, value) {
       request.headers.set(header, value);

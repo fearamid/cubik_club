@@ -107,7 +107,7 @@ class _EventGamesList extends StatelessWidget {
       games: games,
       onTap: (game) async {
         await context
-            .read<EventScreenViewModel>()
+            .read<EventReportScreenViewModel>()
             .onGameTilePressed(context, game);
       },
     );

@@ -1,5 +1,4 @@
 import 'package:cubik_club/app.dart';
-import 'package:cubik_club/domain/api_clients/events_api_client.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

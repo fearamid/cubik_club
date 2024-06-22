@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:cubik_club/domain/api_clients/user_api_client.dart';
 import 'package:cubik_club/domain/data_providers/jwt_provider.dart';
 import 'package:cubik_club/domain/data_providers/user_provider.dart';
 import 'package:cubik_club/domain/entities/user.dart';

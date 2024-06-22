@@ -46,6 +46,9 @@ class AppTabsViewModel extends ChangeNotifier {
 
   Future<void> onLogoutButtonPressed(BuildContext context) async {
     await _authService.logout();
-    Navigator.of(context).pushNamedAndRemoveUntil('/loader', (route) => false);
+    if (context.mounted) {
+      await Navigator.of(context)
+          .pushNamedAndRemoveUntil('/loader', (route) => false);
+    }
   }
 }
