@@ -14,7 +14,7 @@ class AppTabsViewModel extends ChangeNotifier {
   AppTabsViewModel();
 
   final _authService = AuthService();
-  final _pageController = PageController(initialPage: 2);
+  final _pageController = PageController(initialPage: 1);
   PageController get controller => _pageController;
 
   var _state = _AppTabsViewModelState();

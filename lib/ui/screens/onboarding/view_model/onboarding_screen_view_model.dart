@@ -9,20 +9,8 @@ class OnboardingScreenViewModel extends ChangeNotifier {
     currentPageIndex = index;
   }
 
-  // Jump to the specific dot selected page
-  void dotNavigationClick(int index) {
-    currentPageIndex = index;
-    pageController.animateToPage(
-      index,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-    );
-  }
-
-  // Update Current Index & Jump to next page
   Future<void> nextPage(BuildContext context) async {
     if (currentPageIndex == 2) {
-      // Навигация к следующим страницам после анбординга
       await Navigator.of(context).pushReplacementNamed(Screens.login);
     } else {
       int page = currentPageIndex + 1;
@@ -34,7 +22,6 @@ class OnboardingScreenViewModel extends ChangeNotifier {
     }
   }
 
-  // Update Current Index & jump to the last page
   void skipPage() {
     currentPageIndex = 2;
     pageController.animateToPage(

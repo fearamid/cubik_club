@@ -5,7 +5,7 @@ import 'package:cubik_club/utils/constants/image_strings.dart';
 import 'package:cubik_club/utils/constants/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
+// import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
 
 class VerificationPage extends StatelessWidget {
@@ -36,27 +36,27 @@ class VerificationPage extends StatelessWidget {
             ),
           ),
           body: [
-            PinCodeTextField(
-              appContext: context,
-              length: 4,
-              keyboardType: TextInputType.number,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              animationType: AnimationType.none,
-              textStyle: const TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.w600,
-                  color: CCAppColors.secondary),
-              pinTheme: PinTheme(
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
-                fieldHeight: 70,
-                fieldWidth: 70,
-                shape: PinCodeFieldShape.box,
-                inactiveColor: CCAppColors.lightHighlightBackground,
-                activeColor: CCAppColors.accentGreen,
-                selectedColor: CCAppColors.accentBlue,
-                errorBorderColor: CCAppColors.primary,
-              ),
-            ),
+            // PinCodeTextField(
+            //   appContext: context,
+            //   length: 4,
+            //   keyboardType: TextInputType.number,
+            //   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            //   animationType: AnimationType.none,
+            //   textStyle: const TextStyle(
+            //       fontSize: 25,
+            //       fontWeight: FontWeight.w600,
+            //       color: CCAppColors.secondary),
+            //   pinTheme: PinTheme(
+            //     borderRadius: const BorderRadius.all(Radius.circular(20)),
+            //     fieldHeight: 70,
+            //     fieldWidth: 70,
+            //     shape: PinCodeFieldShape.box,
+            //     inactiveColor: CCAppColors.lightHighlightBackground,
+            //     activeColor: CCAppColors.accentGreen,
+            //     selectedColor: CCAppColors.accentBlue,
+            //     errorBorderColor: CCAppColors.primary,
+            //   ),
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

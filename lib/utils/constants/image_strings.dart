@@ -10,13 +10,13 @@ abstract class CCImages {
 
   // -- OnBoarding Images
   static const String onBoardingImage1 =
-      'assets/images/onboarding_images/onBoardingImage1.png';
+      'assets/images/onboarding_images/onBoardingImage1.jpg';
 
   static const String onBoardingImage2 =
-      'assets/images/onboarding_images/onBoardingImage2.png';
+      'assets/images/onboarding_images/onBoardingImage2.jpg';
 
   static const String onBoardingImage3 =
-      'assets/images/onboarding_images/onBoardingImage3.png';
+      'assets/images/onboarding_images/onBoardingImage3.jpg';
 
   // -- Auth Images
 

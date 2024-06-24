@@ -1,8 +1,8 @@
+import 'package:cubik_club/ui/common/components/export/components.dart';
 import 'package:cubik_club/ui/screens/onboarding/view_model/onboarding_screen_view_model.dart';
 import 'package:cubik_club/utils/constants/colors.dart';
 import "package:cubik_club/utils/constants/image_strings.dart";
 import "package:cubik_club/utils/constants/texts.dart";
-import 'package:cubik_club/utils/device/device_utility.dart';
 import 'package:cubik_club/utils/helpers/helper_functions.dart';
 import "package:flutter/material.dart";
 import 'package:iconsax_flutter/iconsax_flutter.dart';
@@ -20,7 +20,6 @@ class OnboardingScreen extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            // Onboarding pages
             PageView(
               controller: viewModel.pageController,
               onPageChanged: viewModel.updatePageIndicator,
@@ -43,13 +42,10 @@ class OnboardingScreen extends StatelessWidget {
               ],
             ),
 
-            // Skip Button
             // const _SkipButton(),
 
-            // Dot Navigation
             const _DotNavigation(),
 
-            // Action Button
             const _NextButton()
           ],
         ),
@@ -67,19 +63,18 @@ class _DotNavigation extends StatelessWidget {
     final viewModel = context.read<OnboardingScreenViewModel>();
 
     return Positioned(
-      bottom: 10,
-      left: 30,
+      bottom: 15 + (30 - 5),
+      left: 20,
       child: SmoothPageIndicator(
         effect: WormEffect(
           dotColor: CCAppColors.lightHighlightBackground,
           activeDotColor:
               isDarkMode ? CCAppColors.lightBackground : CCAppColors.primary,
-          dotHeight: 12,
-          dotWidth: 12,
+          dotHeight: 10,
+          dotWidth: 10,
           spacing: 20,
         ),
         controller: viewModel.pageController,
-        onDotClicked: (index) => viewModel.dotNavigationClick(index),
         count: 3,
       ),
     );
@@ -91,20 +86,17 @@ class _NextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final onPressed = context.read<OnboardingScreenViewModel>().nextPage;
+
     return Positioned(
-      bottom: 10,
+      bottom: 15,
       right: 20,
-      child: ElevatedButton(
-        onPressed: () =>
-            context.read<OnboardingScreenViewModel>().nextPage(context),
-        style: ElevatedButton.styleFrom(
-          shape: const CircleBorder(),
-          padding: const EdgeInsets.all(10),
-        ),
-        child: const Icon(
-          Iconsax.arrow_right_3_copy,
-          size: 40,
-        ),
+      child: CustomIconButton(
+        onPressed: () => onPressed(context),
+        icon: Iconsax.arrow_right_3_copy,
+        size: 40,
+        color: CCAppColors.primary,
+        padding: const EdgeInsets.only(left: 10, right: 0, top: 10, bottom: 10),
       ),
     );
   }
@@ -141,35 +133,19 @@ class _OnboardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        bottom: 0,
-        right: 20,
-        left: 20,
-        top: 100,
-      ),
+      padding: const EdgeInsets.all(20),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image(
-            width: CCHelperFunctions.screenHeight(context),
-            // height: CCHelperFunctions.screenHeight(context) * 0.6,
-            image: AssetImage(image),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
+          Image(image: AssetImage(image)),
+          const SizedBox(height: 20),
           Text(
             title,
-            style: Theme.of(context).textTheme.headlineMedium,
+            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(
-            height: 12,
-          ),
-          Text(
-            subtitle,
-            style: Theme.of(context).textTheme.bodyMedium,
-            textAlign: TextAlign.center,
-          ),
+          const SizedBox(height: 5),
+          Text(subtitle, textAlign: TextAlign.center),
         ],
       ),
     );
