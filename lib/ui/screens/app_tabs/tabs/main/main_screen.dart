@@ -16,54 +16,48 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.read<MainScreenViewModel>();
-    return RefreshIndicator(
-      backgroundColor: CCAppColors.lightBackground,
-      triggerMode: RefreshIndicatorTriggerMode.anywhere,
-      strokeWidth: 2,
-      onRefresh: viewModel.onRefreshPage,
-      child: CustomScrollView(
-        slivers: [
-          const _SearchBar(),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                // const _PromotionsCarousel(),
-                // const SizedBox(height: 20),
-                // // const _ArticlesSlider(
-                //   guides: [
-                //     Article(
-                //       image: CCImages.tomato,
-                //       title: 'Как нас найти?',
-                //       text: 'Мы по адресу...',
-                //     ),
-                //     Article(
-                //       image: CCImages.cowboy,
-                //       title: 'Как нас найти?',
-                //       text: 'Мы по адресу...',
-                //     ),
-                //     Article(
-                //       image: CCImages.tomato,
-                //       title: 'Как нас найти?',
-                //       text: 'Мы по адресу...',
-                //     ),
-                //     Article(
-                //       image: CCImages.cowboy,
-                //       title: 'Как нас найти?',
-                //       text: 'Мы по адресу...',
-                //     ),
-                //   ],
-                // ),
-                // const SizedBox(height: 45),
-                const _PostCategoryTabBar(),
-                const SizedBox(height: 20),
-              ],
-            ),
+    return CustomScrollView(
+      slivers: [
+        const _SearchBar(),
+        SliverList(
+          delegate: SliverChildListDelegate(
+            [
+              // const _PromotionsCarousel(),
+              // const SizedBox(height: 20),
+              // // const _ArticlesSlider(
+              //   guides: [
+              //     Article(
+              //       image: CCImages.tomato,
+              //       title: 'Как нас найти?',
+              //       text: 'Мы по адресу...',
+              //     ),
+              //     Article(
+              //       image: CCImages.cowboy,
+              //       title: 'Как нас найти?',
+              //       text: 'Мы по адресу...',
+              //     ),
+              //     Article(
+              //       image: CCImages.tomato,
+              //       title: 'Как нас найти?',
+              //       text: 'Мы по адресу...',
+              //     ),
+              //     Article(
+              //       image: CCImages.cowboy,
+              //       title: 'Как нас найти?',
+              //       text: 'Мы по адресу...',
+              //     ),
+              //   ],
+              // ),
+              // const SizedBox(height: 45),
+              const _PostCategoryTabBar(),
+              const SizedBox(height: 20),
+            ],
           ),
-          const _FeedList(),
-          const SliverToBoxAdapter(
-              child: SizedBox(height: kBottomNavigationBarHeight + 60)),
-        ],
-      ),
+        ),
+        const _FeedList(),
+        const SliverToBoxAdapter(
+            child: SizedBox(height: kBottomNavigationBarHeight + 60)),
+      ],
     );
   }
 }

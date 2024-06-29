@@ -6,7 +6,7 @@ class _AppTabsViewModelState {
   final int selectedPageIndex;
 
   _AppTabsViewModelState({
-    this.selectedPageIndex = 2,
+    this.selectedPageIndex = 1,
   });
 }
 

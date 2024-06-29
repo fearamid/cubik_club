@@ -63,7 +63,7 @@ class _DotNavigation extends StatelessWidget {
     final viewModel = context.read<OnboardingScreenViewModel>();
 
     return Positioned(
-      bottom: 15 + (30 - 5),
+      bottom: 10 + (30 - 5),
       left: 20,
       child: SmoothPageIndicator(
         effect: WormEffect(
@@ -89,7 +89,7 @@ class _NextButton extends StatelessWidget {
     final onPressed = context.read<OnboardingScreenViewModel>().nextPage;
 
     return Positioned(
-      bottom: 15,
+      bottom: 10,
       right: 20,
       child: CustomIconButton(
         onPressed: () => onPressed(context),
@@ -141,11 +141,15 @@ class _OnboardingPage extends StatelessWidget {
           const SizedBox(height: 20),
           Text(
             title,
-            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 5),
-          Text(subtitle, textAlign: TextAlign.center),
+          const SizedBox(height: 3),
+          Text(
+            subtitle,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
+          ),
         ],
       ),
     );
